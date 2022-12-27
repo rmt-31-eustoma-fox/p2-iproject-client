@@ -7,75 +7,40 @@ export default {
     },
     props: ['page'],
     methods: {
-        pageChange(page){
+        pageChange(page) {
             this.$emit('pageChange', page)
         }
     }
 }
 </script>
 <template>
-    <div class="container text-center thebg">
+    <div class="container text-center thebg thePad">
 
-        <RegLogButton :page="page" @pageChange="pageChange"/>
+        <RegLogButton :page="page" @pageChange="pageChange" />
 
+        <h2>Login</h2>
+        <br>
         <!-- Pills content -->
         <form>
-            <div class="text-center mb-3">
-                <p>Sign in with:</p>
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-facebook-f"></i>
-                </button>
-
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-google"></i>
-                </button>
-
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-twitter"></i>
-                </button>
-
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-github"></i>
-                </button>
-            </div>
-
-            <p class="text-center">or:</p>
-
-            <!-- Email input -->
-            <div class="form-outline mb-4">
-                <input type="email" id="loginName" class="form-control" />
-                <label class="form-label" for="loginName">Email or username</label>
-            </div>
-
-            <!-- Password input -->
-            <div class="form-outline mb-4">
-                <input type="password" id="loginPassword" class="form-control" />
-                <label class="form-label" for="loginPassword">Password</label>
-            </div>
-
-            <!-- 2 column grid layout -->
-            <div class="row mb-4">
-                <div class="col-md-6 d-flex justify-content-center">
-                    <!-- Checkbox -->
-                    <div class="form-check mb-3 mb-md-0">
-                        <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
-                        <label class="form-check-label" for="loginCheck"> Remember me </label>
+                <!-- Email input -->
+                <label class="form-label" for="loginName">Email</label>
+                <div class="form-outline mb-4  d-flex justify-content-center">
+                    <div class="col-sm-5">
+                        <input type="email" id="loginName" class="form-control" style="background: rgba(255, 255, 255, 0.3)" placeholder="Email"/>
                     </div>
                 </div>
 
-                <div class="col-md-6 d-flex justify-content-center">
-                    <!-- Simple link -->
-                    <a href="#!">Forgot password?</a>
+                <!-- Password input -->
+                <label class="form-label" for="loginPassword">Password</label>
+                <div class="form-outline mb-4  d-flex justify-content-center">
+                    <div class="col-sm-5">
+                        <input type="password" id="loginPassword" class="form-control" style="background: rgba(255, 255, 255, 0.3)" placeholder="Password"/>
+                    </div>
                 </div>
-            </div>
 
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
 
-            <!-- Register buttons -->
-            <div class="text-center">
-                <p>Not a member? <a href="#!">Register</a></p>
-            </div>
         </form>
         <!-- Pills content -->
 
@@ -85,5 +50,10 @@ export default {
 <style scoped>
 .thebg {
     background: rgba(255, 255, 255, 0.3)
+}
+
+.thePad {
+    padding: 30px;
+    margin: 30px auto;
 }
 </style>

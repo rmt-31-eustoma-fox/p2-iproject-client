@@ -3,7 +3,7 @@ export default {
     emits: ['pageChange'],
     props: ['page'],
     methods: {
-        pageChange(page){
+        pageChange(page) {
             this.$emit('pageChange', page)
         }
     }
@@ -13,12 +13,12 @@ export default {
     <div v-if="page == 'login'">
         <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab"
-                    aria-controls="pills-login" aria-selected="true">Login</a>
+                <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab" aria-controls="pills-login"
+                    aria-selected="true">Login</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="tab-register" data-mdb-toggle="pill" role="tab" @click="pageChange('register')"
-                    aria-controls="pills-register" aria-selected="false">Register</a>
+                    aria-controls="pills-register" aria-selected="false" style="cursor: pointer;">Register</a>
             </li>
         </ul>
     </div>
@@ -26,7 +26,7 @@ export default {
         <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="tab-login" data-mdb-toggle="pill" role="tab" @click="pageChange('login')"
-                    aria-controls="pills-login" aria-selected="true">Login</a>
+                    aria-controls="pills-login" aria-selected="true" style="cursor: pointer;">Login</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="tab-register" data-mdb-toggle="pill" role="tab"
@@ -35,3 +35,8 @@ export default {
         </ul>
     </div>
 </template>
+<style scoped>
+div {
+    padding-bottom: 20px;
+}
+</style>
