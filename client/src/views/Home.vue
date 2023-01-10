@@ -1,15 +1,15 @@
 <script>
 import Sidebar from '../components/Sidebar.vue'
 export default {
-    components: {Sidebar}
+    components: { Sidebar }
 }
 </script>
 <template>
     <div class="d-flex col">
         <Sidebar />
-        <div class="flex flex-col items-center overflow-y-auto text-white">
+        <div class="flex flex-col items-center text-white">
             <div class="flex justify-center max-w-7xl bg-opacity-75 p-3">
-                <div class="flex flex-col overflow-y-auto">
+                <div class="flex flex-col overflow-auto">
                     <div class="border border-slate-800 bg-slate-900/70 mt-3 p-5">
                         <div class="flex justify-between">
                             <h1 class="font-bold text-3xl mb-3">Custom Bot Games Released</h1>
