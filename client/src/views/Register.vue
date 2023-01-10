@@ -1,15 +1,8 @@
 <script>
-import RegLogButton from './RegLogButton.vue'
+import RegLogButton from '../components/RegLogButton.vue'
 export default {
-    emits: ['pageChange'],
     components: {
         RegLogButton
-    },
-    props: ['page'],
-    methods: {
-        pageChange(page) {
-            this.$emit('pageChange', page)
-        }
     }
 }
 </script>
@@ -17,7 +10,7 @@ export default {
 <template>
     <div class="container text-center thebg thePad">
 
-        <RegLogButton :page="page" @pageChange="pageChange" />
+        <RegLogButton />
 
         <h2>Register</h2>
         <br>

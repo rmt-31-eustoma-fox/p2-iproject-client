@@ -1,10 +1,10 @@
 <script>
+import { RouterLink, RouterView } from 'vue-router'
+
 export default {
-    emits: ['pageChange'],
-    props: ['page'],
-    methods: {
-        pageChange(page) {
-            this.$emit('pageChange', page)
+    computed: {
+        page(){
+            return this.$route.name
         }
     }
 }
@@ -13,24 +13,24 @@ export default {
     <div v-if="page == 'login'">
         <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab" aria-controls="pills-login"
-                    aria-selected="true">Login</a>
+                <router-link class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab" aria-controls="pills-login"
+                    aria-selected="true" to="/login">Login</router-link>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tab-register" data-mdb-toggle="pill" role="tab" @click="pageChange('register')"
-                    aria-controls="pills-register" aria-selected="false" style="cursor: pointer;">Register</a>
+                <router-link class="nav-link" id="tab-register" data-mdb-toggle="pill" role="tab"
+                    aria-controls="pills-register" aria-selected="false" style="cursor: pointer;" to="/register">Register</router-link>
             </li>
         </ul>
     </div>
-    <div v-else>
+    <div v-if="page == 'register'">
         <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tab-login" data-mdb-toggle="pill" role="tab" @click="pageChange('login')"
-                    aria-controls="pills-login" aria-selected="true" style="cursor: pointer;">Login</a>
+                <router-link class="nav-link" id="tab-login" data-mdb-toggle="pill" role="tab" 
+                    aria-controls="pills-login" aria-selected="true" style="cursor: pointer;" to="/login">Login</router-link>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="tab-register" data-mdb-toggle="pill" role="tab"
-                    aria-controls="pills-register" aria-selected="false">Register</a>
+                <router-link class="nav-link active" id="tab-register" data-mdb-toggle="pill" role="tab"
+                    aria-controls="pills-register" aria-selected="false" to="/register">Register</router-link>
             </li>
         </ul>
     </div>
