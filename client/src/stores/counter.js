@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     baseUrl: "http://localhost:3000",
+    baseUrlApi: "https://api.spoonacular.com/recipes",
     // baseUrl: "",
     products: [],
     carts: [],
@@ -19,6 +20,8 @@ export const useCounterStore = defineStore("counter", {
       page: 1,
     },
     totalPrice: 0,
+    search: "",
+    recipes: [],
   }),
 
   getters: {},
@@ -304,6 +307,35 @@ export const useCounterStore = defineStore("counter", {
           timer: 1500,
           showConfirmButton: false,
         });
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      }
+    },
+
+    async fetchRecipe() {
+      try {
+        this.isLoad = true;
+        let urlParam = this.baseUrlApi;
+
+        if (!this.search) {
+          this.search = "cake";
+        }
+        const { data } = await axios({
+          url:
+            urlParam +
+            "/complexSearch?query=" +
+            this.search +
+            "&addRecipeInformation=true&apiKey=9d968254de8548bb8054fa72faa6f9d5",
+          method: "get",
+        });
+        this.recipes = data.results;
+
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;

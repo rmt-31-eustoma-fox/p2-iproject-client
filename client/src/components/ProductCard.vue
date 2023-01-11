@@ -16,7 +16,7 @@ export default {
       <img
         :src="product.imgUrl"
         alt=""
-        class="object-contain w-full h-64 transition duration-500 group-hover:scale-105 sm:h-72"
+        class="object-cover w-full h-64 transition duration-500 group-hover:scale-105 sm:h-72"
       />
     </RouterLink>
 

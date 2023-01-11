@@ -4,6 +4,7 @@ import LoginPage from "../views/LoginPage.vue";
 import DetailProductPage from "../views/DetailProductPage.vue";
 import RegisterPage from "../views/RegisterPage.vue";
 import CartPage from "../views/CartPage.vue";
+import RecipePage from "../views/RecipePage.vue";
 import OrderHistoryPage from "../views/OrderHistoryPage.vue";
 import NotFoundPage from "../views/NotFoundPage.vue";
 
@@ -41,6 +42,11 @@ const router = createRouter({
       component: OrderHistoryPage,
     },
     {
+      path: "/recipe",
+      name: "RecipePage",
+      component: RecipePage,
+    },
+    {
       path: "/:pathMatch(.*)",
       name: "NotFoundPage",
       component: NotFoundPage,
@@ -62,7 +68,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.access_token;
   if (
-    (to.name === "CartPage" || to.name === "OrderHistoryPage") &&
+    (to.name === "CartPage" ||
+      to.name === "OrderHistoryPage" ||
+      to.name === "RecipePage") &&
     !isAuthenticated
   ) {
     next({ name: "LoginPage" });

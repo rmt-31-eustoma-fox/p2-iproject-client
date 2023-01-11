@@ -58,6 +58,15 @@ export default {
                   Order History
                 </router-link>
               </li>
+              <li v-if="loginStatus">
+                <router-link
+                  to="/recipe"
+                  class="text-[#000000] transition hover:text-gray-500/75"
+                  href=""
+                >
+                  Recipe
+                </router-link>
+              </li>
             </ul>
           </nav>
 

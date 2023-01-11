@@ -43,12 +43,6 @@ export default {
                 :key="history.id"
                 :history="history"
               />
-              <CartRow
-                v-for="history in histories"
-                :key="history.id"
-                :history="history"
-              />
-             
             </div>
           </div>
         </div>
