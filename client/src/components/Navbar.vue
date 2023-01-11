@@ -23,7 +23,7 @@ export default {
       <div class="flex h-16 items-center justify-between">
         <div class="flex-1 md:flex md:items-center md:gap-12">
           <router-link to="/" class="block text-teal-600" href="">
-            <img src="../assets/Logo de'Millie.jpg" class="h-20" />
+            <img src="../assets/deMillie.jpg" class="h-20" />
           </router-link>
         </div>
 

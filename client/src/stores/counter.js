@@ -5,9 +5,9 @@ import Swal from "sweetalert2";
 
 export const useCounterStore = defineStore("counter", {
   state: () => ({
-    baseUrl: "http://localhost:3000",
+    // baseUrl: "http://localhost:3000",
     baseUrlApi: "https://api.spoonacular.com/recipes",
-    // baseUrl: "",
+    baseUrl: "https://demillie-production.up.railway.app",
     products: [],
     carts: [],
     histories: [],
@@ -329,7 +329,7 @@ export const useCounterStore = defineStore("counter", {
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
-        this.router.push("/products/404-not-found");
+        this.router.push("/404-not-found");
       }
     },
 

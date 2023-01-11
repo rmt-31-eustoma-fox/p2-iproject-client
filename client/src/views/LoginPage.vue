@@ -36,7 +36,7 @@ export default {
         />
 
         <div class="hidden lg:relative lg:block lg:p-12">
-          <img class="h-8 sm:h-10" src="../assets/Logo de'Millie.jpg" />
+          <img class="h-8 sm:h-10" src="../assets/deMillie.jpg" />
 
           <h2
             class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl"
@@ -52,7 +52,7 @@ export default {
       >
         <div class="max-w-xl lg:max-w-3xl">
           <div class="relative -mt-16 block lg:hidden">
-            <img class="h-8 sm:h-10" src="../assets/Logo de'Millie.jpg" />
+            <img class="h-8 sm:h-10" src="../assets/deMillie.jpg" />
 
             <h1
               class="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
