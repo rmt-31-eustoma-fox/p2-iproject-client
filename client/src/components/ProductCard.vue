@@ -28,7 +28,9 @@ export default {
           {{ product.name }}
         </h3>
 
-        <p class="mt-1.5 text-base text-gray-700">Rp.{{ product.price }},-</p>
+        <p class="mt-1.5 text-base text-gray-700">
+          Rp.{{ Number(product.price).toLocaleString() }},-
+        </p>
       </RouterLink>
 
       <form class="mt-4">
