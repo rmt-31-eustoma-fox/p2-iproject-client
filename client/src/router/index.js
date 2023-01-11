@@ -5,6 +5,7 @@ import RegisterPage from "../views/RegisterPage.vue"
 import GetFriends from "../views/GetFriends.vue"
 import Lobby from "../views/LobbyRoom.vue"
 import Subscription from "../views/subscription.vue"
+import ChatBoxTemplate from "../views/ChatBoxTemplate.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/subscription',
       name: 'subscription',
       component: Subscription
+    },
+    {
+      path: '/chatbox',
+      name: 'chatbox',
+      component: ChatBoxTemplate
     },
   ]
 })

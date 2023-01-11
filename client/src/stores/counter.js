@@ -9,6 +9,7 @@ export const useCounterStore = defineStore('counter', {
     roomsList: "",
     translatedMessage: "",
     isLoggedIn: "",
+    user: ""
   }),
   getters: {
     doubleCount: (state) => state.count * 2,
@@ -105,6 +106,61 @@ export const useCounterStore = defineStore('counter', {
           }
         })
         this.translatedMessage = data.translatedText
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async findUser(){
+      try {
+        const {data} = await axios({
+          url: url+"/users/find",
+          method: "get",
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+
+        this.user = data.findUser
+        console.log(this.user)
+      } catch (error) {
+        console.log(error, "findUser")
+      }
+    },
+    async changeStatus(){
+      try {
+        const {data} = await axios({
+          url: url+"/users/subscription",
+          method: "patch",
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        console.log(data)
+        this.findUser()
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async subscription(){
+      try {
+        const {data} = await axios({
+          url: url+"/users/generate-midtrans-token",
+          method: "post",
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+
+        console.log(data);
+        const cb = this.changeStatus
+
+        window.snap.pay(data.token, {
+          onSuccess: function(result){
+            /* You may add your own implementation here */
+            console.log("payment succes");
+            cb()
+          },
+        })
       } catch (error) {
         console.log(error)
       }

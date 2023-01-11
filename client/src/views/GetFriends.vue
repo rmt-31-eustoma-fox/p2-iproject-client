@@ -28,6 +28,11 @@ export default {
         text: this.text,
         user: localStorage.username,
       };
+      console.log(this.messages.length);
+      if (this.messages.length > 9) {
+        console.log(this.messages);
+        this.messages.shift()
+      }
       this.messages.push(message);
       console.log(this.messages);
       this.socketInstance.emit("message", message);
@@ -114,17 +119,19 @@ export default {
       this.messages.push(data);
     });
 
-    this.socketInstance.on('chat message', (data) => {
+    this.socketInstance.on("chat message", (data) => {
       const message = {
         id: new Date(),
         text: `${data.username} has joined the ${data.room} room`,
-        user: "notification: ",
+        user: "notification ",
       };
       this.messages.push(message);
     });
 
-      this.socketInstance.emit("join", { room: room, username: localStorage.username });
-
+    this.socketInstance.emit("join", {
+      room: room,
+      username: localStorage.username,
+    });
   },
 };
 </script>
@@ -134,7 +141,11 @@ export default {
     <div class="container">
       <div class="card">
         <div class="list-container">
-          <div v-for="message in messages" :key="message.id">
+          <div
+            class="text-message"
+            v-for="message in messages"
+            :key="message.id"
+          >
             <b>{{ message.user }}</b>
             <b>: {{ message.text }}</b>
           </div>
@@ -150,20 +161,22 @@ export default {
           Translate: id-en
         </button>
         <div class="mt-4">
-      <button @click="speechRecog" class="btn btn-success" id="start">Start</button>
-      <button class="btn btn-danger" id="stop">Stop</button>
-      <p id="status" class="lead mt-3 text-light" style="display: none">
-        Listenting ...
-      </p>
-    </div>
-    <h2 class="mt-4 text-light">Transcript</h2>
-    <div
-      class="p-3"
-      style="border: 1px solid gray; height: 300px; border-radius: 8px"
-    >
-      <span id="final" class="text-light"></span>
-      <span id="interim" class="text-secondary"></span>
-    </div>
+          <button @click="speechRecog" class="btn btn-success" id="start">
+            Start
+          </button>
+          <button class="btn btn-danger" id="stop">Stop</button>
+          <p id="status" class="lead mt-3 text-light" style="display: none">
+            Listening ...
+          </p>
+        </div>
+        <h2 class="mt-4 text-light">Transcript</h2>
+        <div
+          class="p-3"
+          style="border: 1px solid gray; height: 300px; border-radius: 8px"
+        >
+          <span id="final" class="text-light"></span>
+          <span id="interim" class="text-secondary"></span>
+        </div>
       </div>
     </div>
   </section>
@@ -190,6 +203,10 @@ export default {
 }
 .list-containe b {
   padding: 10px;
+}
+
+.text-message {
+  margin: 20px;
 }
 
 section {
@@ -253,9 +270,8 @@ body .container .card {
   min-width: 300px;
   height: 450px;
   box-shadow: inset 5px 5px 5px rgba(251, 250, 250, 0.2),
-    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
-    5px 5px 15px rgba(255, 255, 255, 0.3),
-    -5px -5px 15px rgba(255, 255, 255, 0.1);
+    inset -5px -5px 15px rgba(255, 255, 255, 0.1);
+
   border-radius: 15px;
   margin: 30px;
   transition: 0.5s;

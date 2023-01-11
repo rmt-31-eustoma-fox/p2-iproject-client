@@ -30,9 +30,6 @@ export default {
 </template>
 
 <style scoped>
-#box3{
-  overflow: hidden;
-}
 
 #container{
   width: 100%;

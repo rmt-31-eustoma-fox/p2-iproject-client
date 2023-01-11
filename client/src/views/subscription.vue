@@ -1,109 +1,46 @@
+<script>
+import {mapActions} from "pinia"
+import {useCounterStore} from "../stores/counter"
+export default {
+  methods: {
+    ...mapActions(useCounterStore, ["subscription"]),
+    subscriptionHandler(){
+      this.subscription()
+    }
+  }
+}
+</script>
+
 <template>
   <body>
   <div class="wrapper">
-    <div class="table basic">
-      <div class="head_tab"><h2>Single<br> Web Hosting</h2></div>
-      <div class="aj_p"><p>Ideal solution for beginners</p></div>
-      <div class="price-section">
-        <div class="price-area">
-          <div class="inner-area">
-            <span class="text">₹</span>
-            <span class="price">29<span style="font-size:12px">/mo</span></span>
-
-          </div>
-        </div>
-      </div>
-      <div class="package-name"></div>
-      <ul class="features">
-        <div class="btn"><button>Add to Cart</button></div>
-        <p class="aj_des">₹159/mo when you renew</p>
-        <li>
-          <span class="list-name">1 Website</span>
-          <span class="icon check"><i class="fas fa-check"></i></span>
-        </li>
-        <li>
-          <span class="list-name">~10000 Visits Monthly</span>
-          <span class="icon check"><i class="fas fa-check"></i></span>
-        </li>
-        <li>
-          <span class="list-name">30 GB SSD Storage</span>
-          <span class="icon cross"><i class="fas fa-times"></i></span>
-        </li>
-        <li>
-          <span class="list-name">100 GB Bandwidth</span>
-          <span class="icon cross"><i class="fas fa-times"></i></span>
-        </li>
-      </ul>
-      <div><h2>See all features <span class="icon cross"><i class="fa fa-angle-down"></i></span></h2></div>
-    </div>
     <div class="table premium">
-      <div class="head_tab"><h2>Premium <br>Web Hosting</h2></div>
+      <div class="head_tab"><h2>Subscribe<br>Premium</h2></div>
       <div class="aj_p"><p>Perfect package for personal</p></div>
       <div class="ribbon"><span>BEST VALUE</span></div>
       <div class="price-section">
         <div class="price-area">
           <div class="inner-area">
-            <span class="text">₹</span>
-            <span class="price">59<span style="font-size:12px">/mo</span></span>
+            <h2>Rp. 12.500</h2>
           </div>
         </div>
       </div>
       <div class="package-name"></div>
       <ul class="features">
-        <div class="btn"><button>Add to Cart</button></div>
-        <p class="aj_des">₹159/mo when you renew</p>
+        <div class="btn"><button @click="subscriptionHandler">Subscribe</button></div>
         <li>
-          <span class="list-name">50 Website</span>
+          <span class="list-name">Open auto translate feature</span>
           <span class="icon check"><i class="fas fa-check"></i></span>
         </li>
         <li>
-          <span class="list-name">~25000 Visits Monthly </span>
+          <span class="list-name">Open speech to text feature</span>
           <span class="icon check"><i class="fas fa-check"></i></span>
         </li>
         <li>
-          <span class="list-name">60 GB SSD Storage</span>
-          <span class="icon check"><i class="fas fa-check"></i></span>
-        </li>
-        <li>
-          <span class="list-name">200 GB Bandwidth</span>
-          <span class="icon cross"><i class="fas fa-times"></i></span>
-        </li>
-      </ul>
-      <div class="premium_all"><h2>See all features <span class="icon cross"><i class="fa fa-angle-down"></i></span></h2></div>
-    </div>
-    <div class="table ultimate">
-      <div class="head_tab"><h2>Ultimate <br>Web Hosting</h2></div>
-      <div class="aj_p"><p>Perfect package for businesses</p></div>
-      <div class="price-section">
-        <div class="price-area">
-          <div class="inner-area">
-            <span class="text">₹</span>
-            <span class="price">99<span style="font-size:12px">/mo</span></span>
-          </div>
-        </div>
-      </div>
-      <div class="package-name"></div>
-      <ul class="features">
-        <div class="btn"><button>Add to Cart</button></div>
-        <p class="aj_des">₹159/mo when you renew</p>
-        <li>
-          <span class="list-name">100 Website</span>
-          <span class="icon check"><i class="fas fa-check"></i></span>
-        </li>
-        <li>
-          <span class="list-name">~75000 Visits Monthly </span>
-          <span class="icon check"><i class="fas fa-check"></i></span>
-        </li>
-        <li>
-          <span class="list-name">200 GB SSD Storage</span>
-          <span class="icon check"><i class="fas fa-check"></i></span>
-        </li>
-        <li>
-          <span class="list-name">500 GB Bandwidth</span>
+          <span class="list-name">Member priority</span>
           <span class="icon check"><i class="fas fa-check"></i></span>
         </li>
       </ul>
-      <div><h2>See all features <span class="icon cross"><i class="fa fa-angle-down"></i></span></h2></div>
     </div>
   </div>
 
@@ -123,7 +60,7 @@ body{
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
-  background: linear-gradient(0deg, rgba(240,101,36,0.6727065826330532) 0%, rgba(255,100,100,1) 100%);
+  background: #1e242a;
 }
 .wrapper{
   max-width: 1090px;
@@ -134,7 +71,7 @@ body{
   justify-content: space-between;
 }
 .wrapper .table{
-  background: #fff;
+  background: rgb(137, 137, 137);
   width: calc(33% - 20px);
   padding: 30px 30px;
   position: relative;
@@ -164,6 +101,7 @@ p.aj_des {
 
 .table.premium {
   margin: -20px;
+  margin-left: 350px;
 }
 
 .premium_all {
@@ -172,11 +110,11 @@ p.aj_des {
 
 .price-area .inner-area{
   height: 100%;
-  width: 100%;
   line-height: 117px;
   text-align: center;
   color: #fff;
   position: relative;
+  width: 190x;
 }
 
 .price-area .inner-area .text{
@@ -190,7 +128,7 @@ p.aj_des {
 .price-area .inner-area .price{
   font-size: 45px;
   font-weight: 500;
-  margin-left: 16px;
+  margin-right: 20px;
 }
 
 .table .package-name{
@@ -207,22 +145,6 @@ p.aj_des {
   justify-content: space-between;
 }
 
-.features li .list-name{
-  font-size: 17px;
-  font-weight: 400;
-}
-
-.features li .icon{
-  font-size: 15px;
-}
-
-.features li .icon.check{
-  color: #2db94d;
-}
-
-.features li .icon.cross{
-  color: #cd3241;
-}
 
 .table .btn{
   width: 100%;
@@ -247,59 +169,25 @@ p.aj_des {
   border-radius: 5px;
 }
 
-.basic ::selection,
-.basic .price-area,
-.basic .inner-area,
-.basic .head_tab h2{
-  color:red;
-}
-
-.basic .btn button{
-  background: red;
-  color: #fff;
-  margin-top: -75px;
-}
-
-.basic .btn button:hover{
-  background: rgba(240, 101,36);
-  color: #fff;
-}
 
 .premium ::selection,
 .premium .price-area,
 .premium .inner-area,
 .premium .head_tab h2{
-  color:#ba24f0;
+  color:#023285;
 }
 
 .premium .btn button{
-  background: #ba24f0;
+  background: #023285;
   color: #fff;
   margin-top: -75px;
 }
 
 .premium .btn button:hover{
-  background: rgba(240, 101,36);
+  background: rgb(0, 0, 0);
   color: #fff;
 }
 
-.ultimate ::selection,
-.ultimate .price-area,
-.ultimate .inner-area,
-.ultimate .head_tab h2{
-  color:#f5b55a;
-}
-
-.ultimate .btn button{
-  background: #f5b55a;
-  color: #fff;
-  margin-top: -75px;
-}
-
-.ultimate .btn button:hover{
-  background: rgba(240, 101,36);
-  color: #fff;
-}
 
 @media (max-width:756px){
   .wrapper .table{
@@ -333,7 +221,7 @@ table .ribbon::after{
   content: "";
   z-index: -1;
   display: block;
-  border: 7px solid #ba24f0;
+  border: 7px solid #023285;
   border-top-color: transparent;
   border-left-color: transparent;
 }
@@ -354,7 +242,7 @@ table .ribbon::after{
   right: 0;
   transform: rotate(-45deg);
   width: 200px;
-  background: #ba24f0;
+  background: #023285;
   padding: 10px 0;
   color: #fff;
   text-align: center;
