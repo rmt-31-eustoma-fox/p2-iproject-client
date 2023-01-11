@@ -19,7 +19,7 @@ const routes = [
     component: TeamPage,
   },
   {
-    path: "/teams/:teamName",
+    path: "/teams/:id/:teamName",
     name: "teamDetail",
     component: TeamDetailPage,
   },

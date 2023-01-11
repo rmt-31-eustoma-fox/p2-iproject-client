@@ -1,4 +1,8 @@
-<script></script>
+<script>
+  export default {
+    props: ["players"],
+  };
+</script>
 
 <template>
   <table class="table">
@@ -14,21 +18,25 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr v-for="player in players" :key="player.id">
         <td>
           <img
             src="https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
             style="width: 30px"
             class="rounded-pill"
           />
-          <span class="mx-3">Kevin Durant</span>
+          <span class="mx-3">{{
+            player.firstname + " " + player.lastname
+          }}</span>
         </td>
-        <td class="text-end">7</td>
+        <td class="text-end">{{ player.leagues.standard.jersey }}</td>
         <td>F</td>
-        <td class="text-end">6-10</td>
-        <td>240 lbs</td>
-        <td class="text-end">Texas</td>
-        <td>USA</td>
+        <td class="text-end">
+          {{ player.height.feets + "-" + player.height.inches }}
+        </td>
+        <td>{{ player.weight.pounds }} lbs</td>
+        <td class="text-end">{{ player.college }}</td>
+        <td>{{ player.birth.country }}</td>
       </tr>
     </tbody>
   </table>

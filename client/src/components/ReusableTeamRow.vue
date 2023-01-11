@@ -1,16 +1,26 @@
-<script></script>
+<script>
+  import { RouterLink } from "vue-router";
+  export default {
+    props: ["team"],
+  };
+</script>
 
 <template>
   <li class="row my-3">
-    <div class="col-2">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/id/thumb/0/01/Golden_State_Warriors_logo.svg/1200px-Golden_State_Warriors_logo.svg.png"
-        style="height: 64px"
-      />
+    <div class="col-3">
+      <img :src="team.logo" style="width: 64px" />
     </div>
     <div class="col-6">
-      <p>Golden State Warriors</p>
-      <strong>GSW</strong>
+      <RouterLink
+        style="text-decoration: none"
+        :to="{
+          name: 'teamDetail',
+          params: { teamName: team.code, id: team.id },
+        }"
+      >
+        <p>{{ team.name }}</p>
+        <strong>{{ team.code }}</strong>
+      </RouterLink>
     </div>
   </li>
 </template>
