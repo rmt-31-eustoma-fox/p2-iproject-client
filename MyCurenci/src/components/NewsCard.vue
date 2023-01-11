@@ -15,7 +15,7 @@ export default {
                 <p class="card-text"><small class="text-muted">{{ cardValue.createdAt }}</small></p>
                 <p class="card-text">{{ cardValue.desc }}</p>
                 <a :href="cardValue.url"
-                    class="card-link">detail</a>
+                    class="card-link"><i class="material-icons" style="font-size:36px">description</i></a>
                 <!-- <a href="#" class="card-link">Another link</a> -->
             </div>
             <div class="card-footer">

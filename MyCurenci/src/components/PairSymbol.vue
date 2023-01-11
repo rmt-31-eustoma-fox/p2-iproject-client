@@ -13,7 +13,7 @@ export default {
         baseCurrency: {
             handler(newValue, oldValue){
                 console.log({newValue, oldValue})
-                if(newValue !== '') this.fetchLatestExc()
+                // if(newValue !== '') this.fetchLatestExc()
             }
         }
     }

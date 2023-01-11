@@ -11,7 +11,7 @@ export default {
   },
   computed: {
     ...mapState(useRootStore, ['currencies', 'theValue','theForexPair','exchangeValue']),
-    ...mapWritableState(useRootStore,['baseCurrency','quoteCurrency']),
+    ...mapWritableState(useRootStore,['baseCurrency','quoteCurrency','isInTitleStage']),
     localGetQuery(){
       return this.$route.query.exc
     },
@@ -20,7 +20,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useRootStore, ['fetchForexPair', 'fetchNews']),
+    ...mapActions(useRootStore, ['fetchForexPair', 'fetchNews','fetchLatestExc']),
     mainFetcher(){
       if(this.localGetQuery && this.localGetQuery.length > 4) {
         [this.baseCurrency,this.quoteCurrency] = this.localGetQuery.split('/')
@@ -37,17 +37,24 @@ export default {
     }
   },
   created() {
+    
     console.log(this.$route.query.exc, '<<< created HomeView')
     this.mainFetcher()
     // const { exc } = this.$route.query
+    if(this.localGetQuery) this.baseCurrency = this.localGetQuery.split('/')[0]
     console.log(this.theForexPair)
   },
   watch:{
     quoteCurrency:{
-      handler(){
+      handler(newValue, oldValue){
+        console.log({newValue, oldValue}, '<<< watcher quotecurrency homeview')
         console.log(this.theForexPair, '<<< Watcher Homeview')
         // this.mainFetcher()
-        this.$router.push({name : this.localRouteName, query : {exc : this.theForexPair}})
+        if(this.localRouteName === 'news') {
+          this.fetchNews()
+        } else if (this.localRouteName === 'graph'){
+          this.fetchForexPair()
+        }
       }
     },
     theForexPair:{
@@ -55,9 +62,15 @@ export default {
         console.log(this.theForexPair, '<<< Watcher theforexpair')
         // this.mainFetcher()
       }
+    },
+    baseCurrency:{
+      handler(){
+        this.fetchLatestExc()
+      }
     }
   },
   mounted(){
+    this.isInTitleStage = false
     console.log('HomeView Mounted')
   }
 }

@@ -8,14 +8,20 @@ export default {
     Navbar
   },
   computed : {
-    ...mapState(useRootStore,['theValue'])
+    ...mapState(useRootStore,['theValue','isInTitleStage']),
+    getLocalStage(){
+      return this.isInTitleStage
+    }
   },
   methods : {
     ...mapActions(useRootStore,['fetchCurrenciesList','dummyFetchForex','fetchForexPair','fetchNews','fetchLatestExc'])
   },
   created(){
+    console.log({stage : this.isInTitleStage})
     this.fetchCurrenciesList()
-    this.fetchLatestExc()
+    if(this.getLocalStage){
+      this.fetchLatestExc()
+    }
     // this.dummyFetchForex()
     // this.fetchForexPair()
     // this.fetchNews()

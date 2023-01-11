@@ -11,7 +11,8 @@ export const useRootStore = defineStore("basis", {
     theValue: [],
     theNews: [],
     exchangeDate : '',
-    exchangeValue : []
+    exchangeValue : [],
+    isInTitleStage : true
   }),
   getters: {
     theForexPair(){
@@ -42,9 +43,14 @@ export const useRootStore = defineStore("basis", {
           }
         });
         
+        if(data.length < 1) {
+          this.router.push({name: 'empty'})
+        } else {
+          this.theValue = data;
+          this.router.push({name:'graph',query: {exc : this.theForexPair}})
+        }
+
         // console.log(data)
-        this.theValue = data;
-        this.router.push({name:'graph',query: {exc : this.theForexPair}})
       } catch (error) {
         console.log(error);
       }
@@ -62,18 +68,24 @@ export const useRootStore = defineStore("basis", {
                 }
             })
 
-            // console.log(data)
-            this.theNews = data
-            // console.log(this.theNews)
-            // console.log('finish load news')
-            this.router.push({name:'news',query: {exc : this.theForexPair}})
+            if(data.length < 1){
+              this.router.push({name: 'empty'})
+            } else {
+              // console.log(data)
+              this.theNews = data
+              // console.log(this.theNews)
+              // console.log('finish load news')
+              this.router.push({name:'news',query: {exc : this.theForexPair}})
+            }
+
         } catch (error) {
             console.log(error)
         }
     },
     async fetchLatestExc(){
         try {
-            const symbol = this.baseCurrency || 'USD/'
+          const symbol = `${this.baseCurrency}/`
+          // console.log(symbol)
             const {data} = await axios({
                 method: 'get',
                 url : BASE_URL + '/forexExcRate',
@@ -82,7 +94,7 @@ export const useRootStore = defineStore("basis", {
                 }
             })
 
-            // console.log(data)
+            console.log('fetched exc')
             this.exchangeDate = data.updatedAt
             this.exchangeValue = data.Pair
         } catch (error) {
