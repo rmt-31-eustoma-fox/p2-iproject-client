@@ -1,12 +1,12 @@
-<script>
+<script >
 import CardRoom from "../components/CardRoom.vue";
 import { useCounterStore } from "../stores/counter";
 import { mapActions, mapWritableState } from "pinia";
 export default {
-  data(){
-    return{
-      isSubscribed: ""
-    }
+  data() {
+    return {
+      isSubscribed: "",
+    };
   },
   components: {
     CardRoom,
@@ -23,32 +23,26 @@ export default {
   },
   created() {
     this.getRoom();
-    this.isSubscribed = localStorage.isSubscribed
+    this.isSubscribed = localStorage.isSubscribed;
   },
 };
 </script>
 
 <template>
   <section>
-    <div class="room-header">
-      <h1>Choose a room</h1>
-    </div>
-    <div v-if="isSubscribed" class="create-room">
-      <form @submit.prevent="addRoomHandler">
-        <input v-model="room" class="input-room" type="text" />
-        <button class="btn btn-outline-light btn-lg px-5" type="submit">
-          create room
-        </button>
-      </form>
-    </div>
-    <div class="container">
-      <div>
-        <CardRoom
-          v-for="(room, index) in roomsList"
-          :key="index"
-          :room="room"
-          :index="index"
-        />
+    <div class="container-room">
+      <div class="room-header">
+        <h1>Choose a room</h1>
+      </div>
+        <div class="container">
+          <div class="row">
+          <CardRoom
+            v-for="(room, index) in roomsList"
+            :key="index"
+            :room="room"
+            :index="index"
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -61,6 +55,7 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   color: white;
+  display: flex;
 }
 
 section {
@@ -70,13 +65,17 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: black;
   background-size: cover;
   background-position: center;
 }
 
 div.card {
   background: #000;
+}
+
+.container-room {
+  display: flex;
+  flex-direction: column;
 }
 
 .input-chat {
@@ -134,21 +133,6 @@ div.card {
   text-decoration: none;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  min-height: 100vh;
-  background: #232427;
-}
 
 body .container {
   display: flex;

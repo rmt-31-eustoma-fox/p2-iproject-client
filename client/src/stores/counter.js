@@ -7,7 +7,8 @@ export const useCounterStore = defineStore('counter', {
     count: 0, 
     name: 'Eduardo',
     roomsList: "",
-    translatedMessage: ""
+    translatedMessage: "",
+    isLoggedIn: "",
   }),
   getters: {
     doubleCount: (state) => state.count * 2,

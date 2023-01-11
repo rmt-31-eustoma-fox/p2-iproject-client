@@ -10,7 +10,7 @@ export default {
       <div class="content">
         <h2>{{ index+1 }}</h2>
         <h3>{{ room.name }}</h3>
-        <p>Are you ready for the war?</p>
+        <!-- <p>Are you ready for the war?</p> -->
         <router-link :to="room.name">Go to Room</router-link>
       </div>
     </div>
@@ -99,8 +99,8 @@ body .container {
 
 body .container .card {
   position: relative;
-  min-width: 300px;
-  height: 370px;
+  min-width: 270px;
+  height: 330px;
   box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
     5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);

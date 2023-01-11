@@ -1,6 +1,7 @@
 import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
 import vue3GoogleLogin from 'vue3-google-login'
+import VueSpeech from 'vue-speech'
 
 import App from './App.vue'
 import router from './router'
@@ -20,5 +21,6 @@ app.use(vue3GoogleLogin, {
 
 app.use(pinia)
 app.use(router)
+app.use(VueSpeech)
 
 app.mount('#app')
