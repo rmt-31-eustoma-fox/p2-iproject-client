@@ -19,7 +19,7 @@ export default {
         Graph
     },
     computed: {
-        ...mapState(useRootStore, ['theValue'])
+        ...mapState(useRootStore, ['theValue','quoteCurrency'])
     },
     methods:{
         ...mapActions(useRootStore,['fetchForexPair']),
@@ -30,18 +30,10 @@ export default {
             return this.$refs.drawGraph.getChart()
         }
     },
-    // created(){
-    //     this.fetchForexPair()
-    // }
-    mounted() {
-        console.log('Mounted Graphview')
-        // this.fitContent()
-        // chart.this.fitContent()
+    created(){
+        // this.fetchForexPair()
+        console.log('create graphview')
     },
-    unmounted() {
-        console.log('Unmounted Graphview')
-    }
-
 }
 </script>
 <template>

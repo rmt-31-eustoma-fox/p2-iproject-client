@@ -23,8 +23,8 @@ const router = createRouter({
           component: NewsView
         },
         {
-          path: 'main',
-          name : 'home',
+          path: 'graph',
+          name : 'graph',
           component: GraphView
         },
       ]

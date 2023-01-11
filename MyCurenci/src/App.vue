@@ -11,10 +11,11 @@ export default {
     ...mapState(useRootStore,['theValue'])
   },
   methods : {
-    ...mapActions(useRootStore,['fetchCurrenciesList','dummyFetchForex','fetchForexPair','fetchNews'])
+    ...mapActions(useRootStore,['fetchCurrenciesList','dummyFetchForex','fetchForexPair','fetchNews','fetchLatestExc'])
   },
   created(){
     this.fetchCurrenciesList()
+    this.fetchLatestExc()
     // this.dummyFetchForex()
     // this.fetchForexPair()
     // this.fetchNews()

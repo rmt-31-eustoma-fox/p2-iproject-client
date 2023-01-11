@@ -3,9 +3,9 @@ export default {
     // unmounted(){
     //     console.log('Unmounted dummy')
     // },
-    // created(){
-    //     console.log('created DUmmy')
-    // },
+    created(){
+        console.log('created DUmmy')
+    },
     // beforeMount(){
     //     console.log('beforemount dummy')
     // },

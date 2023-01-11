@@ -8,6 +8,10 @@ export default {
     },
     computed : {
         ...mapState(useRootStore,['theNews'])
+    },
+    created(){
+        console.log('created NewsView')
+        // console.log(this.theNews)
     }
 }
 </script>

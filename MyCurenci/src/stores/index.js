@@ -5,11 +5,19 @@ const BASE_URL = "http://localhost:3000";
 
 export const useRootStore = defineStore("basis", {
   state: () => ({
+    baseCurrency : '',
+    quoteCurrency : '',
     currencies: [],
     theValue: [],
-    theNews: []
+    theNews: [],
+    exchangeDate : '',
+    exchangeValue : []
   }),
-  getters: {},
+  getters: {
+    theForexPair(){
+        return `${this.baseCurrency}/${this.quoteCurrency}`
+    }
+  },
   actions: {
     async fetchCurrenciesList() {
       try {
@@ -23,67 +31,60 @@ export const useRootStore = defineStore("basis", {
         console.log(error);
       }
     },
-    async dummyFetchForex(from, to) {
+    async fetchForexPair() {
       try {
-        const { data } = await axios({
-          method: "get",
-          url: "http://localhost:8000/values",
-        });
-
-        // console.log(data)
-        // data.slice(0,20)
-        let dummy = [];
-        data.forEach((element) => {
-          const { datetime, open, high, close, low } = element;
-          const obj = {
-            time: datetime,
-            open: parseFloat(open),
-            high: parseFloat(high),
-            low: parseFloat(low),
-            close: parseFloat(close),
-          };
-          dummy.push(obj);
-        });
-        dummy.reverse();
-        this.theValue = dummy;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async fetchForexPair(value) {
-      try {
-        console.log(value)
+        // console.log(this.theForexPair)
         const { data } = await axios({
           method: "get",
           url: "http://localhost:3000/forexValue",
           params : {
-            forexPair : value
+            forexPair : this.theForexPair
           }
         });
         
         // console.log(data)
         this.theValue = data;
-        this.router.push({name:'home',query: {exc : value}})
+        this.router.push({name:'graph',query: {exc : this.theForexPair}})
       } catch (error) {
         console.log(error);
       }
     },
-    async fetchNews(value){
+    async fetchNews(){
         try {
+            console.log(this.theForexPair)
             // console.log('Fetch the News of ', value.replaceAll('/',''))
             // this.router.push('/')
             const {data} = await axios({
                 method: 'get',
                 url: 'http://localhost:3000/forexNews',
                 params : {
-                    forexPair : value
+                    forexPair : this.theForexPair
                 }
             })
 
-            console.log(data)
+            // console.log(data)
             this.theNews = data
             // console.log(this.theNews)
-            this.router.push({name:'news',query: {exc : value}})
+            // console.log('finish load news')
+            this.router.push({name:'news',query: {exc : this.theForexPair}})
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    async fetchLatestExc(){
+        try {
+            const symbol = this.baseCurrency || 'USD/'
+            const {data} = await axios({
+                method: 'get',
+                url : BASE_URL + '/forexExcRate',
+                params : {
+                    forexPair : symbol
+                }
+            })
+
+            // console.log(data)
+            this.exchangeDate = data.updatedAt
+            this.exchangeValue = data.Pair
         } catch (error) {
             console.log(error)
         }
