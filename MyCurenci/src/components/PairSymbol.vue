@@ -12,7 +12,7 @@ export default {
     watch : {
         baseCurrency: {
             handler(newValue, oldValue){
-                console.log({newValue, oldValue})
+                // console.log({newValue, oldValue})
                 // if(newValue !== '') this.fetchLatestExc()
             }
         }

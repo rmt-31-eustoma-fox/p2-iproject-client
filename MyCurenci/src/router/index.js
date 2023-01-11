@@ -36,9 +36,9 @@ const router = createRouter({
       ]
     },
     // {
-    //   path: '/graph',
-    //   name: 'plot',
-    //   component: GraphView
+    //   path: '/load',
+    //   name: 'load',
+    //   component: LoadingView 
     // }
   ]
 })

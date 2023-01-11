@@ -2,15 +2,16 @@
 import { mapState, mapActions, mapWritableState } from 'pinia';
 import { RouterLink, RouterView } from 'vue-router'
 import { useRootStore } from '../stores';
-import CurrencyCard from '../components/CurrencyCard.vue'
 import PairSymbol from '../components/PairSymbol.vue'
+import CurrencyCardContainer from '../components/CurrencyCardContainer.vue'
+import Loading from '../components/Loading.vue'
 
 export default {
   components: {
-    CurrencyCard, PairSymbol
+    PairSymbol, CurrencyCardContainer, Loading
   },
   computed: {
-    ...mapState(useRootStore, ['currencies', 'theValue','theForexPair','exchangeValue']),
+    ...mapState(useRootStore, ['currencies', 'theValue','theForexPair','exchangeValue','isLoading']),
     ...mapWritableState(useRootStore,['baseCurrency','quoteCurrency','isInTitleStage']),
     localGetQuery(){
       return this.$route.query.exc
@@ -31,7 +32,7 @@ export default {
           this.fetchForexPair()
         }
       } else {
-        console.log('gagal fetch news and graph news return to home')
+        // console.log('gagal fetch news and graph news return to home')
         this.$router.push({ name: 'dummy' })
       }
     }
@@ -42,13 +43,13 @@ export default {
     this.mainFetcher()
     // const { exc } = this.$route.query
     if(this.localGetQuery) this.baseCurrency = this.localGetQuery.split('/')[0]
-    console.log(this.theForexPair)
+    // console.log(this.theForexPair)
   },
   watch:{
     quoteCurrency:{
       handler(newValue, oldValue){
-        console.log({newValue, oldValue}, '<<< watcher quotecurrency homeview')
-        console.log(this.theForexPair, '<<< Watcher Homeview')
+        // console.log({newValue, oldValue}, '<<< watcher quotecurrency homeview')
+        // console.log(this.theForexPair, '<<< Watcher Homeview')
         // this.mainFetcher()
         if(this.localRouteName === 'news') {
           this.fetchNews()
@@ -59,7 +60,7 @@ export default {
     },
     theForexPair:{
       handler(){
-        console.log(this.theForexPair, '<<< Watcher theforexpair')
+        // console.log(this.theForexPair, '<<< Watcher theforexpair')
         // this.mainFetcher()
       }
     },
@@ -71,7 +72,7 @@ export default {
   },
   mounted(){
     this.isInTitleStage = false
-    console.log('HomeView Mounted')
+    // console.log('HomeView Mounted')
   }
 }
 </script>
@@ -96,7 +97,7 @@ export default {
         </div>
         <div class="row">
           <div class="col">
-            <h2 class="mt-2" v-if="$route.name === 'graph'">Graph of {{ theForexPair }}</h2>
+            <!-- <h2 class="mt-2" v-if="$route.name === 'graph'">Graph of {{ theForexPair }}</h2> -->
             <!-- <p> {{  }}</p> -->
           </div>
         </div>
@@ -109,8 +110,9 @@ export default {
         </div>
       </div>
       <div class="col-3">
-        <div class="card-columns g-2" style="overflow-y: auto; height: 80vh;">
-          <CurrencyCard v-for="(currency, idx) in exchangeValue" :key="idx" :cardValue="currency" />
+        <div style="text-align: center; ">
+          <CurrencyCardContainer v-if="!isLoading"/>
+          <Loading v-else />
         </div>
       </div>
     </div>

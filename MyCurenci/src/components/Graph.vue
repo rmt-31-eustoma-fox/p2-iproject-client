@@ -51,6 +51,9 @@ export default {
         priceScaleOptions: {
             type: Object,
         },
+        theForexPair: {
+            type: String
+        }
     },
     mounted() {
         // Create the Lightweight Charts Instance using the container ref.
@@ -149,6 +152,7 @@ export default {
 </script>
 
 <template>
+    <h2 class="mt-2">Graph of {{ theForexPair }}</h2>
     <div class="lw-chart" ref="chartContainer"></div>
 </template>
 

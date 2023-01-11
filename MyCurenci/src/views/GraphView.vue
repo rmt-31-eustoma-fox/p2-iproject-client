@@ -2,6 +2,7 @@
 import { mapState,mapActions } from 'pinia';
 import { useRootStore } from '../stores';
 import Graph from '../components/Graph.vue'
+import Loading from '../components/Loading.vue';
 export default {
     data() {
         return {
@@ -16,10 +17,10 @@ export default {
         }
     },
     components: {
-        Graph
+        Graph, Loading
     },
     computed: {
-        ...mapState(useRootStore, ['theValue','quoteCurrency'])
+        ...mapState(useRootStore, ['theValue','quoteCurrency','isLoadingGraph','theForexPair'])
     },
     methods:{
         ...mapActions(useRootStore,['fetchForexPair']),
@@ -37,5 +38,13 @@ export default {
 }
 </script>
 <template>
-    <Graph :type="'candlestick'" :autosize="false" :data="theValue" :chartOptions="chartProperties" ref="drawGraph"/>
+    <div :class="{myStyle : isLoadingGraph}">
+        <Graph v-if="!isLoadingGraph" :type="'candlestick'" :autosize="false" :data="theValue" :chartOptions="chartProperties" ref="drawGraph" :theForexPair="theForexPair"/>
+        <Loading v-else />
+    </div>
 </template>
+<style scoped>
+.myStyle {
+    text-align: center;
+}
+</style>

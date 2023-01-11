@@ -12,7 +12,10 @@ export const useRootStore = defineStore("basis", {
     theNews: [],
     exchangeDate : '',
     exchangeValue : [],
-    isInTitleStage : true
+    isInTitleStage : true,
+    isLoading : false,
+    isLoadingNews : false,
+    isLoadingGraph : false
   }),
   getters: {
     theForexPair(){
@@ -30,9 +33,11 @@ export const useRootStore = defineStore("basis", {
         this.currencies = data;
       } catch (error) {
         console.log(error);
-      }
+      } 
     },
     async fetchForexPair() {
+      this.isLoadingGraph = true
+      this.router.push({name:'graph',query: {exc : this.theForexPair}})
       try {
         // console.log(this.theForexPair)
         const { data } = await axios({
@@ -53,9 +58,13 @@ export const useRootStore = defineStore("basis", {
         // console.log(data)
       } catch (error) {
         console.log(error);
+      } finally {
+        this.isLoadingGraph = false
       }
     },
     async fetchNews(){
+        this.isLoadingNews = true
+        this.router.push({name:'news',query: {exc : this.theForexPair}})
         try {
             console.log(this.theForexPair)
             // console.log('Fetch the News of ', value.replaceAll('/',''))
@@ -80,9 +89,13 @@ export const useRootStore = defineStore("basis", {
 
         } catch (error) {
             console.log(error)
+        } finally {
+          this.isLoadingNews = false
         }
     },
     async fetchLatestExc(){
+      this.isLoading = true;
+      console.log(this.isLoading)
         try {
           const symbol = `${this.baseCurrency}/`
           // console.log(symbol)
@@ -93,12 +106,14 @@ export const useRootStore = defineStore("basis", {
                     forexPair : symbol
                 }
             })
-
-            console.log('fetched exc')
+            
             this.exchangeDate = data.updatedAt
             this.exchangeValue = data.Pair
         } catch (error) {
             console.log(error)
+        } finally {
+          this.isLoading = false
+          console.log(this.isLoading)
         }
     }
   },

@@ -1,13 +1,15 @@
 <script>
 import { mapState } from 'pinia';
-import NewsCard from '../components/NewsCard.vue'
+import Loading from '../components/Loading.vue';
+// import NewsCardContainer from './NewsCardContainer.vue';
+import NewsCardContainer from '../components/NewsCardContainer.vue';
 import { useRootStore } from '../stores';
 export default {
     components : {
-        NewsCard
+        NewsCardContainer, Loading
     },
     computed : {
-        ...mapState(useRootStore,['theNews'])
+        ...mapState(useRootStore,['theNews','isLoadingNews'])
     },
     created(){
         console.log('created NewsView')
@@ -16,8 +18,13 @@ export default {
 }
 </script>
 <template>
-    <h1>News</h1>
-    <div class="row row-cols-2">
-        <NewsCard v-for="(eachNews, idx) in theNews" :cardValue="eachNews"/>
+    <div :class="{myStyle : isLoadingNews}">
+        <NewsCardContainer v-if="!isLoadingNews"/>
+        <Loading v-else />
     </div>
 </template>
+<style scoped>
+.myStyle {
+    text-align: center;
+}
+</style>
