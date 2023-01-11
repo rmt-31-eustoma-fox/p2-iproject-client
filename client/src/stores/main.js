@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 const baseUrl = "http://localhost:3000"
-import axios from 'axios'
+import axios, { Axios } from 'axios'
 
 export const mainFunction = defineStore('main_function', {
   state: () => ({
@@ -9,7 +9,7 @@ export const mainFunction = defineStore('main_function', {
     cardDecks: [],
     deckName: '',
     query: {
-      id:"", name:"", type: "", atk: "", def: "", level: "", race: "", attribute: "", banlist: "", sort: "", frameType: "", desc: "", fname: ''
+      id:"", name:"", type: "", atk: "", def: "", level: "", race: "", attribute: "", banlist: "", sort: "", frameType: "", desc: "", fname: '', desc: ''
     },
     cards: [],
     selectedCard: [],
@@ -17,6 +17,23 @@ export const mainFunction = defineStore('main_function', {
   getters: {
   },
   actions: {
+    callback(response) {
+      axios({
+        method: "post",
+        url: baseUrl + '/google-sign-in',
+        headers: {
+          access_token_google: response.credential
+        }
+      })
+        .then(result => {
+          this.isLogged = true
+          this.router.push('/')
+          localStorage.setItem("access_token", result.data.access_token)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     async login(dataUser) {
       try {
         const data = await axios({
@@ -139,7 +156,6 @@ export const mainFunction = defineStore('main_function', {
           }
         })
         this.cards = cards.data
-        console.log(this.cards)
       } catch (error) {
         console.log(error)
       }
@@ -194,6 +210,19 @@ export const mainFunction = defineStore('main_function', {
       } catch (error) {
         console.log(error)
       }
+    },
+    async logout() {
+      localStorage.removeItem('access_token')
+      this.isLogged = false
+      this.router.push('/login')
+    },
+    async multer(){
+      try {
+        await axios({
+          method: "post",
+          url: baseUrl + '/upload'
+        })
+      } catch (error) {console.log(error)}
     }
   },
 })

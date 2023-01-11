@@ -1,5 +1,12 @@
 <script>
+import { mapActions } from 'pinia';
 import { RouterLink, RouterView } from 'vue-router'
+import { mainFunction } from '../stores/main';
+export default {
+    methods: {
+        ...mapActions(mainFunction, ['logout'])
+    }
+}
 </script>
 <template>
     <div class="d-flex justify-content-center col-2" style="">
@@ -33,11 +40,9 @@ import { RouterLink, RouterView } from 'vue-router'
                         ABOUT US</span>
                 </li>
                 <li class="p-4">
-                    <router-link to="login" class="link text-white">
-                        <span class="lg:block"><img
-                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABiElEQVRYheWXW5GFMAxArwQkIAEJSLgSkIADJCABCUioBCQgAQlnP9rO5oa+eO3OzmaGD5g8TpM0La/XXxWgBd7uaX4DYOZbzP8AACqf7hAA0D4VuAZGYAOGBMDg3kegviNwJQJ7KQHwMl0NPrGXPgHQBfSP94cLPmtHiO0WAnDfm4DtchRAOxgyOrtVsi9HWSawgyUZvATA6fTK17sEwAiDMaFXNAewTexlzQWXq9+A6gaACliFbpcCkE6DqT8K4HTl7thSpFLqAqeTe3Kwed/Y062sVidElaENKcg03X648NncfQ7g/AiNA4w5ALkD5gcAZNN2IYUm26n3AewHUlGnng9e8Xmihn1nG+U8gCxv/GBSjbjdkYXA6uMzg/3YvLwdVe2T490b6EtFdyG49pWcmNLQKMPoqRixD13lTHb1ysGiIBYKfkCwI13brsXBMxC4mvYuUO2exn0zatUevD4UXIGMnJf58MojEA3hG3JMDE/8L2LL4lNtsLVdXZpn7EX0539Ur8gXnNzhOnfNWOgAAAAASUVORK5CYII="
-                                class="h-7 w-7"> LOGOUT</span>
-                    </router-link>
+                    <span @click="logout" class="lg:block"><img
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABiElEQVRYheWXW5GFMAxArwQkIAEJSLgSkIADJCABCUioBCQgAQlnP9rO5oa+eO3OzmaGD5g8TpM0La/XXxWgBd7uaX4DYOZbzP8AACqf7hAA0D4VuAZGYAOGBMDg3kegviNwJQJ7KQHwMl0NPrGXPgHQBfSP94cLPmtHiO0WAnDfm4DtchRAOxgyOrtVsi9HWSawgyUZvATA6fTK17sEwAiDMaFXNAewTexlzQWXq9+A6gaACliFbpcCkE6DqT8K4HTl7thSpFLqAqeTe3Kwed/Y062sVidElaENKcg03X648NncfQ7g/AiNA4w5ALkD5gcAZNN2IYUm26n3AewHUlGnng9e8Xmihn1nG+U8gCxv/GBSjbjdkYXA6uMzg/3YvLwdVe2T490b6EtFdyG49pWcmNLQKMPoqRixD13lTHb1ysGiIBYKfkCwI13brsXBMxC4mvYuUO2exn0zatUevD4UXIGMnJf58MojEA3hG3JMDE/8L2LL4lNtsLVdXZpn7EX0539Ur8gXnNzhOnfNWOgAAAAASUVORK5CYII="
+                            class="h-7 w-7"> LOGOUT</span>
                 </li>
             </ul>
         </nav>

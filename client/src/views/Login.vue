@@ -6,7 +6,7 @@ export default {
     components: {
         RegLogButton
     },
-    data(){
+    data() {
         return {
             data: {
                 username: '',
@@ -15,9 +15,12 @@ export default {
         }
     },
     methods: {
-        ...mapActions(mainFunction, ['login']),
-        logIn(){
+        ...mapActions(mainFunction, ['login', 'callback']),
+        logIn() {
             this.login(this.data)
+        },
+        callbackGoogle(response){
+            this.callback(response)
         }
     }
 }
@@ -26,7 +29,7 @@ export default {
 
     <div class="container text-center thebg thePad">
 
-        <RegLogButton/>
+        <RegLogButton />
 
         <h2>Login</h2>
         <br>
@@ -37,7 +40,7 @@ export default {
             <div class="form-outline mb-4  d-flex justify-content-center">
                 <div class="col-sm-5">
                     <input type="text" id="loginName" class="form-control" style="background: rgba(255, 255, 255, 0.3)"
-                        placeholder="Username"  v-model="data.username"/>
+                        placeholder="Username" v-model="data.username" />
                 </div>
             </div>
 
@@ -46,7 +49,7 @@ export default {
             <div class="form-outline mb-4  d-flex justify-content-center">
                 <div class="col-sm-5">
                     <input type="password" id="loginPassword" class="form-control"
-                        style="background: rgba(255, 255, 255, 0.3)" placeholder="Password"  v-model="data.password"/>
+                        style="background: rgba(255, 255, 255, 0.3)" placeholder="Password" v-model="data.password" />
                 </div>
             </div>
 
@@ -55,7 +58,8 @@ export default {
 
         </form>
         <!-- Pills content -->
-
+        <h3>Or Sign In With Google Account</h3>
+        <GoogleLogin :callback="callbackGoogle" />
     </div>
 </template>
 
