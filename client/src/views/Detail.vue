@@ -1,4 +1,25 @@
-<script></script>
+<script>
+import { mapActions, mapState } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
+export default {
+  computed: {
+    ...mapState(useCounterStore, ["agentDetail"]),
+
+    getParams() {
+      return this.$route.params.uuid;
+    },
+  },
+
+  methods: {
+    ...mapActions(useCounterStore, ["handleDetail"]),
+  },
+
+  created() {
+    this.handleDetail(this.getParams);
+  },
+};
+</script>
 
 <template>
   <!-- Header-->
@@ -25,19 +46,39 @@
     <div class="container bg-dark">
       <div class="row">
         <div class="col border py-2 d-flex justify-content-center">
-          <img
-            class="w-50"
-            src="https://dummyimage.com/600x400/000/fff"
-            alt=""
-          />
+          <img class="w-100" :src="agentDetail.fullPortrait" alt="" />
         </div>
         <div class="col border py-2">
           <div class="text-white">
-            <h1>Name: jett</h1>
-            <p>aaa</p>
-            <p>aaa</p>
-            <p>aaa</p>
-            <p>aaa</p>
+            <!-- <h5>Name: {{ agentDetail.displayName }}</h5> -->
+            <h6>Name:</h6>
+            <p>{{ agentDetail.displayName }}</p>
+
+            <h6>Description:</h6>
+            <p>{{ agentDetail.description }}</p>
+
+            <h6>Role:</h6>
+            <p>{{ agentDetail.role.displayName }}</p>
+
+            <h6>Abilities:</h6>
+            <p>
+              1. {{ agentDetail.abilities[0].displayName }} <br />
+              ({{ agentDetail.abilities[0].description }})
+            </p>
+            <p>
+              2. {{ agentDetail.abilities[1].displayName }} <br />
+              ({{ agentDetail.abilities[1].description }})
+            </p>
+            <p>
+              3. {{ agentDetail.abilities[2].displayName }} <br />
+              ({{ agentDetail.abilities[2].description }})
+            </p>
+
+            <h6>Ultimate:</h6>
+            <p>
+              {{ agentDetail.abilities[3].displayName }} <br />
+              ({{ agentDetail.abilities[3].description }})
+            </p>
           </div>
         </div>
       </div>

@@ -1,4 +1,27 @@
-<script></script>
+<script>
+import { mapActions, mapState, mapWritableState } from "pinia";
+import { useCounterStore } from "../stores/counter";
+import Card from "../components/Card.vue";
+
+export default {
+  components: {
+    Card,
+  },
+
+  created() {
+    this.fetchAgents();
+  },
+
+  computed: {
+    ...mapState(useCounterStore, ["agents", "filterAgents"]),
+    ...mapWritableState(useCounterStore, ["filter"]),
+  },
+
+  methods: {
+    ...mapActions(useCounterStore, ["fetchAgents"]),
+  },
+};
+</script>
 
 <template>
   <!-- Header-->
@@ -25,10 +48,13 @@
     <!-- Search -->
     <div class="container px-4 px-lg-5 mt-5">
       <form action="">
-        <select class="btn btn-dark w-100" name="" id="">
-          <option value="" selected disabled>Role</option>
-          <option value="">1</option>
-          <option value="">2</option>
+        <select v-model="filter" class="btn btn-dark w-100" name="" id="">
+          <!-- <option value="" selected disabled>Role</option> -->
+          <option value="0">All</option>
+          <option value="Initiator">Initiator</option>
+          <option value="Duelist">Duelist</option>
+          <option value="Sentinel">Sentinel</option>
+          <option value="Controller">Controller</option>
         </select>
         <!-- <input class="btn btn-light" type="submit" value="Search" /> -->
       </form>
@@ -40,45 +66,7 @@
         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
       >
         <!-- p1 -->
-        <div class="col mb-5">
-          <div class="card h-100 bg-dark">
-            <!-- Sale badge-->
-            <div
-              class="addFav addFavIcon badge position-absolute btn btn-outline-light"
-              style="top: 0.5rem; right: 0.5rem; font-size: large"
-            >
-              &hearts;
-            </div>
-            <!-- Product image-->
-            <img
-              class="card-img-top"
-              src="https://media.valorant-api.com/agents/f94c3b30-42be-e959-889c-5aa313dba261/fullportrait.png"
-              alt="..."
-            />
-            <!-- Product details-->
-            <div class="card-body p-4">
-              <div class="text-center">
-                <!-- Product name-->
-                <h5 class="fw-bolder text-white">Special Item</h5>
-                <h6 class="text-white">Duelist</h6>
-
-                <!-- Product price-->
-                <span class="text-muted text-decoration-line-through text-white"
-                  >$20.00</span
-                >
-                $18.00
-              </div>
-            </div>
-            <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <div class="text-center">
-                <a class="btn btn-outline-light mt-auto w-100" href="#"
-                  >Detail</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
+        <Card v-for="(item, i) in filterAgents" :key="i" :item="item" />
         <!-- End p1 -->
       </div>
     </div>

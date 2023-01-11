@@ -19,7 +19,7 @@ const router = createRouter({
       component: Favorite,
     },
     {
-      path: "/detail",
+      path: "/detail/:uuid",
       name: "detail",
       component: Detail,
     },
