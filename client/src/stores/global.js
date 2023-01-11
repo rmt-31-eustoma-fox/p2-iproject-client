@@ -11,6 +11,10 @@ export const globalStore = defineStore('global', {
     username: "",
     email: "",
     password: "",
+    query: "",
+    totalItems: 0,
+    books: [],
+    quote: ""
   }),
 
   actions: {
@@ -108,6 +112,43 @@ export const globalStore = defineStore('global', {
           showConfirmButton: false,
           timer: 1500
         })
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async fetchBooks(){
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: this.baseURL + "/books?query=" + this.query
+        })
+
+        this.books = data.items
+        this.totalItems = data.totalItems
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async fetchQuote(){
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: this.baseURL + "/quotes" 
+        })
+
+        this.quote = data
       } catch (error) {
         Swal.fire({
           icon: 'error',

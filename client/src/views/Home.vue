@@ -2,12 +2,26 @@
 import Navbar from "@/components/Navbar.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import Card from "@/components/Card.vue"
+import { mapActions, mapWritableState } from 'pinia';
+import { globalStore } from '../stores/global';
 
 export default {
   components: {
     Navbar,
     Sidebar,
     Card
+  },
+
+  computed: {
+    ...mapWritableState(globalStore, ['books', 'quote'])
+  },
+
+  methods: {
+    ...mapActions(globalStore, ['fetchQuote'])
+  },
+
+  created(){
+    this.fetchQuote()
   }
 }
 </script>
@@ -25,8 +39,8 @@ export default {
           <div class="container my-5">
             <div class="row align-items-center g-5">
               <div class="col-lg-6 text-center text-lg-start">
-                <h3>"Open Your Mind, See The Real World"</h3>
-                <p class="mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                <h3>"{{ quote.quote }}"</h3>
+                <p class="mb-4 pb-2">{{ quote.author }}</p>
               </div>
               <div class="col-lg-6 text-center text-lg-end overflow-hidden">
                 <img class="img-fluid" src="https://cdn.pixabay.com/photo/2017/01/31/18/44/bible-2026336__480.png" alt="">
@@ -34,7 +48,9 @@ export default {
             </div>
           </div>
         </div>
-        <Card />
+        <div class="row g-4">
+          <Card v-for="book in books" :key="book.id" :book="book" />
+        </div>
       </main>
     </div>
   </div>
