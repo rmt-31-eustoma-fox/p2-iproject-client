@@ -66,9 +66,13 @@ export default {
             this.dataBook.pageCount = this.book.volumeInfo.pageCount
             this.dataBook.isbn = this.formatIsbn
             if(this.book.saleInfo.retailPrice){
-                this.dataBook.price = this.book.saleInfo.retailPrice.amount
+                if(this.book.saleInfo.retailPrice.amount > 0){
+                    this.dataBook.price = this.book.saleInfo.retailPrice.amount
+                } else {
+                    this.dataBook.price = 20000
+                }
             } else {
-                this.dataBook.price = 0
+                this.dataBook.price = 22000
             }
             this.dataBook.description = this.book.volumeInfo.description
             console.log(this.dataBook, '<<<<< cek bro');

@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import MyBook from '../views/MyBook.vue'
+import Portal from '../views/Portal.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/mybook',
       name: 'mybook',
       component: MyBook
+    },
+    {
+      path: '/portal',
+      name: 'portal',
+      component: Portal
     }
   ]
 })

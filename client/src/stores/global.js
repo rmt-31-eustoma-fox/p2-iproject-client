@@ -16,6 +16,7 @@ export const globalStore = defineStore('global', {
     books: [],
     mybooks: [],
     quote: "",
+    news: [],
     dataBook: {
       title: "",
       code: "",
@@ -25,7 +26,7 @@ export const globalStore = defineStore('global', {
       publishedDate: "",
       pageCount: "",
       isbn: "",
-      price: 0,
+      price: 50000,
       description: ""
     }
   }),
@@ -194,7 +195,7 @@ export const globalStore = defineStore('global', {
           }
         })
         window.snap.pay(data);
-        console.log(data, '<<<<< cek token');
+        // console.log(data, '<<<<< cek token');
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -238,6 +239,24 @@ export const globalStore = defineStore('global', {
           showConfirmButton: false,
           timer: 1500
         })
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async fetchNews(){
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: this.baseURL + "/news",
+          headers: {access_token: localStorage.access_token}
+        })
+        this.news = data.articles
       } catch (error) {
         Swal.fire({
           icon: 'error',

@@ -40,11 +40,13 @@ export default {
                         <thead>
                             <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Cover</th>
+                            <!-- <th scope="col">Cover</th> -->
                             <th scope="col">Title</th>
                             <th scope="col">Author</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Publisher</th>
+                            <th scope="col">ISBN</th>
                             <th scope="col">Date Added</th>
+                            <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
