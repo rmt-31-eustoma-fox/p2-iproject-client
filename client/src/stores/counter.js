@@ -346,5 +346,41 @@ export const useCounterStore = defineStore("counter", {
         });
       }
     },
+
+    async bmiHandler(value) {
+      try {
+        this.isLoad = true;
+        const { data } = await axios({
+          url: this.baseUrl + "/bmi",
+          method: "post",
+          data: {
+            age: value.age,
+            weight: value.weight,
+            height: value.height,
+          },
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+
+        Swal.fire({
+          icon: "info",
+          title: "Result",
+          html: `Health: ${data.data.health} <br>
+          BMI: ${data.data.bmi}<br>
+          Healthy BMI Range: ${data.data.healthy_bmi_range}
+            `,
+        });
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+        console.log(error, "<<<2");
+
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      }
+    },
   },
 });

@@ -4,9 +4,11 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        hero: "url('https://i.ibb.co/mBqxCLF/baking-cooking-background-frame-ingredients-kitchen-items-baking-cakes-kitchen-utensils-flour-eggs-b.jpg')",
+        hero: "url('https://img.freepik.com/free-photo/food-background-with-italian-food-ingredients_1220-3465.jpg?w=2000')",
       },
     },
   },
   plugins: [],
 };
+
+// https://i.ibb.co/mBqxCLF/baking-cooking-background-frame-ingredients-kitchen-items-baking-cakes-kitchen-utensils-flour-eggs-b.jpg

@@ -3,6 +3,7 @@ import { mapActions, mapWritableState, mapState } from "pinia";
 import axios from "axios";
 import { useCounterStore } from "../stores/counter";
 import CartRow from "../components/CartRow.vue";
+import Swal from "sweetalert2";
 
 export default {
   components: {
@@ -11,6 +12,44 @@ export default {
 
   methods: {
     ...mapActions(useCounterStore, ["fetchCart", "addOrderHandler"]),
+
+    async midtrans() {
+      try {
+        const { data } = await axios.post(
+          this.baseUrl + "/midtrans",
+          {
+            amount: this.totalPrice,
+          },
+          {
+            headers: {
+              access_token: localStorage.access_token,
+            },
+          }
+        );
+
+        const cb = this.addOrderHandler;
+        await window.snap.pay(data.transactionToken, {
+          onSuccess() {
+            cb();
+          },
+          onClose() {
+            Swal.fire({
+              icon: "error",
+              title: "Need Payment!",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+          },
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Your Cart is Empty!",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    },
   },
   computed: {
     ...mapWritableState(useCounterStore, ["carts", "totalPrice", "baseUrl"]),
@@ -48,7 +87,7 @@ export default {
 
                   <div class="flex justify-end">
                     <button
-                      @click.prevent="addOrderHandler"
+                      @click="midtrans"
                       href=""
                       class="block px-5 py-3 text-sm text-gray-100 font-medium transition bg-[#9c6644] rounded hover:bg-[#b08968]"
                     >
