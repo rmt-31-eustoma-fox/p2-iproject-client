@@ -18,6 +18,36 @@ export const useCounterStore = defineStore("counter", {
 
   getters: {},
   actions: {
+    async registerHandler(value) {
+      try {
+        this.isLoad = true;
+        const { data } = await axios({
+          url: this.baseUrl + "/register",
+          method: "post",
+          data: {
+            email: value.email,
+            password: value.password,
+          },
+        });
+
+        this.router.push("/login");
+
+        Swal.fire({
+          icon: "success",
+          title: "Success Create an Account!",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      }
+    },
+
     async logoutHandler() {
       try {
         this.isLoad = true;

@@ -65,7 +65,7 @@ export default {
             <div v-if="!loginStatus" class="sm:flex sm:gap-4">
               <router-link
                 to="/login"
-                class="rounded-md bg-[#457b9d] px-5 py-2.5 text-sm font-medium text-white shadow"
+                class="rounded-md bg-[#7f5539] px-5 py-2.5 text-sm font-medium text-white shadow"
                 href=""
               >
                 Log in
@@ -75,7 +75,7 @@ export default {
             <div v-if="!loginStatus" class="hidden sm:flex">
               <router-link
                 to="/register"
-                class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-[#457b9d]"
+                class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-[#7f5539]"
                 href=""
               >
                 Register
@@ -85,7 +85,7 @@ export default {
             <div v-if="loginStatus" class="sm:flex sm:gap-4">
               <a
                 @click.prevent="logoutHandler"
-                class="rounded-md bg-[#457b9d] px-5 py-2.5 text-sm font-medium text-white shadow"
+                class="rounded-md bg-[#7f5539] px-5 py-2.5 text-sm font-medium text-white shadow"
                 href=""
               >
                 Log out
