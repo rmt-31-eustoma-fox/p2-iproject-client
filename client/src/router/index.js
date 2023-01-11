@@ -5,6 +5,7 @@ import Detail from "../views/Detail.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Leaderboard from "../views/Leaderboard.vue";
+import Notfound from "../views/Notfound.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: "/leaderboard",
       name: "leaderboard",
       component: Leaderboard,
+    },
+    {
+      path: "/:catchAll(.*)",
+      name: "NF",
+      component: Notfound,
     },
   ],
 });
