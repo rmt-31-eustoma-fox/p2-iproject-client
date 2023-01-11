@@ -1,23 +1,77 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomePage from "../views/HomePage.vue";
+import LoginPage from "../views/LoginPage.vue";
+import DetailProductPage from "../views/DetailProductPage.vue";
+import RegisterPage from "../views/RegisterPage.vue";
+import CartPage from "../views/CartPage.vue";
+import OrderHistoryPage from "../views/OrderHistoryPage.vue";
+import NotFoundPage from "../views/NotFoundPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "home",
-      component: HomeView,
+      name: "HomePage",
+      component: HomePage,
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      path: "/login",
+      name: "LoginPage",
+      component: LoginPage,
+    },
+    {
+      path: "/products/:id",
+      name: "DetailProductPage",
+      component: DetailProductPage,
+    },
+    {
+      path: "/register",
+      name: "RegisterPage",
+      component: RegisterPage,
+    },
+    {
+      path: "/cart",
+      name: "CartPage",
+      component: CartPage,
+    },
+    {
+      path: "/order-history",
+      name: "OrderHistoryPage",
+      component: OrderHistoryPage,
+    },
+    {
+      path: "/:pathMatch(.*)",
+      name: "NotFoundPage",
+      component: NotFoundPage,
+    },
+    {
+      path: "/products/404-not-found",
+      name: "NotFoundProduct",
+      component: NotFoundPage,
+    },
+    {
+      path: "/products/:pathMatch(.*)",
+      name: "NotFoundProduct2",
+      component: NotFoundPage,
     },
   ],
+});
+
+//navigation guard
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.access_token;
+  if (
+    (to.name === "CartPage" || to.name === "OrderHistoryPage") &&
+    !isAuthenticated
+  ) {
+    next({ name: "LoginPage" });
+  } else if (
+    (to.name === "RegisterPage" || to.name === "LoginPage") &&
+    isAuthenticated
+  ) {
+    next({ name: "HomePage" });
+  } else next();
 });
 
 export default router;
