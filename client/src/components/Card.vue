@@ -1,5 +1,5 @@
 <script>
-import { mapWritableState } from 'pinia';
+import { mapActions, mapWritableState } from 'pinia';
 import { globalStore } from '../stores/global';
 import Swal from 'sweetalert2';
 
@@ -10,16 +10,40 @@ export default {
     },
 
     computed: {
+        ...mapWritableState(globalStore, ['dataBook']),
+
         formatPrice(){
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR'}).format(this.book.saleInfo.retailPrice? this.book.saleInfo.retailPrice.amount : "-")
+            if(this.book.saleInfo.retailPrice){
+                return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR'}).format(this.book.saleInfo.retailPrice.amount)
+            } else {
+                return "Rp 0,00"
+            }
         },
 
-        // formatAuhtor(){
-        //     return this.book.volumeInfo.authors.join(", ")
-        // }
+        formatAuthor(){
+            if(this.book.volumeInfo.authors){
+                if(this.book.volumeInfo.authors.length != 0){
+                    return this.book.volumeInfo.authors.join(", ")
+                } else {
+                    return "-"
+                }
+            } else {
+                return "-"
+            }
+        },
+
+        formatIsbn(){
+            if(this.book.volumeInfo.industryIdentifiers){
+                return this.book.volumeInfo.industryIdentifiers[0].identifier
+            } else {
+                return "-"
+            }
+        }
     },
 
     methods: {
+        ...mapActions(globalStore, ['addOrder']),
+
         clickDesc(){
             Swal.fire({
                 title: '<strong> Descripttion </strong>',
@@ -30,6 +54,25 @@ export default {
                 // showCancelButton: true,
                 focusConfirm: false,
             })
+        },
+
+        clickBuy(){
+            this.dataBook.title = this.book.volumeInfo.title
+            this.dataBook.code = this.book.id
+            this.dataBook.authors = this.formatAuthor
+            this.dataBook.imageUrl = this.book.volumeInfo.imageLinks.smallThumbnail
+            this.dataBook.publisher = this.book.volumeInfo.publisher
+            this.dataBook.publishedDate = this.book.volumeInfo.publishedDate
+            this.dataBook.pageCount = this.book.volumeInfo.pageCount
+            this.dataBook.isbn = this.formatIsbn
+            if(this.book.saleInfo.retailPrice){
+                this.dataBook.price = this.book.saleInfo.retailPrice.amount
+            } else {
+                this.dataBook.price = 0
+            }
+            this.dataBook.description = this.book.volumeInfo.description
+            console.log(this.dataBook, '<<<<< cek bro');
+            this.addOrder()
         }
     }
     
@@ -48,15 +91,15 @@ export default {
                         <ul class="list-group">
                             <li class="list-group-item"><span class="fw-bold">{{ formatPrice }}</span></li>
                         </ul>
-                        <button class="btn btn-dark mt-2">Add to Cart</button>
+                        <button @click.prevent="clickBuy" class="btn btn-dark mt-2">Buy</button>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <span class="fw-bolder fs-6">{{ book.volumeInfo.title }}</span><br><br>
                 <ul>
-                    <!-- <li>Author: </li> -->
-                    <!-- <span class="fw-bold">{{ formatAuhtor }}</span> -->
+                    <li>Author: </li>
+                    <span class="fw-bold">{{ formatAuthor }}</span>
                     <li>Publisher: <span class="fw-bold">{{ book.volumeInfo.publisher }}</span></li>
                     <li>Published Date: <span class="fw-bold">{{ book.volumeInfo.publishedDate? book.volumeInfo.publishedDate : "-" }}</span></li>
                     <li>Page Count: <span class="fw-bold">{{ book.volumeInfo.pageCount? book.volumeInfo.pageCount : "-" }}</span></li>

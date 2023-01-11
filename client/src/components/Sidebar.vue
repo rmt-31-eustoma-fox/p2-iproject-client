@@ -21,7 +21,7 @@ export default {
 
 <template>
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="position-sticky pt-5">
+      <div class="position-sticky pt-4">
         <ul class="nav flex-column">
           <li class="nav-item">
             <a @click.prevent="clickMovePage" class="nav-link" aria-current="page" href="#">
@@ -36,10 +36,10 @@ export default {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <router-link to="/mybook" class="nav-link" href="#">
               <i class="fa-solid fa-book"></i>
               My Books
-            </a>
+            </router-link>
           </li>
         </ul>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

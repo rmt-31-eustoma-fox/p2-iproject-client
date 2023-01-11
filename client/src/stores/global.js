@@ -14,7 +14,20 @@ export const globalStore = defineStore('global', {
     query: "",
     totalItems: 0,
     books: [],
-    quote: ""
+    mybooks: [],
+    quote: "",
+    dataBook: {
+      title: "",
+      code: "",
+      authors: "",
+      imageUrl: "",
+      publisher: "",
+      publishedDate: "",
+      pageCount: "",
+      isbn: "",
+      price: 0,
+      description: ""
+    }
   }),
 
   actions: {
@@ -126,7 +139,8 @@ export const globalStore = defineStore('global', {
       try {
         const { data } = await axios({
           method: "get",
-          url: this.baseURL + "/books?query=" + this.query
+          url: this.baseURL + "/books?query=" + this.query,
+          headers: {access_token: localStorage.access_token}
         })
 
         this.books = data.items
@@ -145,10 +159,85 @@ export const globalStore = defineStore('global', {
       try {
         const { data } = await axios({
           method: "get",
-          url: this.baseURL + "/quotes" 
+          url: this.baseURL + "/quotes",
+          headers: {access_token: localStorage.access_token}
         })
 
         this.quote = data
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async addOrder(payload){
+      try {
+        const { data } = await axios({
+          method: "post",
+          url: this.baseURL + "/mybooks",
+          headers: {access_token: localStorage.access_token},
+          data: {
+            title: this.dataBook.title,
+            code: this.dataBook.code,
+            authors: this.dataBook.authors,
+            imageUrl: this.dataBook.imageUrl,
+            publisher: this.dataBook.publisher,
+            publishedDate: this.dataBook.publishedDate,
+            pageCount: this.dataBook.pageCount,
+            isbn: this.dataBook.isbn,
+            price: this.dataBook.price,
+            description: this.dataBook.description
+          }
+        })
+        window.snap.pay(data);
+        console.log(data, '<<<<< cek token');
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async fetchMyBooks(){
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: this.baseURL + "/mybooks",
+          headers: {access_token: localStorage.access_token}
+        })
+        console.log(data);
+        this.mybooks = data
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async updateStatus(id){
+      try {
+        const { data } = await axios({
+          method: "patch",
+          url: this.baseURL + "/mybooks/" + id,
+          headers: {access_token: localStorage.access_token}
+        })
+        this.fetchMyBooks()
+        Swal.fire({
+          icon: 'success',
+          title: data.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
       } catch (error) {
         Swal.fire({
           icon: 'error',
