@@ -1,115 +1,132 @@
 <script>
+  import { mapActions, mapState } from "pinia";
+  import { useTeamStore } from "../stores/team";
+  import PlayerTable from "../components/PlayerTable.vue";
+
   export default {
+    components: {
+      PlayerTable,
+    },
     computed: {
-      teamName() {
-        const name = this.$route.params.teamName
-          .split("-")
-          .join(" ")
-          .toUpperCase();
-        return name;
-      },
+      ...mapState(useTeamStore, ["team"]),
+    },
+    methods: {
+      ...mapActions(useTeamStore, [
+        "fetchById",
+        "fetchTeamStatistics",
+        "fetchPlayerList",
+      ]),
+    },
+    created() {
+      this.fetchById(+this.$route.params.id);
+      this.fetchTeamStatistics(+this.$route.params.id);
+      this.fetchPlayerList(+this.$route.params.id);
     },
   };
 </script>
 
 <template>
-  <div class="container my-5">
+  <div class="container mt-5" style="height: 85vh">
     <div class="border border-0 rounded p-5 bg-white">
-      <div class="d-flex align-items-center">
+      <div class="d-flex">
         <div class="flex-shrink-0">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/id/thumb/0/01/Golden_State_Warriors_logo.svg/1200px-Golden_State_Warriors_logo.svg.png"
-            style="width: 150px"
-          />
+          <img :src="team.logo" style="width: 150px" />
         </div>
-        <div class="flex-grow-1 ms-3">
-          <h5 class="h5">Golden State Warriors</h5>
-          <h3 class="h3"><strong>GSW</strong></h3>
+        <div class="ms-3">
+          <h5 class="h5">{{ team.name }}</h5>
           <h3 class="h3">
-            <strong
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-custom-class="custom-tooltip"
-              data-bs-title="This top tooltip is themed via CSS variables."
-              >#11</strong
+            <strong>{{ team.code }}</strong>
+          </h3>
+          <h3 class="h3">
+            <strong>#{{ team.id }}</strong
             >-TeamID
           </h3>
         </div>
+        <div class="flex-grow-1 ms-3">
+          <span>Conference</span>
+          <h3 class="h3">
+            {{ team.leagues ? team.leagues.standard.conference : "" }}
+          </h3>
+          <span>Division</span>
+          <h3 class="h3">
+            {{ team.leagues ? team.leagues.standard.division : "" }}
+          </h3>
+        </div>
       </div>
+
       <table class="table my-5">
         <thead>
           <tr>
             <th
               style="vertical-align: middle"
-              colspan="5"
+              colspan="7"
               class="col-12 text-center bg-danger text-white"
             >
               PERFORMANCE
             </th>
-            <th colspan="1" class="col-12 text-center bg-danger text-white">
-              <select name="" class="form-control object-fit-none" id="">
-                <option value="2022">2022</option>
-              </select>
-            </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="text-center col-2">GAMES <br />55</td>
-            <td class="text-center col-2">PPG <br />55</td>
-            <td class="text-center col-2">APG <br />55</td>
-            <td class="text-center col-2">RPG <br />55</td>
-            <td class="text-center col-2">PFPG <br />55</td>
-            <td class="text-center col-2">SPG <br />55</td>
-          </tr>
-        </tbody>
-      </table>
-      <table class="table my-5">
-        <thead>
-          <tr>
-            <th
-              style="vertical-align: middle"
-              class="col-12 text-center bg-danger text-white"
-            >
-              LAST 5 GAMES
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              class="d-flex flex-row justify-content-center"
-              style="vertical-align: middle"
-            >
-              <div class="d-flex flex-column">
-                <span>42</span>
-                <span>42</span>
-                <span>42</span>
-                <span>42</span>
-              </div>
-              <h3 class="p-4">GSW</h3>
-              <img
-                src="https://upload.wikimedia.org/wikipedia/id/thumb/0/01/Golden_State_Warriors_logo.svg/1200px-Golden_State_Warriors_logo.svg.png"
-                style="width: auto; height: 100px"
-                class="mx-3"
-              />
-              <h3 class="p-4">32 - 32</h3>
-              <img
-                src="https://upload.wikimedia.org/wikipedia/id/thumb/0/01/Golden_State_Warriors_logo.svg/1200px-Golden_State_Warriors_logo.svg.png"
-                style="width: auto; height: 100px"
-                class="mx-3"
-              />
-              <h3 class="p-4">GSW</h3>
-              <div class="d-flex flex-column">
-                <span>42</span>
-                <span>42</span>
-                <span>42</span>
-                <span>42</span>
-              </div>
+            <td class="text-center">
+              GAMES <br />{{ team.statistics ? team.statistics.games : "" }}
+            </td>
+            <td class="text-center">
+              PPG <br />{{
+                (team.statistics
+                  ? team.statistics.points / team.statistics.games
+                  : ""
+                ).toFixed(1)
+              }}
+            </td>
+            <td class="text-center">
+              APG <br />{{
+                (team.statistics
+                  ? team.statistics.assists / team.statistics.games
+                  : ""
+                ).toFixed(1)
+              }}
+            </td>
+            <td class="text-center">
+              RPG <br />{{
+                (team.statistics
+                  ? team.statistics.totReb / team.statistics.games
+                  : ""
+                ).toFixed(1)
+              }}
+            </td>
+            <td class="text-center">
+              PFPG <br />{{
+                (team.statistics
+                  ? team.statistics.pFouls / team.statistics.games
+                  : ""
+                ).toFixed(1)
+              }}
+            </td>
+            <td class="text-center">
+              SPG <br />{{
+                (team.statistics
+                  ? team.statistics.steals / team.statistics.games
+                  : ""
+                ).toFixed(1)
+              }}
+            </td>
+            <td class="text-center">
+              BPG <br />{{
+                (team.statistics
+                  ? team.statistics.blocks / team.statistics.games
+                  : ""
+                ).toFixed(1)
+              }}
             </td>
           </tr>
         </tbody>
       </table>
+
+      <div>
+        <h5 class="h5 my-3">PLAYER LIST</h5>
+        <PlayerTable :players="team.players" />
+      </div>
     </div>
   </div>
 </template>
