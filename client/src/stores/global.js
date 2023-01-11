@@ -7,12 +7,52 @@ export const globalStore = defineStore('global', {
   state: () => ({
     baseURL: "http://localhost:3000",
     isLogin: false,
+    nickname: "",
     username: "",
     email: "",
     password: "",
   }),
 
   actions: {
-    
+    async register(){
+      try {
+        const { data } = await axios({
+          method: "post",
+          url: this.baseURL + "/register",
+          data: {
+            username: this.username,
+            email: this.email,
+            password: this.password
+          }
+        })
+        
+        localStorage.setItem("access_token", data.access_token)
+        localStorage.setItem("name", data.name)
+        this.isLogin = true
+        this.nickname = data.name
+        this.router.push("/")
+
+        await Swal.fire({
+          icon: 'success',
+          title: `${data.email} successfully registered`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+
+        Swal.fire({
+          icon: 'success',
+          title: `Welcome ${data.name}`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    }
   }
 })

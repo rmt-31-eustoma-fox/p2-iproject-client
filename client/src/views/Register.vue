@@ -1,4 +1,24 @@
 <script>
+import { mapActions, mapWritableState } from 'pinia';
+import { globalStore } from '../stores/global';
+
+
+export default {
+    computed: {
+        ...mapWritableState(globalStore, ['username', 'email', 'password'])
+    },
+
+    methods: {
+        ...mapActions(globalStore, ['register']),
+
+        clickReg(){
+            this.register()
+            this.username = "",
+            this.email = "",
+            this.password = ""
+        }
+    }
+}
 </script>
 
 <template>
@@ -10,7 +30,7 @@
                     <h2>Sign Up</h2>
                 </div>
                 <div class="px-5">
-                    <form id="register-form">
+                    <form @submit.prevent="clickReg" id="register-form">
                         <div class="form-floating">
                             <input v-model="username" type="text" class="form-control" id="floatingName" placeholder="Name" required>
                             <label for="floatingName">Username</label>
