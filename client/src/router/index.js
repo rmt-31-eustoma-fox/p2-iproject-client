@@ -4,6 +4,7 @@ import Favorite from "../views/Favorite.vue";
 import Detail from "../views/Detail.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import Leaderboard from "../views/Leaderboard.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: "/register",
       name: "register",
       component: Register,
+    },
+    {
+      path: "/leaderboard",
+      name: "leaderboard",
+      component: Leaderboard,
     },
   ],
 });

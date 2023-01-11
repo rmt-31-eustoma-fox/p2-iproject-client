@@ -12,6 +12,7 @@ export const useCounterStore = defineStore("counter", {
     filter: "0",
     favorites: [],
     logged: false,
+    leads: [],
   }),
 
   getters: {
@@ -252,6 +253,20 @@ export const useCounterStore = defineStore("counter", {
             showConfirmButton: false,
             timer: 1500,
           });
+        });
+    },
+
+    fetchLeaderboards() {
+      axios({
+        method: "get",
+        url: baseUrl + "/leaderboard",
+      })
+        .then(({ data }) => {
+          // console.log(data);
+          this.leads = data;
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
