@@ -14,10 +14,54 @@ export const useCounterStore = defineStore("counter", {
     categories: [],
     categorySort: "",
     product: {},
+    options: {
+      page: 1,
+    },
   }),
 
   getters: {},
   actions: {
+    async fetchProduct() {
+      try {
+        this.isLoad = true;
+        let urlParam = this.baseUrl + "/products";
+        if (this.categorySort) {
+          urlParam += "?filter[category]=" + this.categorySort;
+        }
+        const { data } = await axios({
+          url: urlParam,
+          method: "get",
+        });
+        this.products = data;
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      }
+    },
+
+    async fetchCategory() {
+      try {
+        this.isLoad = true;
+        const { data } = await axios({
+          url: this.baseUrl + "/categories",
+          method: "get",
+        });
+        this.categories = data;
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      }
+    },
+
     async loginHandler(value) {
       try {
         this.isLoad = true;
@@ -127,6 +171,56 @@ export const useCounterStore = defineStore("counter", {
         Swal.fire({
           icon: "error",
           title: error.response.data.message,
+        });
+      }
+    },
+
+    async fetchCart() {
+      try {
+        this.isLoad = true;
+        const { data } = await axios({
+          url: this.baseUrl + "/cart",
+          method: "get",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.carts = data;
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      }
+    },
+
+    async addCartHandler(id) {
+      try {
+        this.isLoad = true;
+        const { data } = await axios({
+          url: this.baseUrl + "/cart/" + id,
+          method: "post",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.fetchCart();
+        Swal.fire({
+          icon: "success",
+          title: "Product Successfully added to Shopping Cart",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+        Swal.fire({
+          icon: "error",
+          title: "Please Login First!",
+          timer: 1500,
+          showConfirmButton: false,
         });
       }
     },
