@@ -5,7 +5,9 @@ const url = "http://localhost:3000"
 export const useCounterStore = defineStore('counter', {
   state: () => ({ 
     count: 0, 
-    name: 'Eduardo' 
+    name: 'Eduardo',
+    roomsList: "",
+    translatedMessage: ""
   }),
   getters: {
     doubleCount: (state) => state.count * 2,
@@ -22,7 +24,8 @@ export const useCounterStore = defineStore('counter', {
         .then((data) => {
           console.log(data);
           localStorage.setItem("access_token", data.data.access_token);
-          this.router.push("/mode")
+          localStorage.username = data.data.username
+          this.router.push("/lobby")
         })
         .catch((err) => console.log(err))
     },
@@ -52,8 +55,55 @@ export const useCounterStore = defineStore('counter', {
             password: user.password
           }
         })
+        console.log(data)
         localStorage.access_token = data.access_token
-        this.router.push("/mode")
+        localStorage.username = data.username
+        this.router.push("/lobby")
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async addRoom(name){
+      try {
+        console.log(name)
+        await axios({
+          url: url+"/rooms/addroom",
+          method: "post",
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: {
+            name
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async getRoom(){
+      try {
+        const {data} = await axios({
+          url: url+"/rooms/getroom",
+          method: "get",
+          headers: {
+            access_token: localStorage.access_token
+          },
+        })
+        this.roomsList = data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async translate(message){
+      try {
+        const {data} = await axios({
+          url: url+"/translate/",
+          method: "post",
+          data: {
+            text: message
+          }
+        })
+        this.translatedMessage = data.translatedText
       } catch (error) {
         console.log(error)
       }

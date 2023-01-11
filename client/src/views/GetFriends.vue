@@ -1,54 +1,95 @@
 <script>
-import CardRoom from "../components/CardRoom.vue";
 import { useCounterStore } from "../stores/counter";
 import { mapActions, mapWritableState } from "pinia";
+import io from "socket.io-client";
 export default {
-  data(){
-    return{
-      isSubscribed: ""
-    }
-  },
-  components: {
-    CardRoom,
+  data() {
+    return {
+      text: "",
+      messages: [],
+    };
   },
   computed: {
-    ...mapWritableState(useCounterStore, ["roomsList"]),
+    ...mapWritableState(useCounterStore, ["roomsList", "translatedMessage"]),
   },
   methods: {
-    ...mapActions(useCounterStore, ["addRoom", "getRoom"]),
+    ...mapActions(useCounterStore, ["addRoom", "getRoom", "translate"]),
     addRoomHandler() {
       this.addRoom(this.room);
       this.getRoom();
     },
+    sendMessage() {
+      this.addMessage();
+      this.text = "";
+    },
+    addMessage() {
+      const message = {
+        id: new Date(),
+        text: this.text,
+        user: localStorage.username,
+      };
+      this.messages.push(message);
+      console.log(this.messages);
+      this.socketInstance.emit("message", message);
+    },
+    async translateHandler() {
+      await this.translate(this.text);
+      console.log(this.translatedMessage);
+      const message = {
+        id: new Date(),
+        text: this.translatedMessage,
+        user: localStorage.username,
+      };
+      await this.messages.push(message);
+      this.translatedMessage = "";
+      await this.socketInstance.emit("message", message);
+    },
   },
   created() {
     this.getRoom();
-    this.isSubscribed = localStorage.isSubscribed
+  },
+  mounted() {
+    this.socketInstance = io("http://localhost:3000");
+    const room = "lobby";
+    this.socketInstance.on("message: received", (data) => {
+      this.messages.push(data);
+    });
+
+    this.socketInstance.on('chat message', (data) => {
+      const message = {
+        id: new Date(),
+        text: `${data.username} has joined the ${data.room} room`,
+        user: "notification: ",
+      };
+      this.messages.push(message);
+    });
+
+      this.socketInstance.emit("join", { room: room, username: localStorage.username });
+
   },
 };
 </script>
 
 <template>
   <section>
-    <div class="room-header">
-      <h1>Choose a room</h1>
-    </div>
-    <div v-if="isSubscribed" class="create-room">
-      <form @submit.prevent="addRoomHandler">
-        <input v-model="room" class="input-room" type="text" />
-        <button class="btn btn-outline-light btn-lg px-5" type="submit">
-          create room
-        </button>
-      </form>
-    </div>
     <div class="container">
+      <div class="card">
+        <div class="list-container">
+          <div v-for="message in messages" :key="message.id">
+            <b>{{ message.user }}</b>
+            <b>: {{ message.text }}</b>
+          </div>
+        </div>
+      </div>
       <div>
-        <CardRoom
-          v-for="(room, index) in roomsList"
-          :key="index"
-          :room="room"
-          :index="index"
-        />
+        <textarea
+          v-model="text"
+          class="input-message"
+          @keyup.enter="sendMessage"
+        ></textarea>
+        <button @click="translateHandler" class="btn btn-primary">
+          Translate: id-en
+        </button>
       </div>
     </div>
   </section>
@@ -61,6 +102,20 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   color: white;
+}
+
+.card {
+  width: 1000px;
+  height: 1200px;
+}
+
+.input-message {
+  width: 900px;
+  height: 200px;
+  background-color: black;
+}
+.list-containe b {
+  padding: 10px;
 }
 
 section {
@@ -79,34 +134,9 @@ div.card {
   background: #000;
 }
 
-.input-chat {
-  display: flex;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
 .input-room {
   background: #000;
   margin-right: 8px;
-}
-
-.container-chat {
-  display: flex;
-  border: 3px solid rgb(19, 19, 19);
-  width: 260px;
-  height: 340px;
-  margin-bottom: 30px;
-  margin-top: 52px;
-  margin-right: 30px;
-}
-.text-message {
-  background-color: black;
-  width: 260px;
-  height: 70px;
 }
 
 .room-header {
@@ -134,38 +164,24 @@ div.card {
   text-decoration: none;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  min-height: 100vh;
-  background: #232427;
-}
-
 body .container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 40px 0;
+  max-height: 1300px;
 }
 
 body .container .card {
   position: relative;
   min-width: 300px;
-  height: 370px;
-  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+  height: 450px;
+  box-shadow: inset 5px 5px 5px rgba(251, 250, 250, 0.2),
     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
-    5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+    5px 5px 15px rgba(255, 255, 255, 0.3),
+    -5px -5px 15px rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   margin: 30px;
   transition: 0.5s;

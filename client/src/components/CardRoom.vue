@@ -1,57 +1,20 @@
 <script>
-import CardRoom from "../components/CardRoom.vue";
-import { useCounterStore } from "../stores/counter";
-import { mapActions, mapWritableState } from "pinia";
 export default {
-  data(){
-    return{
-      isSubscribed: ""
-    }
-  },
-  components: {
-    CardRoom,
-  },
-  computed: {
-    ...mapWritableState(useCounterStore, ["roomsList"]),
-  },
-  methods: {
-    ...mapActions(useCounterStore, ["addRoom", "getRoom"]),
-    addRoomHandler() {
-      this.addRoom(this.room);
-      this.getRoom();
-    },
-  },
-  created() {
-    this.getRoom();
-    this.isSubscribed = localStorage.isSubscribed
-  },
-};
+  props: ["room", "index"]
+}
 </script>
 
 <template>
-  <section>
-    <div class="room-header">
-      <h1>Choose a room</h1>
-    </div>
-    <div v-if="isSubscribed" class="create-room">
-      <form @submit.prevent="addRoomHandler">
-        <input v-model="room" class="input-room" type="text" />
-        <button class="btn btn-outline-light btn-lg px-5" type="submit">
-          create room
-        </button>
-      </form>
-    </div>
-    <div class="container">
-      <div>
-        <CardRoom
-          v-for="(room, index) in roomsList"
-          :key="index"
-          :room="room"
-          :index="index"
-        />
+  <div class="card">
+    <div class="box">
+      <div class="content">
+        <h2>{{ index+1 }}</h2>
+        <h3>{{ room.name }}</h3>
+        <p>Are you ready for the war?</p>
+        <router-link :to="room.name">Go to Room</router-link>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <style scoped>
@@ -79,34 +42,9 @@ div.card {
   background: #000;
 }
 
-.input-chat {
-  display: flex;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
 .input-room {
   background: #000;
   margin-right: 8px;
-}
-
-.container-chat {
-  display: flex;
-  border: 3px solid rgb(19, 19, 19);
-  width: 260px;
-  height: 340px;
-  margin-bottom: 30px;
-  margin-top: 52px;
-  margin-right: 30px;
-}
-.text-message {
-  background-color: black;
-  width: 260px;
-  height: 70px;
 }
 
 .room-header {

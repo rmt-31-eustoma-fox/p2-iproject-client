@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import homePage from "../views/HomePage.vue"
 import LandingPage from "../views/LandingPage.vue"
 import LoginPage from "../views/LoginPage.vue"
 import RegisterPage from "../views/RegisterPage.vue"
-import SinglePlayer from "../views/SinglePlayer.vue"
-import LobbyRoom from "../views/LobbyRoom.vue"
+import GetFriends from "../views/GetFriends.vue"
+import Lobby from "../views/LobbyRoom.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,19 +23,14 @@ const router = createRouter({
       component: LoginPage
     },
     {
-      path: '/mode',
-      name: 'mode',
-      component: homePage
+      path: '/lobby',
+      name: 'lobby',
+      component: Lobby
     },
     {
-      path: '/singleplayer',
-      name: 'singleplayer',
-      component: SinglePlayer
-    },
-    {
-      path: '/multiplayer',
-      name: 'multiplayer',
-      component: LobbyRoom
+      path: '/get-friends',
+      name: 'get-friends',
+      component: GetFriends
     },
   ]
 })

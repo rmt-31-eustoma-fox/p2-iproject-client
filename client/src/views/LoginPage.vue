@@ -3,7 +3,7 @@ import { mapActions } from "pinia";
 import { useCounterStore } from "../stores/counter";
 export default {
   methods: {
-    ...mapActions(useCounterStore, ["login"]),
+    ...mapActions(useCounterStore, ["login", "callback"]),
     loginHandler() {
       const user = {
         email: this.email,
