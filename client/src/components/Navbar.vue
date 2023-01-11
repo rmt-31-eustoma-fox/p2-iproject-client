@@ -1,14 +1,32 @@
 <script>
 import { mapActions, mapWritableState } from 'pinia';
 import { globalStore } from '../stores/global';
+import Swal from 'sweetalert2';
 
 export default {
    computed: {
-    ...mapWritableState(globalStore, ['isLogin'])
+    ...mapWritableState(globalStore, ['isLogin', 'nickname'])
    },
 
    methods: {
-    ...mapActions(globalStore, [''])
+    logout(){
+        Swal.fire({
+        title: 'Are you sure want to quit?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, quit now!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.clear()
+        //   google.accounts.id.disableAutoSelect()
+          this.isLogin = false
+          this.nickname = ""
+          this.$router.replace("/")
+        }
+      })
+    }
    }
 }
 </script>
@@ -38,7 +56,7 @@ export default {
         </div>
         <div v-if="isLogin" class="navbar-nav">
             <div class="nav-item text-nowrap">
-                <a class="nav-link px-3" href="#">Sign out</a>
+                <a @click.prevent="logout" class="nav-link px-3" href="#">Sign out</a>
             </div>
         </div>
     </header>

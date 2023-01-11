@@ -49,7 +49,40 @@ export const globalStore = defineStore('global', {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Something went wrong!',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async login(){
+      try {
+        const { data } = await axios({
+          method: "post",
+          url: this.baseURL + "/login",
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        })
+
+        localStorage.setItem("access_token", data.access_token)
+        localStorage.setItem("name", data.name)
+        this.isLogin = true
+        this.nickname = data.name
+        this.router.push("/")
+
+        Swal.fire({
+          icon: 'success',
+          title: `Welcome ${data.name}`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
           // footer: '<a href="">Why do I have this issue?</a>'
         })
       }

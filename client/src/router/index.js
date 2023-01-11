@@ -30,11 +30,11 @@ const router = createRouter({
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   const auth = localStorage.access_token
-//   if(auth && to.name === "login" || auth && to.name === "register") next("/")
-//   else if( !auth && to.name == "mybook") next("/login")
-//   else next()
-// })
+router.beforeEach((to, from, next) => {
+  const auth = localStorage.access_token
+  if(auth && to.name === "login" || auth && to.name === "register") next("/")
+  else if( !auth && to.name == "mybook") next("/login")
+  else next()
+})
 
 export default router
