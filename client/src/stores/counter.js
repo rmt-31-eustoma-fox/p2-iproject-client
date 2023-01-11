@@ -9,6 +9,7 @@ export const useCounterStore = defineStore("counter", {
     // baseUrl: "",
     products: [],
     carts: [],
+    histories: [],
     loginStatus: false,
     isLoad: false,
     categories: [],
@@ -17,6 +18,7 @@ export const useCounterStore = defineStore("counter", {
     options: {
       page: 1,
     },
+    totalPrice: 0,
   }),
 
   getters: {},
@@ -186,6 +188,9 @@ export const useCounterStore = defineStore("counter", {
           },
         });
         this.carts = data;
+        for (let i = 0; i < this.carts.length; i++) {
+          this.totalPrice += Number(this.carts[i].Product.price);
+        }
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
@@ -221,6 +226,89 @@ export const useCounterStore = defineStore("counter", {
           title: "Please Login First!",
           timer: 1500,
           showConfirmButton: false,
+        });
+      }
+    },
+
+    async deleteCartHandler(id) {
+      try {
+        this.isLoad = true;
+        const { data } = await axios({
+          url: this.baseUrl + "/cart/" + id,
+          method: "delete",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.totalPrice = 0;
+        this.fetchCart();
+        Swal.fire({
+          icon: "success",
+          title: "Product successfully remove from Shopping Cart",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      }
+    },
+
+    async fetchOrderHistory() {
+      try {
+        this.isLoad = true;
+
+        const { data } = await axios({
+          url: this.baseUrl + "/order-history",
+          method: "get",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.histories = data.orders;
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      }
+    },
+
+    async addOrderHandler() {
+      try {
+        this.isLoad = true;
+
+        const { data } = await axios({
+          url: this.baseUrl + "/pay",
+          method: "post",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+
+        this.fetchOrderHistory();
+        this.fetchCart();
+        this.totalPrice = 0;
+        Swal.fire({
+          icon: "success",
+          title: "Your Payment is successfull",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
         });
       }
     },
