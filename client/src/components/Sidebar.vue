@@ -11,7 +11,7 @@ export default {
   methods: {
     ...mapActions(globalStore, ['fetchQuote']),
 
-    clickMovePage(){
+    clickHome(){
         this.fetchQuote()
         this.$router.push("/")
     }
@@ -24,21 +24,21 @@ export default {
       <div class="position-sticky pt-4">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a @click.prevent="clickMovePage" class="nav-link" aria-current="page" href="#">
-              <i class="fa-solid fa-house"></i>
-              Home
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fa-solid fa-file"></i>
-              Orders
+            <a @click.prevent="clickHome" class="nav-link" aria-current="page" href="#">
+              <i class="fa-solid fa-book"></i>
+              Books
             </a>
           </li>
           <li class="nav-item">
             <router-link to="/mybook" class="nav-link" href="#">
-              <i class="fa-solid fa-book"></i>
-              My Books
+              <i class="fa-solid fa-list"></i>
+              My Shelves
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/portal" class="nav-link" href="#">
+              <i class="fa-solid fa-earth-americas"></i>
+              Portal
             </router-link>
           </li>
         </ul>
