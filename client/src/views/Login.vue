@@ -1,4 +1,24 @@
-<script></script>
+<script>
+import { mapActions, mapWritableState } from 'pinia';
+import { globalStore } from '../stores/global';
+
+
+export default {
+    computed: {
+        ...mapWritableState(globalStore, ['email', 'password'])
+    },
+
+    methods: {
+        ...mapActions(globalStore, ['login']),
+
+        clickLog(){
+            this.login()
+            this.email = ""
+            this.password = ""
+        }
+    }
+}
+</script>
 
 <template>
     <div class="container" id="login-gate-section">
@@ -9,7 +29,7 @@
                     <h2>Sign In</h2>
                 </div>
                 <div class="px-5">
-                    <form @submit.prevent="submitLogin" id="login-form">
+                    <form @submit.prevent="clickLog" id="login-form">
                         <div class="form-floating">
                             <input v-model="email" type="email" class="form-control" id="floatingEmailLog" placeholder="name@example.com" required>
                             <label for="floatingEmailLog">Email address</label>
