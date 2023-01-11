@@ -1,11 +1,17 @@
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 import Sidebar from '../components/Sidebar.vue'
 import { mainFunction } from '../stores/main';
 export default {
     components: { Sidebar },
+    computed: {
+        ...mapState(mainFunction, ['user'])
+    },
     methods: {
-        ...mapActions(mainFunction, ['multer'])
+        ...mapActions(mainFunction, ['multer', 'getUsername'])
+    },
+    created(){
+        this.getUsername()
     }
 }
 </script>
@@ -16,6 +22,9 @@ export default {
         <div class="flex flex-col justify-center items-center overflow-y-auto col-9">
             <div class="thebg thePad text-center">
                 <h2>Profile</h2>
+                <h4>Username : {{ user.username }}</h4>
+                <h4>Email : {{ user.email }}</h4>
+
                 <form @submit.prevent="multer" enctype="multipart/form-data">
                     <div class="input-group mb-3">
                         <input type="file" class="form-control" id="inputGroupFile02">
@@ -27,7 +36,7 @@ export default {
                 </form>
             </div>
         </div>
-    </div>>
+    </div>
 </template>
 
 <style scoped>

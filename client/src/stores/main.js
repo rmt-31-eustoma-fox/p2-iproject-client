@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 const baseUrl = "http://localhost:3000"
 import axios, { Axios } from 'axios'
+import Swal from 'sweetalert2'
 
 export const mainFunction = defineStore('main_function', {
   state: () => ({
@@ -13,6 +14,7 @@ export const mainFunction = defineStore('main_function', {
     },
     cards: [],
     selectedCard: [],
+    user: {}
   }),
   getters: {
   },
@@ -27,11 +29,20 @@ export const mainFunction = defineStore('main_function', {
       })
         .then(result => {
           this.isLogged = true
+          Swal.fire({
+            icon: 'success',
+            title: 'Login success'
+          })
           this.router.push('/')
           localStorage.setItem("access_token", result.data.access_token)
         })
         .catch(err => {
           console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          })
         })
     },
     async login(dataUser) {
@@ -44,11 +55,20 @@ export const mainFunction = defineStore('main_function', {
             password: dataUser.password
           }
         })
+        Swal.fire({
+          icon: 'success',
+          title: 'Login success'
+        })
         this.isLogged = true
         localStorage.setItem("access_token", data.data.access_token)
         this.router.push('/')
       } catch (error) {
         console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Please check your input',
+          text: error.response.data.message,
+        })
       }
     },
     async register(newUser) {
@@ -62,9 +82,18 @@ export const mainFunction = defineStore('main_function', {
             password: newUser.password,
           }
         })
+        Swal.fire({
+          icon: 'success',
+          title: 'Register success'
+        })
         this.router.push('/login')
       } catch (error) {
         console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Please check your input',
+          text: error.response.data.message,
+        })
       }
     },
     async newDeck (name){
@@ -192,6 +221,11 @@ export const mainFunction = defineStore('main_function', {
         this.theDeck(deckid)
       } catch (error) {
         console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Please check your input',
+          text: error.response.data.message,
+        })
       }
     },
     async deleteCard(deckid, CardId){
@@ -215,6 +249,10 @@ export const mainFunction = defineStore('main_function', {
       localStorage.removeItem('access_token')
       this.isLogged = false
       this.router.push('/login')
+      Swal.fire({
+        icon: 'success',
+        title: 'Log out success'
+      })
     },
     async multer(){
       try {
@@ -223,6 +261,17 @@ export const mainFunction = defineStore('main_function', {
           url: baseUrl + '/upload'
         })
       } catch (error) {console.log(error)}
+    },
+    async getUsername(){
+      const user = await axios({
+        method: "get",
+        url: baseUrl +'/user',
+        headers: {
+          access_token: localStorage.access_token
+        },
+      })
+      this.user.username = user.data.username
+      this.user.email = user.data.email
     }
   },
 })

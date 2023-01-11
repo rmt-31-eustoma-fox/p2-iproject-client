@@ -35,9 +35,11 @@ export default {
 
                 </li>
                 <li class="p-4">
-                    <span class="lg:block"><img
-                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABpElEQVRYhc2WbRGDMAyGJ2ESkICESkACEnBQCUhAAhIqAQmVgIR3P5ZuIaQftNxu7x1/cjR5mo+2j8e/C8ATgAGwALDMbgBYABOAjv1rAcwAzF3BVxw1UNCd2XYGxGXzUdIAk3A4A+hE8A8ErXHC3rcAeOlMgZLZGYRtbQE47BB6Sbgs/XPKzC0AZHMJgFAirq0FYBPOOgoS04h3M3I1lUDW2yo7DAolWoTdtAAYEWAlAJkZkK0XADuAsSaw3MkOff41TQTC5a4CjMKBRXz+NWm9Ml0BcGJxj/Mpl9KM2nGEcpCQM38BIIzsIuymBEB2vlbTEmlZy98N0C8f2RMlMqg5lnGuf4f0+R+TlrkiAK8ALBUAFudG9CUAB0XKUiJtEv4cQFmw/xSAghkcn1cO33tAdrWmga1xZLPBbxaAgagjlIseydhQHJgBqBcK0veBjwCU75wByPptZNeu4tw/3R0AJU+yAOCbAciRBpCaiFCmA0BVcHIk6/1E+k24KOBNALKWOYC62U8AOOEs9zC5/VluCSJ8Pd4Hyhb5RgLga+ZqgF/oBR7cy2iaOYq8AAAAAElFTkSuQmCC">
-                        ABOUT US</span>
+                    <router-link to="/about" class="link text-white">
+                        <span class="lg:block"><img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABpElEQVRYhc2WbRGDMAyGJ2ESkICESkACEnBQCUhAAhIqAQmVgIR3P5ZuIaQftNxu7x1/cjR5mo+2j8e/C8ATgAGwALDMbgBYABOAjv1rAcwAzF3BVxw1UNCd2XYGxGXzUdIAk3A4A+hE8A8ErXHC3rcAeOlMgZLZGYRtbQE47BB6Sbgs/XPKzC0AZHMJgFAirq0FYBPOOgoS04h3M3I1lUDW2yo7DAolWoTdtAAYEWAlAJkZkK0XADuAsSaw3MkOff41TQTC5a4CjMKBRXz+NWm9Ml0BcGJxj/Mpl9KM2nGEcpCQM38BIIzsIuymBEB2vlbTEmlZy98N0C8f2RMlMqg5lnGuf4f0+R+TlrkiAK8ALBUAFudG9CUAB0XKUiJtEv4cQFmw/xSAghkcn1cO33tAdrWmga1xZLPBbxaAgagjlIseydhQHJgBqBcK0veBjwCU75wByPptZNeu4tw/3R0AJU+yAOCbAciRBpCaiFCmA0BVcHIk6/1E+k24KOBNALKWOYC62U8AOOEs9zC5/VluCSJ8Pd4Hyhb5RgLga+ZqgF/oBR7cy2iaOYq8AAAAAElFTkSuQmCC">
+                            MORE INFO</span>
+                    </router-link>
                 </li>
                 <li class="p-4">
                     <span @click="logout" class="lg:block"><img

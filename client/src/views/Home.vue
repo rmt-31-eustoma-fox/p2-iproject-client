@@ -8,8 +8,11 @@ export default {
         this.getMyDeck()
     },
     methods: {
-        ...mapActions(mainFunction, ['getCards', 'getMyDeck'])
+        ...mapActions(mainFunction, ['getCards', 'getMyDeck', 'getUsername'])
     },
+    created(){
+        this.getUsername()
+    }
 
 }
 </script>
