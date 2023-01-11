@@ -89,7 +89,7 @@ export default {
                     <button
                       @click="midtrans"
                       href=""
-                      class="block px-5 py-3 text-sm text-gray-100 font-medium transition bg-[#9c6644] rounded hover:bg-[#b08968]"
+                      class="block px-5 py-3 text-sm text-gray-100 font-medium transition bg-[#b08968] rounded hover:bg-[#7f5539]"
                     >
                       Checkout
                     </button>
