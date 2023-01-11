@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000";
+// const baseUrl = "http://localhost:3000";
+const baseUrl = "https://valfave-api-production.up.railway.app";
 
 export const useCounterStore = defineStore("counter", {
   state: () => ({
