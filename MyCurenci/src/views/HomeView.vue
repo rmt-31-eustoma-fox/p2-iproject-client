@@ -55,6 +55,8 @@ export default {
           this.fetchNews()
         } else if (this.localRouteName === 'graph'){
           this.fetchForexPair()
+        } else {
+          this.fetchNews()
         }
       }
     },

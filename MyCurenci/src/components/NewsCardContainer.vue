@@ -1,13 +1,13 @@
 <script>
 import { mapState } from 'pinia';
-import NewsCard from '../components/NewsCard.vue'
+import NewsCard from './NewsCard.vue'
 import { useRootStore } from '../stores';
 export default {
-    components : {
+    components: {
         NewsCard
     },
-    computed : {
-        ...mapState(useRootStore,['theNews'])
+    computed: {
+        ...mapState(useRootStore, ['theNews'])
     }
 }
 </script>

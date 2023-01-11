@@ -152,7 +152,7 @@ export default {
 </script>
 
 <template>
-    <h2 class="mt-2">Graph of {{ theForexPair }}</h2>
+    <h2 class="mt-2">Graph of {{ theForexPair }} (30 Days Period)</h2>
     <div class="lw-chart" ref="chartContainer"></div>
 </template>
 
