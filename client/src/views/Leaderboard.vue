@@ -31,6 +31,7 @@ export default {
         <p class="lead fw-normal text-black-50 mb-0">
           These are top 200 players (APAC)
         </p>
+        <p class="lead fw-normal text-black-50 mb-0">(Ep 5 Act 3)</p>
       </div>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">

@@ -14,6 +14,7 @@ export const useCounterStore = defineStore("counter", {
     favorites: [],
     logged: false,
     leads: [],
+    isLoading: false,
   }),
 
   getters: {
@@ -39,7 +40,16 @@ export const useCounterStore = defineStore("counter", {
       }
     },
 
+    enableLoading() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 3000);
+    },
+
     fetchAgents() {
+      this.enableLoading();
+
       axios({
         url: baseUrl + "/agents",
         method: "get",
@@ -92,13 +102,6 @@ export const useCounterStore = defineStore("counter", {
         .then(({ data }) => {
           // console.log(data);
           localStorage.access_token = data.access_token;
-          Swal.fire({
-            // position: "top-end",
-            icon: "success",
-            title: "Signing in ...",
-            showConfirmButton: false,
-            timer: 1500,
-          });
           this.check();
           this.router.push("/");
         })
@@ -148,6 +151,7 @@ export const useCounterStore = defineStore("counter", {
     },
 
     fetchFavorites() {
+      this.enableLoading();
       axios({
         url: baseUrl + `/favorite`,
         method: "get",
@@ -235,13 +239,6 @@ export const useCounterStore = defineStore("counter", {
         .then(({ data }) => {
           // console.log(data);
           localStorage.access_token = data.access_token;
-          Swal.fire({
-            // position: "top-end",
-            icon: "success",
-            title: "Signing in ...",
-            showConfirmButton: false,
-            timer: 1500,
-          });
           this.check();
           this.router.push("/");
         })
@@ -258,6 +255,8 @@ export const useCounterStore = defineStore("counter", {
     },
 
     fetchLeaderboards() {
+      this.enableLoading();
+
       axios({
         method: "get",
         url: baseUrl + "/leaderboard",
