@@ -318,6 +318,21 @@ export const useCounterStore = defineStore("counter", {
       }
     },
 
+    async fetchDetailProduct(id) {
+      try {
+        this.isLoad = true;
+        const { data } = await axios({
+          url: this.baseUrl + "/products/" + id,
+          method: "get",
+        });
+        this.product = data;
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
+        this.router.push("/products/404-not-found");
+      }
+    },
+
     async fetchRecipe() {
       try {
         this.isLoad = true;
