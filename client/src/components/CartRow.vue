@@ -4,13 +4,13 @@ import { useCounterStore } from "@/stores/counter";
 export default {
   props: ["cart"],
   methods: {
-    ...mapActions(useCounterStore, ["addOrderHandler", "deleteCartHandler"]),
+    ...mapActions(useCounterStore, ["deleteCartHandler"]),
   },
 };
 </script>
 
 <template>
-  <ul class="space-y-4">
+  <ul class="space-y-4" v-if="cart">
     <li class="flex items-center">
       <img
         :src="cart.Product.imgUrl"

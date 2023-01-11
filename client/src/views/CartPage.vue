@@ -13,12 +13,7 @@ export default {
     ...mapActions(useCounterStore, ["fetchCart", "addOrderHandler"]),
   },
   computed: {
-    ...mapWritableState(useCounterStore, [
-      "carts",
-      "totalPrice",
-      "baseUrl",
-      "isLoader",
-    ]),
+    ...mapWritableState(useCounterStore, ["carts", "totalPrice", "baseUrl"]),
   },
   created() {
     this.totalPrice = 0;
@@ -52,12 +47,13 @@ export default {
                   </dl>
 
                   <div class="flex justify-end">
-                    <a
-                      href="#"
-                      class="block px-5 py-3 text-sm text-gray-100 font-medium transition bg-[#dda15e] rounded hover:bg-[#b08968]"
+                    <button
+                      @click.prevent="addOrderHandler"
+                      href=""
+                      class="block px-5 py-3 text-sm text-gray-100 font-medium transition bg-[#9c6644] rounded hover:bg-[#b08968]"
                     >
                       Checkout
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

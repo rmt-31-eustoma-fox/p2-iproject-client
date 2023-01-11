@@ -269,7 +269,7 @@ export const useCounterStore = defineStore("counter", {
             access_token: localStorage.access_token,
           },
         });
-        this.histories = data.orders;
+        this.histories = data;
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
@@ -296,6 +296,8 @@ export const useCounterStore = defineStore("counter", {
         this.fetchOrderHistory();
         this.fetchCart();
         this.totalPrice = 0;
+        this.router.push("/order-history");
+
         Swal.fire({
           icon: "success",
           title: "Your Payment is successfull",
