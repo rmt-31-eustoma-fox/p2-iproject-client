@@ -36,4 +36,18 @@ const router = createRouter({
   ],
 });
 
+// GOOD
+router.beforeEach((to, from, next) => {
+  if (!localStorage.access_token && to.name == "favorite") {
+    next({ name: "home" });
+  } else if (
+    (localStorage.access_token && to.name == "login") ||
+    (localStorage.access_token && to.name == "register")
+  ) {
+    next({ name: "home" });
+  } else {
+    next();
+  }
+});
+
 export default router;

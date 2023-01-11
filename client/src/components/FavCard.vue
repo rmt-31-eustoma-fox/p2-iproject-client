@@ -6,14 +6,13 @@ export default {
   props: ["item"],
 
   methods: {
-    ...mapActions(useCounterStore, ["handleDetail", "handleAddToFav"]),
-
+    ...mapActions(useCounterStore, ["handleDetail", "removeFav"]),
     checkDetail() {
       this.handleDetail(this.item.uuid);
     },
 
-    addToFav() {
-      this.handleAddToFav(this.item.uuid);
+    handleRemove() {
+      this.removeFav(this.item.id);
     },
   },
 };
@@ -24,11 +23,11 @@ export default {
     <div class="card h-100 bg-dark">
       <!-- Sale badge-->
       <div
-        @click="addToFav"
+        @click="handleRemove"
         class="addFav addFavIcon badge position-absolute btn btn-outline-light"
-        style="top: 0.5rem; right: 0.5rem; font-size: large"
+        style="top: 0.5rem; right: 0.5rem"
       >
-        &hearts;
+        Remove
       </div>
       <!-- Product image-->
       <img class="card-img-top" :src="item.imageUrl" alt="..." />
@@ -37,7 +36,7 @@ export default {
         <div class="text-center">
           <!-- Product name-->
           <h5 class="fw-bolder text-white">{{ item.displayName }}</h5>
-          <h6 class="text-white">{{ item.role.displayName }}</h6>
+          <h6 class="text-white">{{ item.role }}</h6>
 
           <!-- Product price-->
           <!-- <span class="text-muted text-decoration-line-through text-white"

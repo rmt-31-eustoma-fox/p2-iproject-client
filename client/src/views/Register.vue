@@ -1,4 +1,31 @@
-<script></script>
+<script>
+import { mapActions } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
+export default {
+  data() {
+    return {
+      reg: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+
+  methods: {
+    ...mapActions(useCounterStore, ["handleRegister"]),
+
+    submitReg() {
+      const data = {
+        email: this.reg.email,
+        password: this.reg.password,
+      };
+
+      this.handleRegister(data);
+    },
+  },
+};
+</script>
 
 <template>
   <section class="vh-100" id="register">
@@ -27,37 +54,44 @@
                 />
               </div> -->
 
-              <div class="form-outline mb-4 form-floating">
-                <input
-                  type="email"
-                  id="typeEmailX-2"
-                  class="form-control form-control-lg"
-                  placeholder="Email"
-                />
-                <label for="typeEmailX-2">Email address</label>
-              </div>
+              <form @submit.prevent="submitReg">
+                <div class="form-outline mb-4 form-floating">
+                  <input
+                    v-model="reg.email"
+                    type="email"
+                    id="typeEmailX-2"
+                    class="form-control form-control-lg"
+                    placeholder="Email"
+                  />
+                  <label for="typeEmailX-2">Email address</label>
+                </div>
 
-              <div class="form-outline mb-4 form-floating">
-                <input
-                  type="password"
-                  id="typePasswordX-2"
-                  class="form-control form-control-lg"
-                  placeholder="Password"
-                />
-                <label for="typePasswordX-2">Password</label>
-              </div>
+                <div class="form-outline mb-4 form-floating">
+                  <input
+                    v-model="reg.password"
+                    type="password"
+                    id="typePasswordX-2"
+                    class="form-control form-control-lg"
+                    placeholder="Password"
+                  />
+                  <label for="typePasswordX-2">Password</label>
+                </div>
 
-              <button
-                class="btn btn-danger btn-lg btn-block w-100"
-                type="submit"
-              >
-                Create Account
-              </button>
+                <button
+                  class="btn btn-danger btn-lg btn-block w-100"
+                  type="submit"
+                >
+                  Create Account
+                </button>
+              </form>
 
               <hr class="my-4" />
 
               <div class="my-4">
-                <a href="" style="text-decoration: none"
+                <a
+                  @click.prevent="this.$router.push('/login')"
+                  href=""
+                  style="text-decoration: none"
                   ><strong>ALREADY HAVE AN ACCOUNT?</strong></a
                 >
               </div>

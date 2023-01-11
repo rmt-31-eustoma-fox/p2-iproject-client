@@ -1,14 +1,45 @@
 <script>
+import { mapState, mapActions } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
 export default {
+  data() {
+    return {
+      searchInput: "",
+    };
+  },
+
+  computed: {
+    ...mapState(useCounterStore, ["logged"]),
+  },
+
+  created() {
+    this.check();
+  },
+
   methods: {
+    ...mapActions(useCounterStore, ["check"]),
+
     handleLogout() {
       localStorage.clear();
       this.$router.push("/login");
+      Swal.fire({
+        // position: "top-end",
+        icon: "success",
+        title: "Signing out ...",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.check();
     },
 
     toHome() {
       this.$router.push("/");
     },
+
+    // searchSubmit() {
+    //   this.handleSearch(this.searchInput);
+    // },
   },
 };
 </script>
@@ -35,7 +66,7 @@ export default {
             <!-- <a class="nav-link active" aria-current="page" href="#!">Home</a> -->
             <!-- <RouterLink to="/" class="nav-link active">Home</RouterLink> -->
           </li>
-          <li class="nav-item">
+          <li v-if="logged == true" class="nav-item">
             <!-- <a class="nav-link active" aria-current="page" href="#!"
               >Favorite</a
             > -->
@@ -43,11 +74,11 @@ export default {
               >Favorite</RouterLink
             >
           </li>
-          <li class="nav-item">
+          <li v-if="logged == false" class="nav-item">
             <!-- <a class="nav-link active" aria-current="page" href="#!">Login</a> -->
             <RouterLink to="/login" class="nav-link active">Login</RouterLink>
           </li>
-          <li class="nav-item">
+          <li v-if="logged == true" class="nav-item">
             <!-- <a class="nav-link active" aria-current="page" href="#!">Logout</a> -->
             <RouterLink @click="handleLogout" to="" class="nav-link active"
               >Logout</RouterLink
@@ -79,15 +110,17 @@ export default {
               <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
             </button>
           </form> -->
-        <form class="d-flex" role="search">
+        <!-- ================ -->
+        <!-- <form @submit.prevent="searchSubmit" class="d-flex" role="search">
           <input
+            v-model="searchInput"
             class="form-control me-2"
             type="search"
             placeholder="Search agent"
             aria-label="Search"
           />
           <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>

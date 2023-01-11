@@ -10,6 +10,8 @@ export const useCounterStore = defineStore("counter", {
     agents: [],
     agentDetail: [],
     filter: "0",
+    favorites: [],
+    logged: false,
   }),
 
   getters: {
@@ -25,6 +27,14 @@ export const useCounterStore = defineStore("counter", {
   actions: {
     increment() {
       this.count++;
+    },
+
+    check() {
+      if (localStorage.access_token) {
+        this.logged = true;
+      } else {
+        this.logged = false;
+      }
     },
 
     fetchAgents() {
@@ -56,6 +66,192 @@ export const useCounterStore = defineStore("counter", {
         })
         .catch((err) => {
           console.log(err);
+        });
+    },
+
+    // handleSearch(value) {
+    //   console.log(value);
+    //   if (value) {
+    //     const newData = this.agents.filter((el) => el.displayName == value);
+    //     console.log(newData);
+    //     return newData;
+    //   }
+    // },
+
+    handleLogin(value) {
+      axios({
+        url: baseUrl + `/login`,
+        method: "post",
+        data: {
+          email: value.email,
+          password: value.password,
+        },
+      })
+        .then(({ data }) => {
+          // console.log(data);
+          localStorage.access_token = data.access_token;
+          Swal.fire({
+            // position: "top-end",
+            icon: "success",
+            title: "Signing in ...",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.check();
+          this.router.push("/");
+        })
+        .catch((err) => {
+          // console.log(err.response.data.message);
+          Swal.fire({
+            // position: "top-end",
+            icon: "error",
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+    },
+
+    handleAddToFav(value) {
+      // console.log(value);
+
+      axios({
+        url: baseUrl + `/favorite/${value}`,
+        method: "post",
+        headers: {
+          access_token: localStorage.access_token,
+        },
+      })
+        .then(({ data }) => {
+          // console.log(data);
+          Swal.fire({
+            // position: "top-end",
+            icon: "success",
+            title: "Agent added to favorite!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.router.push("/");
+        })
+        .catch((err) => {
+          // console.log(err.response.data.message);
+          Swal.fire({
+            // position: "top-end",
+            icon: "error",
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+    },
+
+    fetchFavorites() {
+      axios({
+        url: baseUrl + `/favorite`,
+        method: "get",
+        headers: {
+          access_token: localStorage.access_token,
+        },
+      })
+        .then(({ data }) => {
+          // console.log(data);
+          this.favorites = data;
+          // this.router.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log(err.response.data.message);
+        });
+    },
+
+    removeFav(value) {
+      axios({
+        url: baseUrl + `/favorite/${value}`,
+        method: "delete",
+        headers: {
+          access_token: localStorage.access_token,
+        },
+      })
+        .then(({ data }) => {
+          this.fetchFavorites();
+          Swal.fire({
+            // position: "top-end",
+            icon: "success",
+            title: "Agent removed from favorite!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log(err.response.data.message);
+        });
+    },
+
+    handleRegister(value) {
+      axios({
+        url: baseUrl + `/register`,
+        method: "post",
+        data: {
+          email: value.email,
+          password: value.password,
+        },
+      })
+        .then(({ data }) => {
+          // console.log(data);
+          Swal.fire({
+            // position: "top-end",
+            icon: "success",
+            title: "Success create account, please login",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // this.check();
+          this.router.push("/login");
+        })
+        .catch((err) => {
+          // console.log(err.response.data.message);
+          Swal.fire({
+            // position: "top-end",
+            icon: "error",
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+    },
+
+    callback(response) {
+      // console.log(response);
+      axios({
+        method: "post",
+        url: baseUrl + "/google-sign-in",
+        headers: {
+          "google-auth-token": response.credential,
+        },
+      })
+        .then(({ data }) => {
+          // console.log(data);
+          localStorage.access_token = data.access_token;
+          Swal.fire({
+            // position: "top-end",
+            icon: "success",
+            title: "Signing in ...",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.check();
+          this.router.push("/");
+        })
+        .catch((err) => {
+          // console.log(error);
+          Swal.fire({
+            // position: "top-end",
+            icon: "error",
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
   },
