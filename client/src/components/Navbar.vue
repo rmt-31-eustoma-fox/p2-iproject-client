@@ -67,6 +67,15 @@ export default {
                   Recipe
                 </router-link>
               </li>
+              <li v-if="loginStatus">
+                <router-link
+                  to="/bmi"
+                  class="text-[#000000] transition hover:text-gray-500/75"
+                  href=""
+                >
+                  BMI
+                </router-link>
+              </li>
             </ul>
           </nav>
 

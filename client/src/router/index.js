@@ -7,6 +7,7 @@ import CartPage from "../views/CartPage.vue";
 import RecipePage from "../views/RecipePage.vue";
 import OrderHistoryPage from "../views/OrderHistoryPage.vue";
 import NotFoundPage from "../views/NotFoundPage.vue";
+import BMIPage from "../views/BMIPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
       path: "/recipe",
       name: "RecipePage",
       component: RecipePage,
+    },
+    {
+      path: "/bmi",
+      name: "BMIPage",
+      component: BMIPage,
     },
     {
       path: "/:pathMatch(.*)",
