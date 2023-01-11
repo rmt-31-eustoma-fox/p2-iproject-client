@@ -1,4 +1,6 @@
 <script>
+  import { RouterLink } from "vue-router";
+
   export default {
     props: ["players"],
   };
@@ -25,9 +27,11 @@
             style="width: 30px"
             class="rounded-pill"
           />
-          <span class="mx-3">{{
-            player.firstname + " " + player.lastname
-          }}</span>
+          <RouterLink :to="{ name: 'playerDetail', params: { id: player.id } }">
+            <span class="mx-3">{{
+              player.firstname + " " + player.lastname
+            }}</span>
+          </RouterLink>
         </td>
         <td class="text-end">{{ player.leagues.standard.jersey }}</td>
         <td>F</td>
