@@ -1,7 +1,28 @@
 <script>
 import Sidebar from '../components/Sidebar.vue'
+import DeckTable from '../components/DeckTable.vue'
+import { mapActions, mapState } from 'pinia';
+import { mainFunction } from '../stores/main';
+import { RouterLink, RouterView } from 'vue-router'
 export default {
-    components: { Sidebar }
+    components: { Sidebar, DeckTable },
+    computed: {
+        ...mapState(mainFunction, ['myDecks'])
+    },
+    data(){
+        return {
+            name: ''
+        }
+    },
+    methods: {
+        ...mapActions(mainFunction, ['getMyDeck', 'newDeck']),
+        addDeck (){
+            this.newDeck(this.name)
+        }
+    },
+    created(){
+        this.getMyDeck()
+    }
 }
 </script>
 
@@ -11,13 +32,11 @@ export default {
         <div class="flex flex-col justify-center items-center overflow-y-auto col-9">
             <div class="thebg thePad text-center">
                 <h2>Deck</h2>
-                <form>
-                    <!-- Email input -->
-                    <label class="form-label" for="loginName">New Deck</label>
+                <form @submit.prevent="addDeck">
                     <div class="form-outline mb-4  d-flex justify-content-center">
                         <div class="col-sm-5" style="margin-right: 10px;">
-                            <input type="email" id="loginName" class="form-control"
-                                style="background: rgba(255, 255, 255, 0.3)" placeholder="New Deck Name" />
+                            <input type="text" id="loginName" class="form-control"
+                                style="background: rgba(255, 255, 255, 0.3)" placeholder="New Deck Name" v-model="name"/>
                         </div>
                         <button type="submit" class="btn btn-dark">Add</button>
                     </div>
@@ -33,7 +52,7 @@ export default {
                         </tr>
                     </thead>
                     <tbody>
-
+                        <DeckTable v-for="(myDeck, index) in myDecks" :key="myDeck"  :index="index" :myDeck="myDeck"/>
                     </tbody>
                 </table>
             </div>

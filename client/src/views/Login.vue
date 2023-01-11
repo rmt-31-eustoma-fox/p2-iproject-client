@@ -1,8 +1,24 @@
 <script>
+import { mapActions } from 'pinia';
 import RegLogButton from '../components/RegLogButton.vue'
+import { mainFunction } from '../stores/main';
 export default {
     components: {
         RegLogButton
+    },
+    data(){
+        return {
+            data: {
+                username: '',
+                password: ''
+            }
+        }
+    },
+    methods: {
+        ...mapActions(mainFunction, ['login']),
+        logIn(){
+            this.login(this.data)
+        }
     }
 }
 </script>
@@ -15,13 +31,13 @@ export default {
         <h2>Login</h2>
         <br>
         <!-- Pills content -->
-        <form>
+        <form @submit.prevent="logIn">
             <!-- Email input -->
-            <label class="form-label" for="loginName">Email</label>
+            <label class="form-label" for="loginName">Username</label>
             <div class="form-outline mb-4  d-flex justify-content-center">
                 <div class="col-sm-5">
-                    <input type="email" id="loginName" class="form-control" style="background: rgba(255, 255, 255, 0.3)"
-                        placeholder="Email" />
+                    <input type="text" id="loginName" class="form-control" style="background: rgba(255, 255, 255, 0.3)"
+                        placeholder="Username"  v-model="data.username"/>
                 </div>
             </div>
 
@@ -30,7 +46,7 @@ export default {
             <div class="form-outline mb-4  d-flex justify-content-center">
                 <div class="col-sm-5">
                     <input type="password" id="loginPassword" class="form-control"
-                        style="background: rgba(255, 255, 255, 0.3)" placeholder="Password" />
+                        style="background: rgba(255, 255, 255, 0.3)" placeholder="Password"  v-model="data.password"/>
                 </div>
             </div>
 

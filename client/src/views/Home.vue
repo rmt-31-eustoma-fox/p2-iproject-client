@@ -1,7 +1,16 @@
 <script>
+import { mapActions } from 'pinia';
 import Sidebar from '../components/Sidebar.vue'
+import { mainFunction } from '../stores/main';
 export default {
-    components: { Sidebar }
+    components: { Sidebar },
+    created() {
+        this.getCards()
+    },
+    methods: {
+        ...mapActions(mainFunction, ['getCards'])
+    },
+
 }
 </script>
 <template>

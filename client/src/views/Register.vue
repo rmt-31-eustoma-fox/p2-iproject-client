@@ -1,8 +1,25 @@
 <script>
+import { mapActions } from 'pinia';
 import RegLogButton from '../components/RegLogButton.vue'
+import { mainFunction } from '../stores/main';
 export default {
     components: {
         RegLogButton
+    },
+    data(){
+        return {
+            data: {
+                email: '',
+                username: '',
+                password: ''
+            }
+        }
+    },
+    methods: {
+        ...mapActions(mainFunction, ['register']),
+        registration(){
+            this.register(this.data)
+        }
     }
 }
 </script>
@@ -15,12 +32,12 @@ export default {
         <h2>Register</h2>
         <br>
 
-        <form>
+        <form @submit.prevent="registration">
             <!-- Username input -->
             <label class="form-label" for="registerUsername">Username</label>
             <div class="form-outline mb-4  d-flex justify-content-center">
                 <div class="col-sm-5">
-                    <input type="text" id="registerUsername" class="form-control" style="background: rgba(255, 255, 255, 0.3)" placeholder="Username"/>
+                    <input type="text" id="registerUsername" class="form-control" style="background: rgba(255, 255, 255, 0.3)" placeholder="Username" v-model="data.username"/>
                 </div>
             </div>
 
@@ -28,7 +45,7 @@ export default {
             <label class="form-label" for="loginName">Email</label>
             <div class="form-outline mb-4  d-flex justify-content-center">
                 <div class="col-sm-5">
-                    <input type="email" id="loginName" class="form-control" style="background: rgba(255, 255, 255, 0.3)" placeholder="Email"/>
+                    <input type="email" id="loginName" class="form-control" style="background: rgba(255, 255, 255, 0.3)" placeholder="Email"  v-model="data.email"/>
                 </div>
             </div>
 
@@ -36,7 +53,7 @@ export default {
             <label class="form-label" for="registerPassword">Password</label>
             <div class="form-outline mb-4  d-flex justify-content-center">
                 <div class="col-sm-5">
-                    <input type="password" id="registerPassword" class="form-control" style="background: rgba(255, 255, 255, 0.3)" placeholder="Password"/>
+                    <input type="password" id="registerPassword" class="form-control" style="background: rgba(255, 255, 255, 0.3)" placeholder="Password"  v-model="data.password"/>
                 </div>
             </div>
 

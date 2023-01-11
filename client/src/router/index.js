@@ -19,8 +19,7 @@ const router = createRouter({
       component: Login
     },
     {
-      path: '/editdeck',
-      name: 'edit-deck',
+      path: '/editdeck/:deckid',
       component: EditDeck
     },
     {
@@ -40,5 +39,20 @@ const router = createRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if ((localStorage.access_token && to.name == "login") || (localStorage.access_token && to.name == "register")) {
+    next({ name: "home" })
+  }
+  else if ((!localStorage.access_token && to.name == "login") || (!localStorage.access_token && to.name == "register")) {
+    next()
+  }
+  else if (!localStorage.access_token && to.name != "login") {
+    next({name: "login"})
+  }
+  else {
+    next();
+  }
+});
 
 export default router
