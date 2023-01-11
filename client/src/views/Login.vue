@@ -9,12 +9,16 @@ export default {
     },
 
     methods: {
-        ...mapActions(globalStore, ['login']),
+        ...mapActions(globalStore, ['login', 'googleSignIn']),
 
         clickLog(){
             this.login()
             this.email = ""
             this.password = ""
+        },
+
+        shortCutGoogle(response){
+            this.googleSignIn(response)
         }
     }
 }
@@ -46,7 +50,7 @@ export default {
                         <label class="text-light">Or sign in with:</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <GoogleLogin class="btn-outline-light" :callback="shortCutGoogle"/>
+                        <GoogleLogin :callback="shortCutGoogle"/>
                     </div>
     
                     <div class="d-flex justify-content-center my-3">
