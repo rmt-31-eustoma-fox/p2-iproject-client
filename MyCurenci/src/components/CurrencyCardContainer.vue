@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-    <nav aria-label="Page navigation example" style="margin-left : 20px; margin-bottom: 0;">
+    <nav aria-label="Page navigation example" style=" padding:0 20%;" class="">
         <ul class="pagination">
             <li class="page-item" :class="{disabled : (pageNumber-1) === 0}">
                 <a class="page-link" href="#" @click.prevent="changePage(1)">First</a>

@@ -22,7 +22,7 @@ export default {
 }
 </script>
 <template>
-    <div class="card mb-3" style="width: 250px;">
+    <div class="card mb-3">
         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
         <!-- <div class="card-body">
         </div> -->

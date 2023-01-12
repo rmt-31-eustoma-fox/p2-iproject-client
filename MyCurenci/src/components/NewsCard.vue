@@ -39,8 +39,12 @@ export default {
             <img id="imgHead" :src="cardValue.imgUrl" class="card-img" alt="..." style="opacity: 10%; aspect-ratio: 16/9; object-fit: cover; object-position: center;">
             <div class="card-img-overlay">
                 <h5 class="card-title">{{ cardValue.title }}</h5>
+                <h6 class="card-subtitle mb-2 ">{{ cardValue.createdAt }}</h6>
                 <p class="card-text">{{ cardValue.desc }}</p>
-                <p class="card-text"><small>{{ cardValue.createdAt }}</small></p>
+                <p class="card-text">
+                    <a :href="cardValue.url" class="card-link"><i class="material-icons" style="font-size:36px">description</i></a>
+                    <small class="align-top">Source : {{ cardValue.source }}</small>
+                </p>
             </div>
         </div>
     </div>

@@ -16,6 +16,13 @@ const addSeriesAndData = (type, seriesOptions, data) => {
     const seriesConstructor = getChartSeriesConstructorName(type);
     series = chart[seriesConstructor](seriesOptions);
     series.setData(data);
+    series.applyOptions({
+        wickUpColor: 'rgb(41, 114, 220)',
+        upColor: 'rgb(41, 114, 220)',
+        wickDownColor: 'rgb(247, 194, 53)',
+        downColor: 'rgb(247, 194, 53)',
+        borderVisible: false,
+    })
 };
 
 // Auto resizes the chart when the browser window is resized.

@@ -7,12 +7,20 @@ export default {
     data() {
         return {
             chartProperties: {
-                width: 950,
-                height: 300,
+                // width: 950,
+                height: 400,
                 timeScale: {
                     timeVisible: true,
                     secondVisible: false,
-                }
+                },
+                layout:{
+                    background: { color: '#222' },
+                    textColor: '#DDD',
+                },
+                grid: {
+                    vertLines: { color: '#444' },
+                    horzLines: { color: '#444' },
+                },
             },
         }
     },

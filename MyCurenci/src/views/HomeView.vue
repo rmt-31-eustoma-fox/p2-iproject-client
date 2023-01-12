@@ -83,13 +83,10 @@ export default {
 </script>
 
 <template>
-  <div class="container" style="margin-top: 50px;">
+  <div class="container" style="padding-top: 7vh; height: 100vh;">
     <div class="row">
-      <div class="col-3">
+      <div class="col-9">
         <h2 class="mt-2">Search</h2>
-      </div>
-      <div class="col-6">
-        <h2 class="mt-2"></h2>
       </div>
       <div class="col-3">
         <h2 class="mt-2">Exchange Rate</h2>
