@@ -22,6 +22,7 @@ export const useCounterStore = defineStore("counter", {
     totalPrice: 0,
     search: "",
     recipes: [],
+    qrCode: "",
   }),
 
   getters: {},
@@ -389,8 +390,25 @@ export const useCounterStore = defineStore("counter", {
         this.isLoad = false;
       } catch (error) {
         this.isLoad = false;
-        console.log(error, "<<<2");
 
+        Swal.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      }
+    },
+
+    async qrCodeHandler(id) {
+      try {
+        this.isLoad = true;
+        const { data } = await axios.post(this.baseUrl + "/products/qrcode", {
+          url: `https://demillie.web.app/products/${id}`,
+          // url: `http://localhost:8000/products/${id}`,
+        });
+        this.qrCode = data.qrcode;
+        this.isLoad = false;
+      } catch (error) {
+        this.isLoad = false;
         Swal.fire({
           icon: "error",
           title: error.response.data.message,

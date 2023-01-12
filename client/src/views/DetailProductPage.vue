@@ -4,15 +4,20 @@ import { useCounterStore } from "../stores/counter";
 
 export default {
   methods: {
-    ...mapActions(useCounterStore, ["fetchDetailProduct", "addCartHandler"]),
+    ...mapActions(useCounterStore, [
+      "fetchDetailProduct",
+      "addCartHandler",
+      "qrCodeHandler",
+    ]),
   },
 
   computed: {
-    ...mapWritableState(useCounterStore, ["product"]),
+    ...mapWritableState(useCounterStore, ["product", "qrCode"]),
   },
 
   created() {
     this.fetchDetailProduct(this.$route.params.id);
+    this.qrCodeHandler(this.$route.params.id);
   },
 };
 </script>
@@ -56,6 +61,8 @@ export default {
                   <p>
                     {{ product.description }}
                   </p>
+                  <br />
+                  <img :src="qrCode" width="200" />
                 </div>
               </div>
             </summary>
