@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge"
+		/>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			href="../dist/output.css"
+			rel="stylesheet"
+		/>
+		<title>Glosseries</title>
+	</head>
+	<body>
+		<nav
+			class="flex w-full justify-between items-center col-start-1 col-end-3 border-b-1 drop-shadow-md bg-main-green px-10"
+			style="height: 60px"
+		>
+			<div class="items-center">
+				<h1 class="text-2xl align-middle">Glosseries</h1>
+			</div>
+			<div class="flex gap-5">
+				<a class="text-2xl align-middle">Home</a>
+				<a class="text-2xl align-middle">Your shows</a>
+				<a class="text-2xl align-middle">Login</a>
+				<a class="text-2xl align-middle">Logout</a>
+			</div>
+		</nav>
+		<div class="flex flex-col bg-main-grey">
+			<div class="bg-main-grey flex flex-col justify-end">
+				<div class="px-10">
+					<img src="../assets/glosseries-logo.png" 
+                    style="height: 300px"/>
+				</div>
+				<form class="flex flex-col gap-5 border-2 rounded-md ml-10 w-2/5 py-4 px-10">
+					<h1 class="text-2xl">Log in</h1>
+					<div class="flex flex-col">
+						<label for="email"> Email: </label>
+						<input
+							id="email"
+							type="email"
+							class="px-4 py-1 rounded bg-gray-200"
+						/>
+					</div>
+					<div class="flex flex-col">
+						<label for="password"> Password: </label>
+						<input
+							id="password"
+							type="password"
+							class="px-4 py-1 rounded bg-gray-200"
+						/>
+					</div>
+					<input
+						type="submit"
+						class="bg-main-green py-1"
+					/>
+					<h1 class="text-center">Don't have an account? Sign up here</h1>
+				</form>
+			</div>
+
+			<div class="">
+				<img
+					class="absolute bottom-0 right-0 h-4/5"
+					src="../assets/home-illustration.png"
+				/>
+			</div>
+		</div>
+
+		<!-- <h1 class="row-span-3 bg-blue-400">Illustration</h1> -->
+	</body>
+</html>

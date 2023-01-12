@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge"
+		/>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			href="../dist/output.css"
+			rel="stylesheet"
+		/>
+		<title>Glosseries</title>
+	</head>
+	<body>
+		<div
+			class="grid grid-cols-2 grid-rows-2 bg-main-grey"
+			style="grid-template-columns: 350px auto; grid-template-rows: auto 250px;"
+		>
+			<!-- Sidebar -->
+			<div
+				class="flex flex-col justify-start row-span-2 px-15 gap-10 pb-10 bg-main-grey h-full"
+			>
+				<img
+					src="../assets/glosseries-logo.png"
+					style="width: 280px"
+				/>
+				<div class="sidebar-menu">
+					<h2>Welcome, Rheza!</h2>
+				</div>
+				<div class="sidebar-menu flex flex-col gap-3">
+					<h1>Home</h1>
+					<h1>Browse Series</h1>
+					<h1>Your List</h1>
+				</div>
+				<div class="mt-32 sidebar-menu">
+					<h1>Logout</h1>
+				</div>
+			</div>
+
+			<div
+				class="bg-darker-grey pt-10 px-10 flex flex-col items-center gap-5 max-h-full"
+				id="content"
+			>
+				<h1 class="text-2xl">Arrow</h1>
+				<div class="flex gap-2">
+					<img
+						src="../assets/sample-pic-1.jpg"
+						class="series-img slide active"
+						style="width: 250px; height: 150px"
+					/>
+					<img
+						src="../assets/sample-pic-2.jpg"
+						class="series-img slide active"
+						style="width: 250px; height: 150px"
+					/>
+				</div>
+				<div class="flex justify-center gap-10">
+					<h1 class="bg-darker-green py-2 px-4 rounded-lg">
+						Genre: <span class="font-bold">Action</span>
+					</h1>
+					<h1 class="bg-darker-green py-2 px-4 rounded-lg">5 Seasons</h1>
+					<h1 class="bg-darker-green py-2 px-4 rounded-lg">
+						Status: <span class="font-bold">Ended</span>
+					</h1>
+				</div>
+				<div
+					class="bg-main-grey px-4 py-0.5 rounded-lg flex flex-col gap-3 w-5/6 text-justify"
+					id="synopsis"
+				>
+					<p class="text-sm">
+						Arrow is an American television series developed by writer/producers
+						Greg Berlanti, Marc Guggenheim, and Andrew Kreisberg. It is based on
+						the DC Comics character Green Arrow, a costumed crime-fighter
+						created by Mort Weisinger and George Papp. It premiered in North
+						America on The CW on October 10, 2012, with international
+						broadcasting taking place in late 2012.<span id="dots">...</span
+						><span id="more">
+							Primarily filmed in Vancouver, British Columbia, Canada, the
+							series follows billionaire playboy Oliver Queen, portrayed by
+							Stephen Amell, who, five years after being stranded on a hostile
+							island, returns home to fight crime and corruption as a secret
+							vigilante whose weapon of choice is a bow and arrow. Unlike in the
+							comic books, Queen does not go by the alias "Green Arrow". The
+							series takes a realistic look at the Green Arrow character, as
+							well as other characters from the DC Comics universe. Although
+							Oliver Queen/Green Arrow had been featured in the television
+							series Smallville from 2006 to 2011, the producers decided to
+							start clean and find a new actor (Amell) to portray the character.
+							Arrow focuses on the humanity of Oliver Queen, and how he was
+							changed by time spent shipwrecked on an island. Most episodes have
+							flashback scenes to the five years in which Oliver was
+							missing."</span
+						>
+					</p>
+					<button
+						onclick="myFunction()"
+						id="myBtn"
+					>
+						Read more
+					</button>
+				</div>
+				
+			</div>
+			<!-- <div class="flex gap-10 bg-darker-grey justify-center pt-10 items-center">
+				<button class="bg-main-green py-2 px-4 rounded-lg">
+					Leave a Review
+				</button>
+				<button class="bg-main-green py-2 px-4 rounded-lg">
+					Add to Watch List
+				</button>
+			</div> -->
+			<div class="bg-darker-grey px-20">
+				<h1>You might also like...</h1>
+				<div
+					class="flex gap-5"
+					id="card-container"
+				>
+					<div
+						class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+						id="card"
+					>
+						<img
+							src="../assets/sample-poster.jpg"
+							class="w-auto pt-2"
+							style="height: auto; width: 100px"
+						/>
+						<p class="text-sm">Stranger Things</p>
+					</div>
+					<div
+						class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+						id="card"
+					>
+						<img
+							src="../assets/sample-poster.jpg"
+							class="w-auto pt-2"
+							style="height: auto; width: 100px"
+						/>
+
+						<p class="text-sm">Stranger Things</p>
+					</div>
+					<div
+						class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+						id="card"
+					>
+						<img
+							src="../assets/sample-poster.jpg"
+							class="w-auto pt-2"
+							style="height: auto; width: 100px"
+						/>
+						<p class="text-sm">Stranger Things</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function myFunction() {
+				var dots = document.getElementById("dots");
+				var moreText = document.getElementById("more");
+				var btnText = document.getElementById("myBtn");
+
+				if (dots.style.display === "none") {
+					dots.style.display = "inline";
+					btnText.innerHTML = "Read more";
+					moreText.style.display = "none";
+				} else {
+					dots.style.display = "none";
+					btnText.innerHTML = "Read less";
+					moreText.style.display = "inline";
+				}
+			}
+		</script>
+	</body>
+</html>
