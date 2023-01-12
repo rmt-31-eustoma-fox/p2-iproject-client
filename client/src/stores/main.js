@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-const baseUrl = "http://localhost:3000"
+// const baseUrl = "http://localhost:3000"
+const baseUrl = "https://niix-brandedthings-production.up.railway.app"
 import axios, { Axios } from 'axios'
 import Swal from 'sweetalert2'
 
@@ -10,11 +11,16 @@ export const mainFunction = defineStore('main_function', {
     cardDecks: [],
     deckName: '',
     query: {
-      id:"", name:"", type: "", atk: "", def: "", level: "", race: "", attribute: "", banlist: "", sort: "", frameType: "", desc: "", fname: '', desc: ''
+      id: "", name: "", type: "", atk: "", def: "", level: "", race: "", attribute: "", banlist: "", sort: "", frameType: "", desc: "", fname: '', desc: ''
     },
     cards: [],
     selectedCard: [],
-    user: {}
+    user: {},
+    qrCodes: [],
+    relatedYugiohs: ['https://duelingnexus.com/', 'https://ygoprodeck.com/', 'https://twitter.com/yugioh?lang=en', 'https://www.duellinksmeta.com/', 'https://ycm.netlify.app/calc', 'https://play.google.com/store/apps/details?', 'id=com.zurdo.duelist', 'http://yugiohtracker.com/#/newCards', 'https://www.aygocm.co.uk/'],
+    image: ''
+
+
   }),
   getters: {
   },
@@ -96,12 +102,12 @@ export const mainFunction = defineStore('main_function', {
         })
       }
     },
-    async newDeck (name){
+    async newDeck(name) {
       try {
         const newDeck = await axios({
           method: "post",
           url: baseUrl + '/adddeck',
-          data: {name},
+          data: { name },
           headers: {
             access_token: localStorage.access_token
           }
@@ -111,7 +117,7 @@ export const mainFunction = defineStore('main_function', {
         console.log(error)
       }
     },
-    async getMyDeck (){
+    async getMyDeck() {
       try {
         const decks = await axios({
           method: "get",
@@ -125,11 +131,11 @@ export const mainFunction = defineStore('main_function', {
         console.log(error)
       }
     },
-    async newDeck (name){
+    async newDeck(name) {
       try {
         await axios({
           method: "post",
-          url:   baseUrl + '/adddeck',
+          url: baseUrl + '/adddeck',
           headers: {
             access_token: localStorage.access_token
           },
@@ -142,7 +148,7 @@ export const mainFunction = defineStore('main_function', {
         console.log(error)
       }
     },
-    async deleteDeck(deckid){
+    async deleteDeck(deckid) {
       try {
         await axios({
           method: "delete",
@@ -156,7 +162,7 @@ export const mainFunction = defineStore('main_function', {
         console.log(error)
       }
     },
-    async theDeck (deckid){
+    async theDeck(deckid) {
       try {
         const deck = await axios({
           method: "get",
@@ -167,12 +173,12 @@ export const mainFunction = defineStore('main_function', {
         })
         this.cardDecks = deck.data.deck.DeckCards
         this.deckName = deck.data.deck.name
-        this.router.push('/editdeck/'+deckid)
+        this.router.push('/editdeck/' + deckid)
       } catch (error) {
         console.log(error)
       }
     },
-    async getCards(){
+    async getCards() {
       try {
         const cards = await axios({
           method: "get",
@@ -189,7 +195,7 @@ export const mainFunction = defineStore('main_function', {
         console.log(error)
       }
     },
-    async selectCard(id){
+    async selectCard(id) {
       try {
         const cards = await axios({
           method: "get",
@@ -206,7 +212,7 @@ export const mainFunction = defineStore('main_function', {
         console.log(error)
       }
     },
-    async editCard(deckid, cardid){
+    async editCard(deckid, cardid) {
       try {
         await axios({
           method: 'post',
@@ -228,7 +234,7 @@ export const mainFunction = defineStore('main_function', {
         })
       }
     },
-    async deleteCard(deckid, CardId){
+    async deleteCard(deckid, CardId) {
       try {
         await axios({
           method: "delete",
@@ -254,24 +260,49 @@ export const mainFunction = defineStore('main_function', {
         title: 'Log out success'
       })
     },
-    async multer(){
+    async multer() {
       try {
+        const formData = new FormData();
+        formData.append('profile-file', this.image);
+        const headers = { 'Content-Type': 'multipart/form-data', access_token: localStorage.access_token };
         await axios({
           method: "post",
-          url: baseUrl + '/upload'
+          url: baseUrl + '/profile-upload-single',
+          data: formData,
+          headers
         })
-      } catch (error) {console.log(error)}
+      } catch (error) { console.log(error) }
     },
-    async getUsername(){
+    async getUsername() {
       const user = await axios({
         method: "get",
-        url: baseUrl +'/user',
+        url: baseUrl + '/user',
         headers: {
           access_token: localStorage.access_token
         },
       })
+      console.log(user)
       this.user.username = user.data.username
       this.user.email = user.data.email
+      this.user.id = user.data.id
+    },
+    async getQrCode(webPage) {
+      try {
+        const qr = await axios({
+          method: 'get',
+          url: baseUrl + '/qrweb',
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: {
+            webPage
+          }
+        })
+        this.qrCodes = qr.data.qrX
+        console.log(this.qrCodes, "<<<<<<<<<<<<MAIN")
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
 })

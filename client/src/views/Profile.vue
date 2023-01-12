@@ -1,17 +1,25 @@
 <script>
-import { mapActions, mapState } from 'pinia';
+import { mapActions, mapState, mapWritableState } from 'pinia';
 import Sidebar from '../components/Sidebar.vue'
 import { mainFunction } from '../stores/main';
 export default {
     components: { Sidebar },
     computed: {
-        ...mapState(mainFunction, ['user'])
+        ...mapState(mainFunction, ['user', 'user']),
+        ...mapWritableState(mainFunction, ['image'])
     },
     methods: {
-        ...mapActions(mainFunction, ['multer', 'getUsername'])
+        ...mapActions(mainFunction, ['multer', 'getUsername',]),
+        uploadFile(){
+            this.image = this.$refs.file.files[0]
+        }
     },
     created(){
         this.getUsername()
+    },
+    data(){
+        return {
+        }
     }
 }
 </script>
@@ -24,10 +32,11 @@ export default {
                 <h2>Profile</h2>
                 <h4>Username : {{ user.username }}</h4>
                 <h4>Email : {{ user.email }}</h4>
+                <img src="http://localhost:3000/uploads/foto_profile_15.jpg" style="margin: 20px auto;" alt="" srcset="">
 
-                <form @submit.prevent="multer" enctype="multipart/form-data">
+                <form @submit.prevent="multer" enctype="multipart/form-data" >
                     <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="inputGroupFile02">
+                        <input type="file" class="form-control" id="inputGroupFile02" @change="uploadFile" ref="file">
                         <label class="input-group-text" for="inputGroupFile02">Upload</label>
                     </div>
                     <div>
