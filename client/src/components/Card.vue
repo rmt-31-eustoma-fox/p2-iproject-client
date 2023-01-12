@@ -21,7 +21,7 @@ export default {
             <h5 class="card-title">{{item.original_title}}</h5>
             <p class="card-text">{{item.overview}}</p>
             <a @click.prevent="pindahDetail"  href="#" class="btn btn-primary m-1" 
-              >Detail News</a
+              >Detail Movie</a
             >
     
             <a @click.prevent="addToFavorite(item.id)" v-if="hasAddtoFav"  href="#"  class="btn btn-primary"
