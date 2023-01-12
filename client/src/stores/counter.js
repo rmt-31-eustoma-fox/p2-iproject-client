@@ -201,7 +201,7 @@ export const useCounterStore = defineStore('counter', {
         })
         this.subscribe = localStorage.isSubscribed
         this.dogMessage = data.message
-        console.log(this.dogMessage)
+        // console.log(this.dogMessage)
       } catch (error) {
         this.error(error)
       }

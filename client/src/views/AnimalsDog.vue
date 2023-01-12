@@ -17,8 +17,13 @@ export default {
     ...mapActions(useCounterStore, ["getRoom", "translate", "dogFact"]),
     async dogFactHandler() {
       await this.dogFact()
-      await this.factDog
-      console.log(this.factDog)
+
+      const messageDog = {
+        id: new Date(),
+        text: this.dogMessage,
+        user: localStorage.username,
+      };
+      this.messages.push(messageDog);
     },
     sendMessage() {
       this.addMessage();
