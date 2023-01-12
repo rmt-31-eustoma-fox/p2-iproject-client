@@ -1,9 +1,11 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const useTeamStore = defineStore("team", {
   state: () => ({
-    baseUrl: "http://localhost:3001/",
+    baseUrl: "https://nbaseken-production.up.railway.app/",
+    // baseUrl: "http://localhost:3000/",
     teams: [],
     team: {},
   }),
@@ -37,12 +39,11 @@ export const useTeamStore = defineStore("team", {
         this.teams = data;
       } catch (error) {
         const { data } = error.response;
-        console.log(data.message);
-        // Swal.fire({
-        //   icon: "error",
-        //   title: "Oops...",
-        //   text: data.message,
-        // });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message,
+        });
       }
     },
     async fetchById(id) {
@@ -56,12 +57,11 @@ export const useTeamStore = defineStore("team", {
         this.team = data;
       } catch (error) {
         const { data } = error.response;
-        console.log(data.message);
-        // Swal.fire({
-        //   icon: "error",
-        //   title: "Oops...",
-        //   text: data.message,
-        // });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message,
+        });
       }
     },
     async fetchTeamStatistics(id) {
@@ -75,12 +75,11 @@ export const useTeamStore = defineStore("team", {
         this.team.statistics = data;
       } catch (error) {
         const { data } = error.response;
-        console.log(data.message);
-        // Swal.fire({
-        //   icon: "error",
-        //   title: "Oops...",
-        //   text: data.message,
-        // });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message,
+        });
       }
     },
     async fetchPlayerList(id) {
@@ -91,15 +90,18 @@ export const useTeamStore = defineStore("team", {
           timeout: 2000,
         });
 
-        this.team.players = data;
+        this.team.players = data.filter((el) => {
+          if (el.nba.start !== 0) {
+            return el;
+          }
+        });
       } catch (error) {
         const { data } = error.response;
-        console.log(data.message);
-        // Swal.fire({
-        //   icon: "error",
-        //   title: "Oops...",
-        //   text: data.message,
-        // });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message,
+        });
       }
     },
   },

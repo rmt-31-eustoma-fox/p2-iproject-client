@@ -8,7 +8,8 @@ export const usePlayerStore = defineStore("player", {
     player: {},
     statistics: [],
     searchPlayer: "",
-    baseUrl: "http://localhost:3001/",
+    baseUrl: "https://nbaseken-production.up.railway.app/",
+    // baseUrl: "http://localhost:3000/",
   }),
   getters: {
     points: (state) =>
