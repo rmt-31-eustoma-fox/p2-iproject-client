@@ -194,6 +194,7 @@ export default {
         </ul>
         <div class="bg-white p-2 mt-2 text-center rounded-lg shadow-md">
           <div class="font-semibold mb-1">Data Gempa terbaru</div>
+          <div>{{ gempaterbaru?.gempa?.Tanggal }}</div>
           <div>{{ gempaterbaru?.gempa?.Jam }}</div>
           <div>{{ gempaterbaru?.gempa?.Wilayah }}</div>
           <div>{{ gempaterbaru?.gempa?.Potensi }}</div>

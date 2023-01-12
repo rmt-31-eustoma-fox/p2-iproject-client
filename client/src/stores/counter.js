@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 // const Swal = require("sweetalert2");
-const baseUrl = "http://localhost:3000";
+// const baseUrl = "http://localhost:3000";
+const baseUrl = "https://today-app-production.up.railway.app";
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     dataAllTodo: [],
@@ -18,13 +19,16 @@ export const useCounterStore = defineStore("counter", {
     async geolocation(data) {
       console.log(data);
       try {
-        const location = await axios.get(baseUrl + `/today/geolocation/`, {
+        const location = await axios.get("https://api.ipgeolocation.io/ipgeo", {
+          params: {
+            apiKey: "50dc20dc04d74e048b1600a751933f57",
+          },
           headers: {
             access_token: localStorage.access_token,
           },
         });
         this.datalocation = location.data;
-        console.log(location);
+        console.log(location.data);
       } catch (error) {
         console.log(error);
       }

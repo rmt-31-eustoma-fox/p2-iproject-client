@@ -53,8 +53,8 @@ export default {
         class="hidden w-full md:block md:w-auto font-semibold"
         id="navbar-default"
       >
-        Lokasi anda di : {{ datalocation.data?.city }},
-        {{ datalocation.data?.country_name }}
+        Lokasi anda di : {{ datalocation.city }},
+        {{ datalocation.country_name }}
       </div>
     </div>
   </nav>
