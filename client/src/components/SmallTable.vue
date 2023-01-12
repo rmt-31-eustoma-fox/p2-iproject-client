@@ -1,6 +1,8 @@
 <script>
+  import { RouterLink, RouterView } from "vue-router";
+
   export default {
-    props: ["title"],
+    props: ["title", "teams"],
   };
 </script>
 
@@ -14,21 +16,31 @@
           <th class="p-2 text-center" scope="col">W</th>
           <th class="p-2 text-center" scope="col">L</th>
           <th class="p-2 text-center" scope="col">LAST 10</th>
+          <th class="p-2 text-center" scope="col">STREAK</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr v-for="(team, idx) in teams" :key="team.id">
           <td class="p-2" scope="row">
-            1
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Golden_State_Warriors_logo.svg/1200px-Golden_State_Warriors_logo.svg.png"
-              style="height: 24px; padding: 0 10px"
-            />
-            Team Name
+            {{ ++idx }}
+            <img :src="team.team.logo" style="height: 24px; padding: 0 10px" />
+            <RouterLink
+              :to="{
+                name: 'teamDetail',
+                params: { id: team.team.id, teamName: team.team.name },
+              }"
+            >
+              {{ team.team.name }}
+            </RouterLink>
           </td>
-          <td class="p-2 text-center" scope="row">42</td>
-          <td class="p-2 text-center" scope="row">54</td>
-          <td class="p-2 text-center" scope="row">4-6</td>
+          <td class="p-2 text-center" scope="row">{{ team.win.total }}</td>
+          <td class="p-2 text-center" scope="row">{{ team.loss.total }}</td>
+          <td class="p-2 text-center" scope="row">
+            {{ team.win.lastTen }}-{{ team.loss.lastTen }}
+          </td>
+          <td class="p-2 text-center" scope="row">
+            {{ team.winStreak ? "W" : "L" }}{{ team.streak }}
+          </td>
         </tr>
       </tbody>
     </table>
