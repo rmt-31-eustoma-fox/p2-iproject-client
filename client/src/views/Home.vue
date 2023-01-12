@@ -44,7 +44,7 @@ export default {
   </header>
 
   <!-- Section-->
-  <section class="py-5 bg-danger">
+  <section class="py-4 bg-danger">
     <!-- Search -->
     <div class="container px-4 px-lg-5 mt-5">
       <form action="">
@@ -87,3 +87,9 @@ export default {
     </div>
   </footer>
 </template>
+
+<style scoped>
+.aaa {
+  padding: 180px;
+}
+</style>

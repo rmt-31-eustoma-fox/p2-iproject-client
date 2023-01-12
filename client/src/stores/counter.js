@@ -44,7 +44,7 @@ export const useCounterStore = defineStore("counter", {
       this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false;
-      }, 3000);
+      }, 1800);
     },
 
     fetchAgents() {
