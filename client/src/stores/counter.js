@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
+import Swal from 'sweetalert2'
 const url = "http://localhost:3000"
 
 export const useCounterStore = defineStore('counter', {
@@ -11,13 +12,16 @@ export const useCounterStore = defineStore('counter', {
     isLoggedIn: false,
     user: "",
     dogMessage: "",
-    subscribe: localStorage.isSubscribed
+    subscribe: false,
+    isLoading: false,
+    fullPage: true
   }),
   getters: {
     doubleCount: (state) => state.count * 2,
   },
   actions: {
     callback(response) {
+      this.isLoading = true
       axios({
         url: url + "/users/google/sign-in",
         method: "POST",
@@ -30,13 +34,24 @@ export const useCounterStore = defineStore('counter', {
           localStorage.setItem("access_token", data.data.access_token);
           localStorage.username = data.data.username
           localStorage.isSubscribed = data.data.isSubscribed
+          Swal.fire({
+            title: "Success!",
+            text: `Welcome to DC Community Chat ${localStorage.username}!`,
+            icon: "success",
+          });
           this.isLoggedIn = true
+          this.isLoading = false
+          this.subscribe = localStorage.isSubscribed
           this.router.push("/lobby")
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          this.isLoading = false
+          this.error(err)
+        })
     },
     async register(user){
       try {
+        this.isLoading = true
         await axios({
           url: url+"/users/register",
           method: "post",
@@ -46,9 +61,17 @@ export const useCounterStore = defineStore('counter', {
             password: user.password
           }
         })
+        Swal.fire({
+          title: "Success!",
+          text: `Success create a new user!`,
+          icon: "success",
+        });
+        this.subscribe = localStorage.isSubscribed
+        this.isLoading = false
         this.router.push("/login")
       } catch (error) {
-        console.log(error)
+        this.isLoading = false
+        this.error(error)
       }
     },
     async login(user){
@@ -65,11 +88,16 @@ export const useCounterStore = defineStore('counter', {
         localStorage.access_token = data.access_token
         localStorage.username = data.username
         localStorage.isSubscribed = data.isSubscribed
-        console.log(localStorage.isSubscribed, data.isSubscribed)
+        Swal.fire({
+          title: "Success!",
+          text: `Welcome to DC Community Chat ${localStorage.username}!`,
+          icon: "success",
+        });
+        this.subscribe = localStorage.isSubscribed
         this.isLoggedIn = true
         this.router.push("/lobby")
       } catch (error) {
-        console.log(error)
+        this.error(error)
       }
     },
     async getRoom(){
@@ -81,9 +109,10 @@ export const useCounterStore = defineStore('counter', {
             access_token: localStorage.access_token
           },
         })
+        this.subscribe = localStorage.isSubscribed
         this.roomsList = data
       } catch (error) {
-        console.log(error)
+        this.error(error)
       }
     },
     async translate(message){
@@ -95,9 +124,10 @@ export const useCounterStore = defineStore('counter', {
             text: message
           }
         })
+        this.subscribe = localStorage.isSubscribed
         this.translatedMessage = data.translatedText
       } catch (error) {
-        console.log(error)
+        this.error(error)
       }
     },
     async findUser(){
@@ -109,12 +139,12 @@ export const useCounterStore = defineStore('counter', {
             access_token: localStorage.access_token
           }
         })
-
+        this.subscribe = localStorage.isSubscribed
         this.user = data.findUser
         console.log(data)
         localStorage.isSubscribed = data.findUser.isSubscribed
       } catch (error) {
-        console.log(error, "findUser")
+        this.error(error)
       }
     },
     async changeStatus(){
@@ -126,9 +156,10 @@ export const useCounterStore = defineStore('counter', {
             access_token: localStorage.access_token
           }
         })
+        this.subscribe = localStorage.isSubscribed
         this.findUser()
       } catch (error) {
-        console.log(error)
+        this.error(error)
       }
     },
     async subscription(){
@@ -140,7 +171,7 @@ export const useCounterStore = defineStore('counter', {
             access_token: localStorage.access_token
           }
         })
-
+        this.subscribe = localStorage.isSubscribed
         const cb = this.changeStatus
         const router = this.router
 
@@ -149,11 +180,17 @@ export const useCounterStore = defineStore('counter', {
             /* You may add your own implementation here */
             console.log(result);
             cb()
+            Swal.fire({
+              title: "Success!",
+              text: "Thank you for your subscribe!",
+              icon: "success",
+            });
             router.push("/lobby")
           },
         })
+        this.subscribe = localStorage.isSubscribed
       } catch (error) {
-        console.log(error)
+        this.error(error)
       }
     },
     async dogFact(){
@@ -162,11 +199,30 @@ export const useCounterStore = defineStore('counter', {
           url: url+"/animals/dog",
           method: "get"
         })
-        // console.log(data)
+        this.subscribe = localStorage.isSubscribed
         this.dogMessage = data.message
         console.log(this.dogMessage)
       } catch (error) {
-        console.log(error)
+        this.error(error)
+      }
+    },
+    error(err) {
+      if (err.response.data.message === "Invalid Token") {
+        Swal.fire({
+          title: "Error!",
+          text: err.response.data.message,
+          icon: "error",
+          confirmButtonText: "Alright :(",
+        });
+        localStorage.clear();
+        this.router.push("/login")
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: err.response.data.message,
+          icon: "error",
+          confirmButtonText: "Alright :(",
+        });
       }
     }
   },

@@ -1,18 +1,19 @@
 <script>
 import Navbar from "./components/NavbarHome.vue";
+import PreLoader from "./components/PreLoader.vue"
 export default {
-  data() {
-    return {};
-  },
   components: {
     Navbar,
+    PreLoader
   },
+
 };
 </script>
 
 <template>
   <section>
     <Navbar />
+    <PreLoader />
     <RouterView />
   </section>
 </template>

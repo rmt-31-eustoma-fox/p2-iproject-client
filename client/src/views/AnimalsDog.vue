@@ -11,7 +11,7 @@ export default {
     };
   },
   computed: {
-    ...mapWritableState(useCounterStore, ["roomsList", "translatedMessage", "dogMessage", "subscribe"]),
+    ...mapWritableState(useCounterStore, ["roomsList", "translatedMessage", "dogMessage", "subscribe", "isLoading"]),
   },
   methods: {
     ...mapActions(useCounterStore, ["getRoom", "translate", "dogFact"]),
@@ -113,6 +113,12 @@ export default {
   },
   created() {
     this.getRoom();
+    this.subscribe = localStorage.isSubscribed
+    this.isLoading = true;
+      // simulate AJAX
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 2000);
   },
   mounted() {
     this.socketInstance = io("http://localhost:3000");
@@ -228,7 +234,6 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   width: 950px;
-  margin-right: 65px;
 }
 
 .text-message {

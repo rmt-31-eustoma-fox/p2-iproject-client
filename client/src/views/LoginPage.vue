@@ -1,7 +1,10 @@
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { useCounterStore } from "../stores/counter";
 export default {
+  computed: {
+    ...mapWritableState(useCounterStore, ["isLoading"]),
+  },
   methods: {
     ...mapActions(useCounterStore, ["login", "callback"]),
     loginHandler() {
@@ -12,6 +15,13 @@ export default {
       this.login(user);
     },
   },
+  created(){
+    this.isLoading = true;
+      // simulate AJAX
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 2000);
+  }
 };
 </script>
 

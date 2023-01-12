@@ -12,11 +12,9 @@
       <div id="box3">
         <div id="container">
           <div id="logo">
-              <img src="logo" />
           </div>
           <div id="menu">
             <ul>
-              <router-link to="/about" class="router">ABOUT</router-link>
               <router-link to="/login" class="router">LOGIN</router-link>
               <router-link to="/register" class="router">REGISTER</router-link>
             </ul>
@@ -30,13 +28,14 @@
 <style scoped>
 .body-style{
   margin: 0px;
-  background: #1e242a;
+  background-color: #1e242a;
 }
 #main{
   width: 100%;
   height: 100%;
   position: absolute;
   overflow: hidden;
+  background-color: #1e242a;
 }
 #box1{
   width: 530px;
@@ -55,7 +54,7 @@
   height: 625px;
   background-image: url("../assets/2.png");
   left: 0px;
-  z-index: -1;
+  z-index: 7;
 }
 
 @keyframes anim2{

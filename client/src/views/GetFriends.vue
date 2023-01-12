@@ -10,7 +10,7 @@ export default {
     };
   },
   computed: {
-    ...mapWritableState(useCounterStore, ["roomsList", "translatedMessage", "subscribe"]),
+    ...mapWritableState(useCounterStore, ["roomsList", "translatedMessage", "subscribe", "isLoading"]),
   },
   methods: {
     ...mapActions(useCounterStore, ["addRoom", "getRoom", "translate"]),
@@ -111,6 +111,12 @@ export default {
   },
   created() {
     this.getRoom();
+    this.subscribe = localStorage.isSubscribed
+    this.isLoading = true;
+      // simulate AJAX
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 2000);
   },
   mounted() {
     this.socketInstance = io("http://localhost:3000");
@@ -158,7 +164,7 @@ export default {
             id="final"
             @keyup.enter="sendMessage"
           ></textarea>
-          <div v-if="subscribe" style="width: 400px; margin-top:7px">
+          <div v-if="subscribe == 'true'" style="width: 400px; margin-top:7px">
             <button
               @click="translateHandler"
               class="btn btn-outline-light btn-lg px-5"
@@ -211,7 +217,6 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   width: 950px;
-  margin-right: 65px;
 }
 
 .text-message {

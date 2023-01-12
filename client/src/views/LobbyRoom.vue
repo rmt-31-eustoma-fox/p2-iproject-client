@@ -3,16 +3,11 @@ import CardRoom from "../components/CardRoom.vue";
 import { useCounterStore } from "../stores/counter";
 import { mapActions, mapWritableState } from "pinia";
 export default {
-  data() {
-    return {
-      isSubscribed: "",
-    };
-  },
   components: {
     CardRoom,
   },
   computed: {
-    ...mapWritableState(useCounterStore, ["roomsList"]),
+    ...mapWritableState(useCounterStore, ["roomsList", "isLoading", "subscribe"]),
   },
   methods: {
     ...mapActions(useCounterStore, ["addRoom", "getRoom"]),
@@ -23,7 +18,13 @@ export default {
   },
   created() {
     this.getRoom();
-    this.isSubscribed = localStorage.isSubscribed;
+    // this.isSubscribed = localStorage.isSubscribed
+    this.subscribe = localStorage.isSubscribed;
+    this.isLoading = true;
+      // simulate AJAX
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 2000);
   },
 };
 </script>
@@ -122,7 +123,7 @@ div.card {
 
 .room-header h1 {
   margin-top: 50px;
-  margin-left: 730px;
+  margin-left: 380px;
   width: 400px;
 }
 
