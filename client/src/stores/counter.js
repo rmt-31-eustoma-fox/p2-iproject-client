@@ -8,10 +8,12 @@ export const useCounterStore = defineStore('counter', {
     registerEmail : '',
     loginEmail : '',
     loginPassword : '',
-    baseUrl : 'http://localhost:3000',
+    // baseUrl : 'https://individual-project-h8-production.up.railway.app',
+    baseUrl : "http://localhost:3000",
     moviesList : [],
     favoriteList : [],
-    detailMovie : {}
+    detailMovie : {},
+    news : []
     }),
   getters: {
 
@@ -116,6 +118,23 @@ export const useCounterStore = defineStore('counter', {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async getNews(){
+      try {
+        const {data} = await axios({
+          url : this.baseUrl+"/news",
+          method : "get",
+          headers : {
+            access_token : localStorage.access_token
+          }
+        })
+        console.log(data);
+        this.news = data
+      } catch (error) {
+        console.log(error);
+      }
     }
+
   },
 })

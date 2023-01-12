@@ -20,11 +20,11 @@ export default {
           <div class="card-body">
             <h5 class="card-title">{{item.original_title}}</h5>
             <p class="card-text">{{item.overview}}</p>
-            <a @click.prevent="pindahDetail" v-if="hasAddtoFav" href="#" class="btn btn-primary m-1" 
+            <a @click.prevent="pindahDetail"  href="#" class="btn btn-primary m-1" 
               >Detail News</a
             >
     
-            <a @click.prevent="addToFavorite(item.id)"  href="#"  class="btn btn-primary"
+            <a @click.prevent="addToFavorite(item.id)" v-if="hasAddtoFav"  href="#"  class="btn btn-primary"
               >add to favorite</a
             >
           </div>
