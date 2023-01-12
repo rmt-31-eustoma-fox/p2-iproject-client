@@ -1,0 +1,35 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "tailwind": "npx tailwindcss -i ./src/assets/main.css -o ./src/assets/output.css --watch",
+    "start": "npm run tailwind && npm run dev"
+  },
+  "dependencies": {
+    "@hulkapps/vue-plyr": "^7.0.5",
+    "axios": "^1.2.2",
+    "pinia": "^2.0.28",
+    "swiper": "^8.4.5",
+    "vue": "^3.2.45",
+    "vue-facebook-login-component-next": "^1.0.4",
+    "vue-router": "^4.1.6",
+    "vue3-google-login": "^2.0.12"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.1.4",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "eslint": "^8.22.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "prettier": "^2.7.1",
+    "sweetalert2": "^11.7.0",
+    "tailwindcss": "^3.2.4",
+    "vite": "^4.0.0",
+    "vue-awesome-swiper": "^5.0.1"
+  }
+}
