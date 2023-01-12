@@ -151,7 +151,7 @@ export const useCounterStore = defineStore("counter", {
     },
 
     fetchFavorites() {
-      this.enableLoading();
+      // this.enableLoading();
       axios({
         url: baseUrl + `/favorite`,
         method: "get",

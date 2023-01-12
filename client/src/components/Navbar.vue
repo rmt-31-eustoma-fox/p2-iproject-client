@@ -22,6 +22,7 @@ export default {
 
     handleLogout() {
       localStorage.clear();
+      google.accounts.id.disableAutoSelect();
       this.$router.push("/login");
       Swal.fire({
         // position: "top-end",
