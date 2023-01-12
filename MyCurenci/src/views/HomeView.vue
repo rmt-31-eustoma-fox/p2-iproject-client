@@ -11,13 +11,16 @@ export default {
     PairSymbol, CurrencyCardContainer, Loading
   },
   computed: {
-    ...mapState(useRootStore, ['currencies', 'theValue','theForexPair','exchangeValue','isLoading']),
+    ...mapState(useRootStore, ['currencies', 'theValue','theForexPair','exchangeValue','isLoading','exchangeDate']),
     ...mapWritableState(useRootStore,['baseCurrency','quoteCurrency','isInTitleStage']),
     localGetQuery(){
       return this.$route.query.exc
     },
     localRouteName(){
       return this.$route.name
+    },
+    formatedDate(){
+      return (new Date(this.exchangeDate)).toLocaleDateString('en-US',{dateStyle :'long'})
     }
   },
   methods: {
@@ -97,16 +100,18 @@ export default {
         <div class="row">
           <PairSymbol />
         </div>
-        <div class="row">
-          <div class="col">
-            <!-- <h2 class="mt-2" v-if="$route.name === 'graph'">Graph of {{ theForexPair }}</h2> -->
-            <!-- <p> {{  }}</p> -->
-          </div>
+      </div>
+      <div class="col-3">
+        <div class="d-flex">
+          <i class="material-icons" style="font-size:48px;color:green">update</i>
+          <h6>{{ formatedDate }}</h6>
         </div>
+      </div>
+    </div> 
+    <div class="row">
+      <div class="col-9">
         <div class="row">
           <div class="col">
-            <!-- <Graph :type="'candlestick'" :autosize="true" :data="theValue" :chartOptions="chartProperties" /> -->
-            <!-- <RouterView /> -->
             <router-view />
           </div>
         </div>

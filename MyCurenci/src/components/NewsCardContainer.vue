@@ -14,7 +14,7 @@ export default {
 
 <template>
     <h1>News</h1>
-    <div class="row row-cols-2">
+    <div class="row ">
         <NewsCard v-for="(eachNews, idx) in theNews" :cardValue="eachNews" />
     </div>
 </template>

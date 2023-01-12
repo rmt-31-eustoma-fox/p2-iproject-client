@@ -3,7 +3,7 @@ export default {
     // unmounted(){
     //     console.log('Unmounted dummy')
     // },
-    created(){
+    created() {
         console.log('created DUmmy')
     },
     // beforeMount(){
@@ -13,4 +13,5 @@ export default {
 </script>
 <template>
     <h1>Welcome To MyCurenci</h1>
+    <p>This App will help you to get news and grpah of certain foreign exchange (Forex) pair.</p>
 </template>

@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000";
+// const BASE_URL = "https://micurenci-production.up.railway.app";
+const BASE_URL = "http://localhost:3000"
 
 export const useRootStore = defineStore("basis", {
   state: () => ({
@@ -42,7 +43,7 @@ export const useRootStore = defineStore("basis", {
         // console.log(this.theForexPair)
         const { data } = await axios({
           method: "get",
-          url: "http://localhost:3000/forexValue",
+          url: BASE_URL + "/forexValue",
           params : {
             forexPair : this.theForexPair
           }
@@ -71,7 +72,7 @@ export const useRootStore = defineStore("basis", {
             // this.router.push('/')
             const {data} = await axios({
                 method: 'get',
-                url: 'http://localhost:3000/forexNews',
+                url: BASE_URL + '/forexNews',
                 params : {
                     forexPair : this.theForexPair
                 }
