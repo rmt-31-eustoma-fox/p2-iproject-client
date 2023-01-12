@@ -1,5 +1,5 @@
 <script>
-  import { mapActions, mapState } from "pinia";
+  import { mapActions, mapState, mapWritableState } from "pinia";
   import SmallTable from "../components/SmallTable.vue";
   import { useStandingStore } from "../stores/standing";
 
@@ -21,11 +21,11 @@
 
 <template>
   <div class="container my-5">
-    <div class="p-3 border border-0 rounded bg-white row">
+    <form class="p-3 border border-0 rounded bg-white row">
       <h5 class="h5 mb-3">
         <strong>NBA 2022 Regular Season Standings</strong>
       </h5>
-    </div>
+    </form>
 
     <SmallTable :title="'EAST CONFERENCE'" :teams="eastConference" />
     <SmallTable :title="'WEST CONFERENCE'" :teams="westConference" />

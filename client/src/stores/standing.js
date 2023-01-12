@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 export const useStandingStore = defineStore("standing", {
   state: () => ({
     standings: [],
-    baseUrl: "http://localhost:3001/standings",
+    baseUrl: "http://localhost:3001/",
+    season: 2022,
   }),
   getters: {
     eastConference: (state) =>
@@ -24,7 +25,8 @@ export const useStandingStore = defineStore("standing", {
   actions: {
     async getFullStandings() {
       try {
-        let url = this.baseUrl + "?season=2022";
+        let url = this.baseUrl + "standings?season=" + this.season;
+        console.log(url);
         const { data } = await axios({
           method: "GET",
           url,
