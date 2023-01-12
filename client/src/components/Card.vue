@@ -14,9 +14,14 @@ export default {
 
         formatPrice(){
             if(this.book.saleInfo.retailPrice){
-                return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR'}).format(this.book.saleInfo.retailPrice.amount)
+                if(this.book.saleInfo.retailPrice.amount > 0){
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR'}).format(this.book.saleInfo.retailPrice.amount * 15348)
+                    // return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR'}).format(this.book.saleInfo.retailPrice.amount)
+                } else {
+                    return "Rp 20.000"
+                }
             } else {
-                return "Rp 0,00"
+                return "Rp 20.000"
             }
         },
 
@@ -67,15 +72,16 @@ export default {
             this.dataBook.isbn = this.formatIsbn
             if(this.book.saleInfo.retailPrice){
                 if(this.book.saleInfo.retailPrice.amount > 0){
+                    // this.dataBook.price = this.book.saleInfo.retailPrice.amount * 15466,35
                     this.dataBook.price = this.book.saleInfo.retailPrice.amount
                 } else {
                     this.dataBook.price = 20000
                 }
             } else {
-                this.dataBook.price = 22000
+                this.dataBook.price = 20000
             }
             this.dataBook.description = this.book.volumeInfo.description
-            console.log(this.dataBook, '<<<<< cek bro');
+            // console.log(this.dataBook, '<<<<< cek bro');
             this.addOrder()
         }
     }

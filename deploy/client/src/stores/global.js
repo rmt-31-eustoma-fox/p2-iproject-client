@@ -202,7 +202,7 @@ export const globalStore = defineStore('global', {
             description: this.dataBook.description
           }
         })
-        window.snap.pay(midtrans);
+        window.snap.pay(data);
         // console.log(data, '<<<<< cek token');
       } catch (error) {
         Swal.fire({

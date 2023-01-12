@@ -5,8 +5,10 @@ import Swal from 'sweetalert2'
 
 export const globalStore = defineStore('global', {
   state: () => ({
-    baseURL: "http://localhost:3000",
+    // baseURL: "http://localhost:3000",
+    baseURL: "https://readingshed-production.up.railway.app",
     isLogin: false,
+    isLoading: false,
     nickname: "",
     username: "",
     email: "",
@@ -138,6 +140,7 @@ export const globalStore = defineStore('global', {
 
     async fetchBooks(){
       try {
+        this.isLoading = true
         const { data } = await axios({
           method: "get",
           url: this.baseURL + "/books?query=" + this.query,
@@ -153,11 +156,14 @@ export const globalStore = defineStore('global', {
           text: error.response.data.message,
           // footer: '<a href="">Why do I have this issue?</a>'
         })
+      } finally {
+        this.isLoading = false
       }
     },
 
     async fetchQuote(){
       try {
+        this.isLoading = true
         const { data } = await axios({
           method: "get",
           url: this.baseURL + "/quotes",
@@ -172,6 +178,8 @@ export const globalStore = defineStore('global', {
           text: error.response.data.message,
           // footer: '<a href="">Why do I have this issue?</a>'
         })
+      } finally {
+        this.isLoading = false
       }
     },
 
@@ -208,6 +216,7 @@ export const globalStore = defineStore('global', {
 
     async fetchMyBooks(){
       try {
+        this.isLoading = true
         const { data } = await axios({
           method: "get",
           url: this.baseURL + "/mybooks",
@@ -222,6 +231,8 @@ export const globalStore = defineStore('global', {
           text: error.response.data.message,
           // footer: '<a href="">Why do I have this issue?</a>'
         })
+      } finally {
+        this.isLoading = false
       }
     },
 
@@ -232,7 +243,7 @@ export const globalStore = defineStore('global', {
           url: this.baseURL + "/mybooks/" + id,
           headers: {access_token: localStorage.access_token}
         })
-        this.fetchMyBooks()
+        await this.fetchMyBooks()
         Swal.fire({
           icon: 'success',
           title: data.message,
@@ -251,6 +262,7 @@ export const globalStore = defineStore('global', {
 
     async fetchNews(){
       try {
+        this.isLoading = true
         const { data } = await axios({
           method: "get",
           url: this.baseURL + "/news",
@@ -264,6 +276,8 @@ export const globalStore = defineStore('global', {
           text: error.response.data.message,
           // footer: '<a href="">Why do I have this issue?</a>'
         })
+      } finally {
+        this.isLoading = false
       }
     }
   }
