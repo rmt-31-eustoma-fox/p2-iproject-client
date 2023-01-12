@@ -11,7 +11,6 @@
     <thead>
       <tr>
         <th scope="col">Player</th>
-        <th scope="col" class="text-end">Number</th>
         <th scope="col">Position</th>
         <th scope="col" class="text-end">Height</th>
         <th scope="col">Weight</th>
@@ -20,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="player in players" :key="player.id">
+      <tr v-if="players.length >= 1" v-for="player in players" :key="player.id">
         <td>
           <img
             src="https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
@@ -33,7 +32,6 @@
             }}</span>
           </RouterLink>
         </td>
-        <td class="text-end">{{ player.leagues.standard.jersey }}</td>
         <td>F</td>
         <td class="text-end">
           {{ player.height.feets + "-" + player.height.inches }}
