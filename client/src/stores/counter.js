@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
 import Swal from 'sweetalert2'
-const url = "http://localhost:3000"
+const url = "https://dc-community-chat-production.up.railway.app"
 
 export const useCounterStore = defineStore('counter', {
   state: () => ({ 
@@ -70,8 +70,9 @@ export const useCounterStore = defineStore('counter', {
         this.isLoading = false
         this.router.push("/login")
       } catch (error) {
+        console.log(error)
         this.isLoading = false
-        this.error(error)
+        // this.error(error)
       }
     },
     async login(user){
@@ -207,23 +208,24 @@ export const useCounterStore = defineStore('counter', {
       }
     },
     error(err) {
-      if (err.response.data.message === "Invalid Token") {
-        Swal.fire({
-          title: "Error!",
-          text: err.response.data.message,
-          icon: "error",
-          confirmButtonText: "Alright :(",
-        });
-        localStorage.clear();
-        this.router.push("/login")
-      } else {
-        Swal.fire({
-          title: "Error!",
-          text: err.response.data.message,
-          icon: "error",
-          confirmButtonText: "Alright :(",
-        });
-      }
+      console.log(err)
+      // if (err.response.data.message === "Invalid Token") {
+      //   Swal.fire({
+      //     title: "Error!",
+      //     text: err.response.data.message,
+      //     icon: "error",
+      //     confirmButtonText: "Alright :(",
+      //   });
+        // localStorage.clear();
+        // this.router.push("/login")
+      // } else {
+      //   Swal.fire({
+      //     title: "Error!",
+      //     text: err.response.data.message,
+      //     icon: "error",
+      //     confirmButtonText: "Alright :(",
+      //   });
+      // }
     }
   },
 })
