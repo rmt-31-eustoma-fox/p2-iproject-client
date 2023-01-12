@@ -2,7 +2,7 @@
   <div id="preloader" style="">
     <div class="loading">
       <lottie-player
-        src="https://assets2.lottiefiles.com/packages/lf20_remmdtqv.json"
+        src="https://assets9.lottiefiles.com/packages/lf20_Tprkoc.json"
         background="transparent"
         speed="1"
         style="width: 300px; height: 300px"
