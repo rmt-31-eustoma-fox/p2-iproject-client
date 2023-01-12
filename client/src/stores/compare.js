@@ -8,7 +8,8 @@ export const useCompareStore = defineStore("compare", {
     data2: {},
     idInput1: 124,
     idInput2: 153,
-    baseUrl: "http://localhost:3001/",
+    baseUrl: "https://nbaseken-production.up.railway.app/",
+    // baseUrl: "http://localhost:3000/",
   }),
   getters: {
     name1: (state) =>

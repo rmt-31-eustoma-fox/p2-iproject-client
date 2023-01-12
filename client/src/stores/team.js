@@ -4,7 +4,8 @@ import Swal from "sweetalert2";
 
 export const useTeamStore = defineStore("team", {
   state: () => ({
-    baseUrl: "http://localhost:3001/",
+    baseUrl: "https://nbaseken-production.up.railway.app/",
+    // baseUrl: "http://localhost:3000/",
     teams: [],
     team: {},
   }),
@@ -89,7 +90,11 @@ export const useTeamStore = defineStore("team", {
           timeout: 2000,
         });
 
-        this.team.players = data;
+        this.team.players = data.filter((el) => {
+          if (el.nba.start !== 0) {
+            return el;
+          }
+        });
       } catch (error) {
         const { data } = error.response;
         Swal.fire({

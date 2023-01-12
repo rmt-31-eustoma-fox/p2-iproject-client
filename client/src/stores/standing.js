@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 export const useStandingStore = defineStore("standing", {
   state: () => ({
     standings: [],
-    baseUrl: "http://localhost:3001/",
+    baseUrl: "https://nbaseken-production.up.railway.app/",
+    // baseUrl: "http://localhost:3000/",
     season: 2022,
   }),
   getters: {

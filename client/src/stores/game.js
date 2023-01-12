@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 export const useGameStore = defineStore("game", {
   state: () => ({
     games: [],
-    baseUrl: "http://localhost:3001/games",
+    baseUrl: "https://nbaseken-production.up.railway.app/games",
+    // baseUrl: "http://localhost:3000/games",
   }),
   getters: {},
   actions: {
