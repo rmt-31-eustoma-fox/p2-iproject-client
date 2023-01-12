@@ -8,6 +8,11 @@ export default {
       return this.$route.params.id;
     },
   },
+  data() {
+    return {
+      nameList: "",
+    };
+  },
   methods: {
     ...mapActions(useCounterStore, [
       "insertList",
@@ -20,6 +25,7 @@ export default {
         nameList: this.nameList,
       };
       this.insertList(dataInput, this.checkId);
+      this.nameList = "";
     },
     complete(data2) {
       this.getcomplete(this.checkId, data2);

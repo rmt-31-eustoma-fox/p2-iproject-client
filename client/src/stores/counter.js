@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 // const Swal = require("sweetalert2");
-// const baseUrl = "http://localhost:3000";
-const baseUrl = "https://today-app-production.up.railway.app";
+const baseUrl = "http://localhost:3000";
+// const baseUrl = "https://today-app-production.up.railway.app";
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     dataAllTodo: [],
+    totalTodo: "",
     dataTodoList: "",
     datalocation: "",
     dataCategory: "",
@@ -28,7 +29,7 @@ export const useCounterStore = defineStore("counter", {
           },
         });
         this.datalocation = location.data;
-        console.log(location.data);
+        // console.log(location.data);
       } catch (error) {
         console.log(error);
       }
@@ -87,7 +88,6 @@ export const useCounterStore = defineStore("counter", {
           },
         });
         this.dataAllTodo = dataTodo.data.data;
-        // console.log(dataTodo.data.data);
       } catch (error) {
         Swal.fire(error.response.data.message);
       }
@@ -162,7 +162,7 @@ export const useCounterStore = defineStore("counter", {
       }
     },
     async handleCredentialResponse(response) {
-      console.log(response);
+      // console.log(response);
       try {
         const googlesign = await axios.post(
           baseUrl + "/sign",
@@ -176,6 +176,7 @@ export const useCounterStore = defineStore("counter", {
         console.log(googlesign);
         localStorage.access_token = googlesign.data.access_token;
         localStorage.username = googlesign.data.username;
+        localStorage.image = googlesign.data.image;
         // this.isLogin = "true";
         this.router.push("/");
       } catch (error) {
@@ -208,34 +209,60 @@ export const useCounterStore = defineStore("counter", {
       }
     },
     async getDelete(idTodo, idList) {
-      console.log(idTodo, idList);
-      try {
-        const deletedata = axios({
-          url: baseUrl + `/today/todo/${idTodo}/todolist/${idList}`,
-          data: {},
-          headers: {
-            access_token: localStorage.access_token,
-          },
-          method: "delete",
-        });
-        console.log(deletedata);
-        this.todoId(idTodo);
-      } catch (error) {
-        Swal.fire(error.response.data.message);
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          axios({
+            url: baseUrl + `/today/todo/${idTodo}/todolist/${idList}`,
+            data: {},
+            headers: {
+              access_token: localStorage.access_token,
+            },
+            method: "delete",
+          })
+            .then((_) => {
+              this.todoId(idTodo);
+            })
+            .catch((error) => {
+              Swal.fire(error.response.data.message);
+            });
+        }
+      });
     },
     async deleteTodo(id) {
-      try {
-        const deleteTodo = await axios.delete(baseUrl + `/today/todo/${id}`, {
-          headers: {
-            access_token: localStorage.access_token,
-          },
-        });
-        console.log(deleteTodo);
-        this.getAlltodo();
-      } catch (error) {
-        Swal.fire(error.response.data.message);
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          axios
+            .delete(baseUrl + `/today/todo/${id}`, {
+              headers: {
+                access_token: localStorage.access_token,
+              },
+            })
+            .then((_) => {
+              this.getAlltodo();
+            })
+            .then((error) => {
+              Swal.fire(error.response.data.message);
+            });
+        }
+      });
     },
     async addCatgeory(data) {
       try {
@@ -257,20 +284,31 @@ export const useCounterStore = defineStore("counter", {
       }
     },
     async destroyCategory(id) {
-      try {
-        const deleteCategory = await axios.delete(
-          baseUrl + `/today/category/${id}`,
-          {
-            headers: {
-              access_token: localStorage.access_token,
-            },
-          }
-        );
-        this.getallCategory();
-      } catch (error) {
-        // console.log(error);
-        Swal.fire(error.response.data.message);
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          axios
+            .delete(baseUrl + `/today/category/${id}`, {
+              headers: {
+                access_token: localStorage.access_token,
+              },
+            })
+            .then((_) => {
+              this.getallCategory();
+            })
+            .catch((error) => {
+              Swal.fire(error.response.data.message);
+            });
+        }
+      });
     },
     async getGempa() {
       try {
@@ -279,7 +317,6 @@ export const useCounterStore = defineStore("counter", {
             access_token: localStorage.access_token,
           },
         });
-        console.log(dataGempa.data.data.Infogempa);
         this.gempaterbaru = dataGempa.data.data.Infogempa;
       } catch (error) {
         console.log(error);

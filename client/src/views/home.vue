@@ -15,7 +15,12 @@ export default {
     category,
   },
   computed: {
-    ...mapState(useCounterStore, ["dataAllTodo", "datalocation", "dataIp"]),
+    ...mapState(useCounterStore, [
+      "dataAllTodo",
+      "datalocation",
+      "dataIp",
+      "totalTodo",
+    ]),
     regQuery() {
       return this.$route.name;
     },
