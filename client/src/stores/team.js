@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const useTeamStore = defineStore("team", {
   state: () => ({
@@ -37,12 +38,11 @@ export const useTeamStore = defineStore("team", {
         this.teams = data;
       } catch (error) {
         const { data } = error.response;
-        console.log(data.message);
-        // Swal.fire({
-        //   icon: "error",
-        //   title: "Oops...",
-        //   text: data.message,
-        // });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message,
+        });
       }
     },
     async fetchById(id) {
@@ -56,12 +56,11 @@ export const useTeamStore = defineStore("team", {
         this.team = data;
       } catch (error) {
         const { data } = error.response;
-        console.log(data.message);
-        // Swal.fire({
-        //   icon: "error",
-        //   title: "Oops...",
-        //   text: data.message,
-        // });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message,
+        });
       }
     },
     async fetchTeamStatistics(id) {
@@ -75,12 +74,11 @@ export const useTeamStore = defineStore("team", {
         this.team.statistics = data;
       } catch (error) {
         const { data } = error.response;
-        console.log(data.message);
-        // Swal.fire({
-        //   icon: "error",
-        //   title: "Oops...",
-        //   text: data.message,
-        // });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message,
+        });
       }
     },
     async fetchPlayerList(id) {
@@ -94,12 +92,11 @@ export const useTeamStore = defineStore("team", {
         this.team.players = data;
       } catch (error) {
         const { data } = error.response;
-        console.log(data.message);
-        // Swal.fire({
-        //   icon: "error",
-        //   title: "Oops...",
-        //   text: data.message,
-        // });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message,
+        });
       }
     },
   },

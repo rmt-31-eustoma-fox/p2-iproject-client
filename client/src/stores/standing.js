@@ -26,7 +26,6 @@ export const useStandingStore = defineStore("standing", {
     async getFullStandings() {
       try {
         let url = this.baseUrl + "standings?season=" + this.season;
-        console.log(url);
         const { data } = await axios({
           method: "GET",
           url,
