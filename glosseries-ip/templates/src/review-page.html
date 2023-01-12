@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge"
+		/>
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			href="../dist/output.css"
+			rel="stylesheet"
+		/>
+
+		<title>Glosseries</title>
+	</head>
+	<body>
+		<div
+			class="grid grid-cols-2 grid-rows-2 bg-main-grey h-full"
+			style="grid-template-columns: 350px auto; grid-template-rows: auto 200px"
+		>
+			<!-- Sidebar -->
+			<div
+				class="flex flex-col justify-start row-span-2 px-15 gap-10 pb-10 bg-main-grey"
+			>
+				<img
+					src="../assets/glosseries-logo.png"
+					style="width: 280px"
+				/>
+				<div class="sidebar-menu">
+					<h2>Welcome, Rheza!</h2>
+				</div>
+				<div class="sidebar-menu flex flex-col gap-3">
+					<h1>Home</h1>
+					<h1>Browse Series</h1>
+					<h1>Your List</h1>
+				</div>
+				<div class="mt-32 sidebar-menu">
+					<h1>Logout</h1>
+				</div>
+			</div>
+			<div class="flex justify-around items-center bg-darker-grey row-span-2">
+				<img
+					src="../assets/sample-poster.jpg"
+					class="poster-review"
+				/>
+				<div
+					class="grid grid-cols-2 grid-rows-3 bg-darker-grey gap-5"
+					id="review-card-container"
+				>
+					<div
+						class="flex flex-col bg-white border-darker-green border-2 rounded-md py-4 px-8 gap-2"
+						id="review-card"
+					>
+						<h1 class="font-bold">@albertusrheza</h1>
+						<div class="flex">
+							<i class="fas fa-star checked"></i>
+							<i class="fas fa-star checked"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+						</div>
+						<h1>"This movie is very good"</h1>
+					</div>
+					<div
+						class="flex flex-col bg-white border-darker-green border-2 rounded-md py-4 px-8 gap-2"
+						id="review-card"
+					>
+						<h1 class="font-bold">@albertusrheza</h1>
+						<div class="flex">
+							<i class="fas fa-star checked"></i>
+							<i class="fas fa-star checked"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+						</div>
+						<h1>"This movie is very good"</h1>
+					</div>
+					<div
+						class="flex flex-col bg-white border-darker-green border-2 rounded-md py-4 px-8 gap-2"
+						id="review-card"
+					>
+						<h1 class="font-bold">@albertusrheza</h1>
+						<div class="flex">
+							<i class="fas fa-star checked"></i>
+							<i class="fas fa-star checked"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+						</div>
+						<h1>"This movie is very good"</h1>
+					</div>
+				</div>
+			</div>
+			<div
+				class="flex gap-5 bg-darker-grey px-28 justify-start"
+				id="card-container"
+			>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+			</div>
+		</div>
+		<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+	</body>
+</html>

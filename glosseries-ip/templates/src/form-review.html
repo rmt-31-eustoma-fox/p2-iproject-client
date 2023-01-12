@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge"
+		/>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			href="../dist/output.css"
+			rel="stylesheet"
+		/>
+
+		<title>Glosseries</title>
+	</head>
+	<body>
+		<div
+			class="grid grid-cols-2 grid-rows-2 bg-main-grey h-full"
+			style="grid-template-columns: 350px auto; grid-template-rows: auto 200px"
+		>
+			<!-- Sidebar -->
+			<div
+				class="flex flex-col justify-start row-span-2 px-15 gap-10 pb-10 bg-main-grey"
+			>
+				<img
+					src="../assets/glosseries-logo.png"
+					style="width: 280px"
+				/>
+				<div class="sidebar-menu">
+					<h2>Welcome, Rheza!</h2>
+				</div>
+				<div class="sidebar-menu flex flex-col gap-3">
+					<h1>Home</h1>
+					<h1>Browse Series</h1>
+					<h1>Your List</h1>
+				</div>
+				<div class="mt-32 sidebar-menu">
+					<h1>Logout</h1>
+				</div>
+			</div>
+
+			<div class="flex justify-around items-center bg-darker-grey">
+				<img
+					src="../assets/sample-poster.jpg"
+					class="poster-review"
+				/>
+				<div>
+					<form class="flex flex-col gap-5 items-center">
+						<h1 class="text-2xl text-center">
+							Leave a review for
+							<span class="font-bold text-darker-green">Stranger Things</span>
+						</h1>
+						<div class="star-wrapper text-md">
+							<a
+								href="#"
+								class="fas fa-star s1"
+							></a>
+							<a
+								href="#"
+								class="fas fa-star s2"
+							></a>
+							<a
+								href="#"
+								class="fas fa-star s3"
+							></a>
+							<a
+								href="#"
+								class="fas fa-star s4"
+							></a>
+							<a
+								href="#"
+								class="fas fa-star s5"
+							></a>
+						</div>
+						<textarea
+							class="px-4 py-2 rounded-md bg-gray-200"
+							style="width: 500px; height: 200px"
+						></textarea>
+						<input
+							type="submit"
+							class="bg-main-green py-3 px-8 rounded-md"
+						/>
+					</form>
+				</div>
+			</div>
+
+			<div class="bg-darker-grey px-20 py-10">
+				<div class="text-center text-xl">
+					<a href="">
+						See what others are saying about
+						<span class="font-bold text-darker-green">Stranger Things ➡️</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+	</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge"
+		/>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			href="../dist/output.css"
+			rel="stylesheet"
+		/>
+		<title>Glosseries</title>
+	</head>
+	<body>
+		<div
+			class="grid grid-cols-2 grid-rows-2 bg-main-grey h-full"
+			style="grid-template-columns: 320px auto; grid-template-rows: 200px auto"
+		>
+			<!-- Sidebar -->
+			<div
+				class="flex flex-col justify-start row-span-2 px-15 gap-10 pb-10 bg-main-grey"
+			>
+				<img
+					src="../assets/glosseries-logo.png"
+					style="width: 280px"
+				/>
+				<div class="sidebar-menu">
+					<h2>Welcome, Rheza!</h2>
+				</div>
+				<div class="sidebar-menu flex flex-col gap-3">
+					<h1>Home</h1>
+					<h1>Browse Series</h1>
+					<h1>Your List</h1>
+				</div>
+				<div class="mt-32 sidebar-menu">
+					<h1>Logout</h1>
+				</div>
+			</div>
+
+			<div class="bg-darker-grey pt-14 px-10 flex flex-col gap-5 flex-grow-0">
+				<h1 class="text-4xl text-center">Browse TV Series</h1>
+				<form
+					id="search-bar"
+					class="flex gap-10 justify-center"
+				>
+					<input
+						class="px-6 py-3 rounded-2xl w-3/5"
+						type="text"
+						placeholder="Search.."
+					/>
+					<!-- <div class="">
+						<select class="px-4 py-2 rounded-md">
+							<option
+								disable
+								selected
+							>
+								Genre
+							</option>
+							<option>Action</option>
+						</select>
+					</div>
+					<div>
+						<select class="px-4 py-2 rounded-md">
+							<option
+								disable
+								selected
+							>
+								Sort by
+							</option>
+							<option>Action</option>
+						</select>
+					</div> -->
+				</form>
+			</div>
+			<div
+				class="grid bg-darker-grey px-28 justify-start"
+				id="card-container"
+				style="
+					grid-template-columns: repeat(7, 1fr);
+					grid-template-rows: repeat(3, 1fr);
+				"
+			>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+				<div
+					class="flex flex-col items-center rounded-lg shadow-sm hover:scale-110 hover:ease-in"
+					id="card"
+				>
+					<img
+						src="../assets/sample-poster.jpg"
+						class="w-auto pt-2"
+						style="height: auto; width: 100px"
+					/>
+					<p class="text-sm">Stranger Things</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
