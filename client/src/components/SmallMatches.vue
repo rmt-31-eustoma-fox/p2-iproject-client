@@ -1,30 +1,46 @@
-<script></script>
+<script>
+  import { mapActions, mapState } from "pinia";
+  import { useGameStore } from "../stores/game";
+
+  export default {
+    computed: {
+      ...mapState(useGameStore, ["games"]),
+    },
+    methods: {
+      ...mapActions(useGameStore, ["getTodayMatches"]),
+    },
+    created() {
+      this.getTodayMatches();
+    },
+  };
+</script>
 
 <template>
   <table class="table">
     <thead>
       <tr>
         <th class="p-2 text-center big-head table-danger" scope="col">
-          Upcoming Matches
+          Today Matches
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr v-for="game in games" :key="game.id">
         <td class="p-2 text-center table-warning" scope="row">
-          <span class="px-2">GSW</span>
+          <span class="px-2">{{ game.teams.home.code }}</span>
+          <img :src="game.teams.home.logo" style="height: 48px" class="px-2" />
+          <span class="px-2"
+            >{{ game.scores.home.points || 0 }} :
+            {{ game.scores.visitors.points || 0 }}</span
+          >
           <img
-            src="https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Golden_State_Warriors_logo.svg/1200px-Golden_State_Warriors_logo.svg.png"
+            :src="game.teams.visitors.logo"
             style="height: 48px"
             class="px-2"
           />
-          <span class="px-2">100 : 100</span>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Golden_State_Warriors_logo.svg/1200px-Golden_State_Warriors_logo.svg.png"
-            style="height: 48px"
-            class="px-2"
-          />
-          <span class="px-2">GSW</span>
+          <span class="px-2">{{ game.teams.visitors.code }}</span>
+          <br />
+          <span>Status: {{ game.status.long }}</span>
         </td>
       </tr>
     </tbody>
