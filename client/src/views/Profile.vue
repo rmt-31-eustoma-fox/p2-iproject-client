@@ -5,7 +5,7 @@ import { mainFunction } from '../stores/main';
 export default {
     components: { Sidebar },
     computed: {
-        ...mapState(mainFunction, ['user', 'user']),
+        ...mapState(mainFunction, ['user']),
         ...mapWritableState(mainFunction, ['image'])
     },
     methods: {
@@ -19,6 +19,7 @@ export default {
     },
     data(){
         return {
+            images: `https://niix-brandedthings-production.up.railway.app/uploads/foto_profile_1.jpg`
         }
     }
 }
@@ -32,7 +33,7 @@ export default {
                 <h2>Profile</h2>
                 <h4>Username : {{ user.username }}</h4>
                 <h4>Email : {{ user.email }}</h4>
-                <img src="http://localhost:3000/uploads/foto_profile_15.jpg" style="margin: 20px auto;" alt="" srcset="">
+                <img :src=images style="margin: 20px auto;" alt="" srcset="">
 
                 <form @submit.prevent="multer" enctype="multipart/form-data" >
                     <div class="input-group mb-3">
