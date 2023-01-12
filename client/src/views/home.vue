@@ -28,11 +28,7 @@ export default {
       return this.dataIp;
     },
   },
-  data() {
-    return {
-      nameList: "",
-    };
-  },
+
   methods: {
     ...mapActions(useCounterStore, [
       "handleLogout",

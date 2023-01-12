@@ -49,12 +49,21 @@ export const useCounterStore = defineStore("counter", {
       }
     },
     async handleLogout() {
-      try {
-        localStorage.clear();
-        this.router.push("/login");
-      } catch (error) {
-        Swal.fire(error.response.data.message);
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't Logout!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, logout Now!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("success logout.", "success");
+          localStorage.clear();
+          this.router.push("/login");
+        }
+      });
     },
     async register(data) {
       try {
