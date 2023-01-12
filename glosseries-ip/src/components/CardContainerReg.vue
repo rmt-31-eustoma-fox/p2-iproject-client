@@ -51,7 +51,8 @@ export default {
 <template>
   <!-- {{ JSON.stringify(favoriteShows.length) }} -->
   <div class="flex gap-5" id="card-container" style="position: relative">
-    <h1 v-if="condition != 'popular' &&(watched.length == 0 || unwatched.length == 0) && this.$route.name != 'list'">There is nothing in your list.</h1>
+    <h1 v-if="condition == 'watched' && watched.length == 0  && this.$route.name != 'list'">There is nothing in your list.</h1>
+    <h1 v-if="condition == 'unwatched' && unwatched.length == 0  && this.$route.name != 'list'">There is nothing in your list.</h1>
     <ShowCard
       v-for="show in watched"
       v-if="condition == 'watched'"

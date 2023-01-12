@@ -57,7 +57,7 @@ export default {
           <p>or</p>
           <GoogleLogin :callback="callback" />
         </div>
-        <h1 class="text-center">Don't have an account? Sign up here</h1>
+        <h class="text-center">Don't have an account? <router-link to="/register">Sign up here</router-link></h>
       </form>
     </div>
 

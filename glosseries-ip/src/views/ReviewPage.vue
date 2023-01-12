@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     ...mapState(useShowStore, ["reviews", "showDetail", "reviewCount"]),
-    ...mapWritableState(useShowStore, ["options"])
+    ...mapWritableState(useShowStore, ["options"]),
   },
   methods: {
     ...mapActions(useShowStore, ["fetchShowDetail", "fetchAllReviews"]),
@@ -29,7 +29,7 @@ export default {
     prevPage() {
       this.options.page -= 1;
       this.fetchAllShows();
-    }
+    },
   },
   created() {
     this.fetchAllReviews(this.$route.params.id);
@@ -52,13 +52,33 @@ export default {
         id="review-card-container"
         style="position: relative"
       >
+        <div class="flex flex-col gap-10 row-span-3" style="place-items: center">
+          <h1 v-if="reviews.length == 0">
+            Ooops, nobody has reviewed {{ showDetail.name }} yet
+          </h1>
+          <button
+            class="text-xl bg-darker-green py-4 px-2 rounded-2xl"
+            @click="directToAddReview(showDetail.id)"
+          >
+            ➕Add yours
+          </button>
+        </div>
+
         <ReviewCard v-for="review in reviews" :review="review" />
         <div
           class="flex place-self-end gap-5 text-darker-green"
           style="position: absolute; bottom: 0px; right: 0px"
         >
           <p @click="prevPage" v-if="this.options.page != 1">Prev</p>
-          <p @click="nextPage" v-if="this.reviewCount > 6 && this.options.page == Math.ceil(this.reviewCount/6)">Next</p>
+          <p
+            @click="nextPage"
+            v-if="
+              this.reviewCount > 6 &&
+              this.options.page == Math.ceil(this.reviewCount / 6)
+            "
+          >
+            Next
+          </p>
         </div>
       </div>
     </div>
@@ -67,6 +87,7 @@ export default {
     class="text-xl bg-darker-green py-4 px-2 rounded-2xl"
     style="position: absolute; bottom: 80px; right: 80px"
     @click="directToAddReview(showDetail.id)"
+    v-if="reviews.length > 0"
   >
     ➕Add yours
   </button>
