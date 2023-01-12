@@ -117,10 +117,13 @@ div.card {
   flex-wrap: nowrap;
   flex-direction: column;
   align-items: center;
+
 }
 
 .room-header h1 {
-  margin-top: 13px;
+  margin-top: 50px;
+  margin-left: 730px;
+  width: 400px;
 }
 
 .create-room {

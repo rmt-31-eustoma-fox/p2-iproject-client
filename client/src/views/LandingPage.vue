@@ -19,7 +19,6 @@
               <router-link to="/about" class="router">ABOUT</router-link>
               <router-link to="/login" class="router">LOGIN</router-link>
               <router-link to="/register" class="router">REGISTER</router-link>
-              <router-link to="/contact" class="router">CONTACT</router-link>
             </ul>
           </div>
         </div>
@@ -38,7 +37,6 @@
   height: 100%;
   position: absolute;
   overflow: hidden;
-  
 }
 #box1{
   width: 530px;

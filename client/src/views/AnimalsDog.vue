@@ -7,16 +7,18 @@ export default {
     return {
       text: "",
       messages: [],
+      factDog: this.dogMessage? this.dogMessage : ""
     };
   },
   computed: {
-    ...mapWritableState(useCounterStore, ["roomsList", "translatedMessage", "subscribe"]),
+    ...mapWritableState(useCounterStore, ["roomsList", "translatedMessage", "dogMessage", "subscribe"]),
   },
   methods: {
-    ...mapActions(useCounterStore, ["addRoom", "getRoom", "translate"]),
-    addRoomHandler() {
-      this.addRoom(this.room);
-      this.getRoom();
+    ...mapActions(useCounterStore, ["getRoom", "translate", "dogFact"]),
+    async dogFactHandler() {
+      await this.dogFact()
+      await this.factDog
+      console.log(this.factDog)
     },
     sendMessage() {
       this.addMessage();
@@ -35,7 +37,7 @@ export default {
       }
       this.messages.push(message);
       console.log(this.messages);
-      this.socketInstance.emit("message", message);
+      this.socketInstance.emit("message-dog", message);
     },
     async translateHandler() {
       await this.translate(this.text);
@@ -114,8 +116,8 @@ export default {
   },
   mounted() {
     this.socketInstance = io("http://localhost:3000");
-    const room = "Get-Friends";
-    this.socketInstance.on("message: received", (data) => {
+    const room = "Animals-Dog";
+    this.socketInstance.on("message: received-dog", (data) => {
       this.messages.push(data);
     });
 
@@ -174,6 +176,16 @@ export default {
             </p>
           </div>
       </div>
+      <div>
+        <div>
+          <p>{{ this.factDog }}</p>
+        </div>
+<div class="button-dog">
+        <button @click="dogFactHandler" class="btn btn-outline-light btn-lg px-5" id="start">
+              Dog-fact
+            </button>
+      </div>
+      </div>
     </div>
   </section>
 </template>
@@ -194,6 +206,11 @@ export default {
 
 .btn{
   margin: 10px;
+}
+
+.button-dog{
+  justify-content: flex-start;
+  margin-left: 540px;
 }
 
 .input-message {

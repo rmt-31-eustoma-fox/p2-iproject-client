@@ -21,7 +21,7 @@ export default {
       <div class="card bg-dark text-white" style="border-radius: 1rem">
       <div class="card-body p-5 text-center">
         <div class="mb-md-5 mt-md-2 pb-5">
-          <h2 class="fw-bold mb-2 text-uppercase">
+          <h2 class=" mb-2 text-uppercase">
             Login Form
           </h2>
           <p class="text-white-50 mb-5">
@@ -55,13 +55,13 @@ export default {
           </button>
 
           <div class="mt-4">
-              <GoogleLogin :callback="callback" />
+              <GoogleLogin style="background: black;" :callback="callback" />
           </div>
 
           <div>
           <p class="mt-3">
-            Don't have an account?
-            <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
+            Don't have an account? <br>
+            <router-link to="/register" class="text-white-50 fw-bold">Sign Up</router-link>
           </p>
         </div>
         </div>
@@ -82,12 +82,13 @@ section{
   background: black;
   background-size: cover;
   background-position: center;
+  font-family: "Poppins", sans-serif;
 }
 .card {
   height: 620px;
 }
 .gradient-custom {
-  padding: 30px;
+  padding: 70px;
   /* fallback for old browsers */
   background: black;
 }

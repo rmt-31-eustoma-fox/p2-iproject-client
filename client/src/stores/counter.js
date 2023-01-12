@@ -8,8 +8,10 @@ export const useCounterStore = defineStore('counter', {
     name: 'Eduardo',
     roomsList: "",
     translatedMessage: "",
-    isLoggedIn: "",
-    user: ""
+    isLoggedIn: false,
+    user: "",
+    dogMessage: "",
+    subscribe: localStorage.isSubscribed
   }),
   getters: {
     doubleCount: (state) => state.count * 2,
@@ -27,6 +29,8 @@ export const useCounterStore = defineStore('counter', {
           console.log(data);
           localStorage.setItem("access_token", data.data.access_token);
           localStorage.username = data.data.username
+          localStorage.isSubscribed = data.data.isSubscribed
+          this.isLoggedIn = true
           this.router.push("/lobby")
         })
         .catch((err) => console.log(err))
@@ -57,27 +61,13 @@ export const useCounterStore = defineStore('counter', {
             password: user.password
           }
         })
-        console.log(data)
+        console.log(data.isSubscribed)
         localStorage.access_token = data.access_token
         localStorage.username = data.username
+        localStorage.isSubscribed = data.isSubscribed
+        console.log(localStorage.isSubscribed, data.isSubscribed)
+        this.isLoggedIn = true
         this.router.push("/lobby")
-      } catch (error) {
-        console.log(error)
-      }
-    },
-    async addRoom(name){
-      try {
-        console.log(name)
-        await axios({
-          url: url+"/rooms/addroom",
-          method: "post",
-          headers: {
-            access_token: localStorage.access_token
-          },
-          data: {
-            name
-          }
-        })
       } catch (error) {
         console.log(error)
       }
@@ -121,7 +111,8 @@ export const useCounterStore = defineStore('counter', {
         })
 
         this.user = data.findUser
-        console.log(this.user)
+        console.log(data)
+        localStorage.isSubscribed = data.findUser.isSubscribed
       } catch (error) {
         console.log(error, "findUser")
       }
@@ -135,7 +126,6 @@ export const useCounterStore = defineStore('counter', {
             access_token: localStorage.access_token
           }
         })
-        console.log(data)
         this.findUser()
       } catch (error) {
         console.log(error)
@@ -151,16 +141,30 @@ export const useCounterStore = defineStore('counter', {
           }
         })
 
-        console.log(data);
         const cb = this.changeStatus
+        const router = this.router
 
         window.snap.pay(data.token, {
           onSuccess: function(result){
             /* You may add your own implementation here */
-            console.log("payment succes");
+            console.log(result);
             cb()
+            router.push("/lobby")
           },
         })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async dogFact(){
+      try {
+        const {data} = await axios({
+          url: url+"/animals/dog",
+          method: "get"
+        })
+        // console.log(data)
+        this.dogMessage = data.message
+        console.log(this.dogMessage)
       } catch (error) {
         console.log(error)
       }

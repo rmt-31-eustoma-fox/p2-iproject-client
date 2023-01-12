@@ -1,8 +1,16 @@
 <script>
+import {mapWritableState} from "pinia"
+import {useCounterStore} from "../stores/counter"
 export default {
   created(){
-    console.log("masuk navbar")
+    if(localStorage.access_token){
+      this.isLoggedIn = true
+      this.subscribe = localStorage.isSubscribe
+    }
   }, 
+  computed: {
+    ...mapWritableState(useCounterStore, ["isLoggedIn", "subscribe"])
+  },
   methods: {
     logoutHandler(){
       localStorage.clear()
@@ -13,7 +21,7 @@ export default {
 </script>
 
 <template>
-  <div id="box3">
+  <div id="box3" v-if="isLoggedIn">
     <div id="container">
       <div id="logo">
         <img src="logo" />
@@ -21,7 +29,7 @@ export default {
       <div id="menu">
         <ul>
           <router-link to="/lobby" class="router">LOBBY</router-link>
-          <router-link to="/subscription" class="router">SUBSCRIBE</router-link>
+          <router-link v-if="!subscribe" to="/subscription" class="router">SUBSCRIBE</router-link>
           <a to="/logout" @click.prevent="logoutHandler" class="router">LOGOUT</a>
         </ul>
       </div>
@@ -30,6 +38,9 @@ export default {
 </template>
 
 <style scoped>
+#box3{
+  font-family: "Poppins", sans-serif;
+}
 
 #container{
   width: 100%;
@@ -48,10 +59,9 @@ export default {
 }
 
 #menu{
-  font-family: 'Bahnschrift Condensed';
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   color: white;
-  letter-spacing: 2px;
   margin-right: 150px;
   margin-top: 20px;
   float: right;

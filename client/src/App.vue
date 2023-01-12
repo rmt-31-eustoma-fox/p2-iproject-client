@@ -25,5 +25,6 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   color: white;
+  background: #1e242a;
 }
 </style>

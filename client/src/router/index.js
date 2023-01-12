@@ -5,7 +5,7 @@ import RegisterPage from "../views/RegisterPage.vue"
 import GetFriends from "../views/GetFriends.vue"
 import Lobby from "../views/LobbyRoom.vue"
 import Subscription from "../views/subscription.vue"
-import ChatBoxTemplate from "../views/ChatBoxTemplate.vue"
+import AnimalsDog from "../views/AnimalsDog.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -40,17 +40,21 @@ const router = createRouter({
       component: Subscription
     },
     {
-      path: '/chatbox',
-      name: 'chatbox',
-      component: ChatBoxTemplate
+      path: '/animals-dog',
+      name: 'animals-dog',
+      component: AnimalsDog
     },
   ]
 })
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.access_token
-  if (isAuthenticated && to.name === "login" || isAuthenticated && to.name === "register" || isAuthenticated && to.name === "landing") next("/mode")
-  else if(!isAuthenticated && to.name === "lobby" || !isAuthenticated && to.name === "get-friends") next("/login")
+  if (isAuthenticated && to.name === "login" || isAuthenticated && to.name === "register" || isAuthenticated && to.name === "landing") next("/lobby")
+  else if(!isAuthenticated && to.name === "lobby" || 
+  !isAuthenticated && to.name === "get-friends" ||
+  !isAuthenticated && to.name === "subscription" ||
+  !isAuthenticated && to.name === "animals-dog"
+  ) next("/")
   else next()
 })
 
