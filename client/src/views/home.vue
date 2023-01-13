@@ -6,6 +6,7 @@ import sidebarvue from "../components/sidebar.vue";
 import formAdd from "../components/formadd.vue";
 import todolist from "../components/todolist.vue";
 import category from "../components/category.vue";
+import loader from "../components/loader.vue";
 export default {
   components: {
     navbarContent,
@@ -13,6 +14,7 @@ export default {
     formAdd,
     todolist,
     category,
+    loader,
   },
   computed: {
     ...mapState(useCounterStore, [
@@ -27,6 +29,11 @@ export default {
     mydataIp() {
       return this.dataIp;
     },
+  },
+  data() {
+    return {
+      loaderVuew: "true",
+    };
   },
 
   methods: {
@@ -48,15 +55,22 @@ export default {
     this.getGempa();
     this.getAlltodo();
     this.mydataIp;
-    // this.geolocation();
+    setTimeout(() => {
+      this.loaderVuew = "false";
+    }, 2000);
   },
   updated() {
+    console.log("update");
     this.getAlltodo();
+    setTimeout(() => {
+      this.loaderVuew = "false";
+    }, 2000);
   },
 };
 </script>
 <template>
   <div>
+    <loader v-if="loaderVuew == 'true'" />
     <navbarContent />
     <!-- <navbarContent /> -->
     <div class="grid grid-cols-5 gap-3 mt-3">
