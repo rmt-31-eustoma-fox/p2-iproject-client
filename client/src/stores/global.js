@@ -17,6 +17,7 @@ export const globalStore = defineStore('global', {
     totalItems: 0,
     books: [],
     mybooks: [],
+    orders: [],
     quote: "",
     news: [],
     dataBook: {
@@ -183,7 +184,152 @@ export const globalStore = defineStore('global', {
       }
     },
 
-    async addOrder(payload){
+    async addOrder(){
+      try {
+        const { data } = await axios({
+          method: "post",
+          url: this.baseURL + "/orders",
+          headers: {access_token: localStorage.access_token},
+          data: {
+            title: this.dataBook.title,
+            code: this.dataBook.code,
+            authors: this.dataBook.authors,
+            imageUrl: this.dataBook.imageUrl,
+            publisher: this.dataBook.publisher,
+            publishedDate: this.dataBook.publishedDate,
+            pageCount: this.dataBook.pageCount,
+            isbn: this.dataBook.isbn,
+            price: this.dataBook.price,
+            description: this.dataBook.description
+          }
+        })
+        Swal.fire({
+          icon: 'success',
+          title: `Success added to order list`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async fetchOrders(){
+      try {
+        this.isLoading = true
+        const { data } = await axios({
+          method: "get",
+          url: this.baseURL + "/orders",
+          headers: {access_token: localStorage.access_token}
+        })
+        
+        this.orders = data
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      } finally {
+        this.isLoading = false
+      }
+    },
+
+    async delOrder(id){
+      try {
+        const { data } = await axios({
+          method: "delete",
+          url: this.baseURL + "/orders/" + id,
+          headers: {access_token: localStorage.access_token}
+        })
+        await this.fetchOrders()
+        Swal.fire({
+          icon: 'success',
+          title: data.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async paymentByOrder(id){
+      try {
+        const { data } = await axios({
+          method: "post",
+          url: this.baseURL + "/payments",
+          headers: {access_token: localStorage.access_token},
+          data: {
+            code: this.dataBook.code,
+            price: this.dataBook.price
+          }
+        })
+        const addMyBook = this.addMyBook
+        const delOrder = this.delOrder
+        window.snap.pay(data.token, {
+          onSuccess: function(result){
+            addMyBook()
+            delOrder(id)
+          }
+        })
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async paymentDirectly(){
+      try {
+        const { data } = await axios({
+          method: "post",
+          url: this.baseURL + "/payments",
+          headers: {access_token: localStorage.access_token},
+          data: {
+            code: this.dataBook.code,
+            price: this.dataBook.price
+          }
+        })
+        const addMyBook = this.addMyBook
+        const addOrder = this.addOrder
+        window.snap.pay(data.token, {
+          onSuccess: function(result){
+            addMyBook();
+          },
+          onError: function(result){
+            addOrder()
+          },
+          onClose: function(){
+            addOrder()
+          }
+        })
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+      }
+    },
+
+    async addMyBook(){
       try {
         const { data } = await axios({
           method: "post",
@@ -202,8 +348,12 @@ export const globalStore = defineStore('global', {
             description: this.dataBook.description
           }
         })
-        window.snap.pay(data);
-        // console.log(data, '<<<<< cek token');
+        Swal.fire({
+          icon: 'success',
+          title: `Success added to shelves`,
+          showConfirmButton: false,
+          timer: 1500
+        })
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -222,7 +372,7 @@ export const globalStore = defineStore('global', {
           url: this.baseURL + "/mybooks",
           headers: {access_token: localStorage.access_token}
         })
-        console.log(data);
+       
         this.mybooks = data
       } catch (error) {
         Swal.fire({

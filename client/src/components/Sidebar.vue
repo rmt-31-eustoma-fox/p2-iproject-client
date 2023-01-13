@@ -30,6 +30,12 @@ export default {
             </a>
           </li>
           <li class="nav-item">
+            <router-link to="/order" class="nav-link" href="#">
+              <i class="fa-solid fa-file"></i>
+              Orders
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/mybook" class="nav-link" href="#">
               <i class="fa-solid fa-list"></i>
               My Shelves

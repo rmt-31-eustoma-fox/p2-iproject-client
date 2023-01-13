@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import MyBook from '../views/MyBook.vue'
 import Portal from '../views/Portal.vue'
+import Order from '../views/Order.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/portal',
       name: 'portal',
       component: Portal
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: Order
     }
   ]
 })
@@ -39,7 +45,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const auth = localStorage.access_token
   if(auth && to.name == "login" || auth && to.name == "register") next("/")
-  else if( !auth && to.name == "home" || !auth && to.name == "mybook" || !auth && to.name == "portal") next("/login")
+  else if( !auth && to.name == "home" || !auth && to.name == "mybook" || !auth && to.name == "portal" || !auth && to.name == "order") next("/login")
   else next()
 })
 

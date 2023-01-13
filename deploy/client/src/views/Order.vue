@@ -13,16 +13,16 @@ export default {
   },
 
   computed: {
-    ...mapWritableState(globalStore, ['isLoading', 'mybooks'])
+    ...mapWritableState(globalStore, ['isLoading', 'orders'])
   },
 
   methods: {
-    ...mapActions(globalStore, ['fetchMyBooks'])
+    ...mapActions(globalStore, ['fetchOrders'])
   },
 
   created(){
-    this.fetchMyBooks()
-    // console.log(this.$route.fullPath, '<<<< from mybokk');
+    this.fetchOrders()
+    // console.log(this.$route.fullPath, '<<<< from order');
   }
 }
 </script>
@@ -41,10 +41,10 @@ export default {
             <Sidebar />
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">My Shelves</h1>
+                    <h1 class="h2">Orders</h1>
                 </div>
 
-                <div v-if="mybooks.length == 0" class="d-flex flex-row justify-content-evenly mb-3">
+                <div v-if="orders.length == 0" class="d-flex flex-row justify-content-evenly mb-3">
                     <div class="col-lg-6 col-md-8 col-sm-12">
                         <form class="text-light text-center">
                             <h1 class="mb-5">You have no orders . . .</h1>
@@ -53,7 +53,7 @@ export default {
                     </div>
                 </div>
                 
-                <Table v-if="mybooks.length != 0" />
+                <Table v-if="orders.length != 0" />
 
             </main>
         </div>

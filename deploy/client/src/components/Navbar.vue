@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 export default {
    computed: {
-    ...mapWritableState(globalStore, ['isLogin', 'nickname', 'query', 'totalItems'])
+    ...mapWritableState(globalStore, ['isLogin', 'nickname', 'query', 'totalItems', 'books'])
    },
 
    methods: {
@@ -26,6 +26,7 @@ export default {
           this.isLogin = false
           this.nickname = ""
           this.query = ""
+          this.books = []
           this.$router.replace("/login")
         }
       })
@@ -62,20 +63,10 @@ export default {
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form @submit.prevent="clickSearch" class="form-control form-control-dark w-100 d-flex flex-row">
+        <form v-if="$route.fullPath == '/'" @submit.prevent="clickSearch" class="form-control form-control-dark w-100 d-flex flex-row">
             <input v-model="query" class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search" required>
             <button class="btn btn-outline-light rounded ms-1" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
-        <!-- <div v-if="!isLogin && $route.fullPath === '/' || !isLogin && $route.fullPath === '/notfound'" class="navbar-nav">
-            <div class="nav-item text-nowrap">
-                <router-link to="/login" class="nav-link px-3" href="#">Sign in</router-link>
-            </div>
-        </div>
-        <div v-if="!isLogin && $route.fullPath === '/' || !isLogin && $route.fullPath === '/notfound'" class="navbar-nav">
-            <div class="nav-item text-nowrap">
-                <router-link to="/register" class="nav-link px-3" href="#">Sign up</router-link>
-            </div>
-        </div> -->
         <div v-if="isLogin" class="navbar-nav">
             <div class="nav-item text-nowrap">
                 <a @click.prevent="logout" class="nav-link px-3" href="#">Sign out</a>

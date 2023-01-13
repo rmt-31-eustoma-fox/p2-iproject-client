@@ -15,8 +15,7 @@ export default {
         formatPrice(){
             if(this.book.saleInfo.retailPrice){
                 if(this.book.saleInfo.retailPrice.amount > 0){
-                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR'}).format(this.book.saleInfo.retailPrice.amount * 15348)
-                    // return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR'}).format(this.book.saleInfo.retailPrice.amount)
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR'}).format(Math.ceil(this.book.saleInfo.retailPrice.amount * 15348))
                 } else {
                     return "Rp 20.000"
                 }
@@ -47,7 +46,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(globalStore, ['addOrder']),
+        ...mapActions(globalStore, ['paymentDirectly']),
 
         clickDesc(){
             Swal.fire({
@@ -82,7 +81,7 @@ export default {
             }
             this.dataBook.description = this.book.volumeInfo.description
             // console.log(this.dataBook, '<<<<< cek bro');
-            this.addOrder()
+            this.paymentDirectly()
         }
     }
     
