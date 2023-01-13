@@ -30,15 +30,15 @@ export default {
 </script>
 <template>
   <div
-    class="text-center m-5 p-5 rounded-md shadow text-3xl font-bold bg-slate-100"
+    class="text-center p-5 rounded-md shadow text-3xl font-bold bg-slate-300"
   >
     Category in Your List
   </div>
-  <div class="overflow-y-auto h-96">
+  <div class="overflow-y-auto h-96 bg-slate-50">
     <div
       v-for="(item, index) in dataCategory"
       :key="index"
-      class="shadow mx-20 p-5 text-base rounded-lg my-1 grid grid-cols-6 gap-2"
+      class="shadow-md mx-20 p-5 text-base rounded-lg my-3 grid grid-cols-6 gap-2 bg-white"
     >
       <div class="col-span-5 text-center text-lg font-bold">
         {{ item.nameCategory }}

@@ -8,6 +8,11 @@ export default {
       return this.$route.params.id;
     },
   },
+  data() {
+    return {
+      nameList: "",
+    };
+  },
   methods: {
     ...mapActions(useCounterStore, [
       "insertList",
@@ -20,6 +25,7 @@ export default {
         nameList: this.nameList,
       };
       this.insertList(dataInput, this.checkId);
+      this.nameList = "";
     },
     complete(data2) {
       this.getcomplete(this.checkId, data2);
@@ -39,16 +45,16 @@ export default {
 <template>
   <div id="list todo">
     <div
-      class="text-center m-5 p-5 rounded-md shadow text-3xl font-bold bg-slate-100"
+      class="text-center p-5 rounded-md shadow text-3xl font-bold bg-slate-300"
     >
       Your List From {{ dataTodoList[0]?.nameTodo }}
     </div>
     <!-- {{ checkId }} -->
-    <div class="overflow-y-auto h-96">
+    <div class="overflow-y-auto h-96 bg-slate-50">
       <div
         v-for="(item, index) in dataTodoList[0]?.Todolists"
         :key="index"
-        class="shadow mx-20 p-5 text-base rounded-lg my-1 grid grid-cols-6 gap-2"
+        class="shadow-md mx-20 p-5 text-base rounded-lg my-3 grid grid-cols-6 gap-2 bg-white"
       >
         <div class="col-span-4 text-center text-lg font-bold">
           {{ item.nameList }}
@@ -60,7 +66,6 @@ export default {
             v-if="item.status == 'complete'"
             class="text-right material-symbols-outlined text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 mr-2 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
           >
-            <!-- {{  }} -->
             check_box
           </button>
           <button

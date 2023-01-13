@@ -15,7 +15,7 @@ export default {
 </script>
 <template>
   <nav
-    class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 sticky top-0"
+    class="shadow bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 sticky top-0"
   >
     <div class="container flex flex-wrap items-center justify-between mx-auto">
       <span
@@ -53,8 +53,8 @@ export default {
         class="hidden w-full md:block md:w-auto font-semibold"
         id="navbar-default"
       >
-        Lokasi anda di : {{ datalocation.data?.city }},
-        {{ datalocation.data?.country_name }}
+        Lokasi anda di : {{ datalocation.city }},
+        {{ datalocation.country_name }}
       </div>
     </div>
   </nav>
