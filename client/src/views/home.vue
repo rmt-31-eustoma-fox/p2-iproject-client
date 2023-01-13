@@ -57,13 +57,13 @@ export default {
 </script>
 <template>
   <div>
+    <navbarContent />
     <!-- <navbarContent /> -->
-    <div class="grid grid-cols-5 gap-3">
+    <div class="grid grid-cols-5 gap-3 mt-3">
       <!----sidebar-->
       <sidebarvue @handleLogout="handleLogout" />
       <!----Maim content----->
       <div class="col-span-3 p-0 m-0">
-        <navbarContent />
         <!-- {{ regQuery }} -->
         <!---dasboard-->
         <!-- <div id="dasboard"> -->
@@ -142,7 +142,7 @@ export default {
       <div>
         <a
           class="twitter-timeline shadow"
-          data-height="700"
+          data-height="500"
           href="https://twitter.com/infoBMKG?ref_src=twsrc%5Etfw"
           >Tweets by infoBMKG</a
         >
