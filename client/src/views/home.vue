@@ -6,6 +6,7 @@ import sidebarvue from "../components/sidebar.vue";
 import formAdd from "../components/formadd.vue";
 import todolist from "../components/todolist.vue";
 import category from "../components/category.vue";
+import loader from "../components/loader.vue";
 export default {
   components: {
     navbarContent,
@@ -13,6 +14,7 @@ export default {
     formAdd,
     todolist,
     category,
+    loader,
   },
   computed: {
     ...mapState(useCounterStore, [
@@ -27,6 +29,11 @@ export default {
     mydataIp() {
       return this.dataIp;
     },
+  },
+  data() {
+    return {
+      loaderVuew: "true",
+    };
   },
 
   methods: {
@@ -48,41 +55,48 @@ export default {
     this.getGempa();
     this.getAlltodo();
     this.mydataIp;
-    // this.geolocation();
+    setTimeout(() => {
+      this.loaderVuew = "false";
+    }, 2000);
   },
   updated() {
+    console.log("update");
     this.getAlltodo();
+    setTimeout(() => {
+      this.loaderVuew = "false";
+    }, 2000);
   },
 };
 </script>
 <template>
   <div>
+    <loader v-if="loaderVuew == 'true'" />
+    <navbarContent />
     <!-- <navbarContent /> -->
-    <div class="grid grid-cols-5 gap-3">
+    <div class="grid grid-cols-5 gap-3 mt-3">
       <!----sidebar-->
       <sidebarvue @handleLogout="handleLogout" />
       <!----Maim content----->
       <div class="col-span-3 p-0 m-0">
-        <navbarContent />
         <!-- {{ regQuery }} -->
         <!---dasboard-->
         <!-- <div id="dasboard"> -->
         <!-- <section> -->
         <div
           v-if="regQuery == 'home'"
-          class="font-semibold text-3xl text-center bg-slate-50 shadow-sm rounded-lg p-4 w-4/5 my-2 border mx-auto"
+          class="text-center p-5 rounded-md shadow text-3xl font-bold bg-slate-300"
         >
           Your Todo List Now
         </div>
         <div
-          class="grid grid-flow-row gap-3 overflow-y-auto"
+          class="overflow-y-auto h-96 bg-slate-50"
           style="height: 70vh"
           v-if="regQuery == 'home'"
         >
           <div
             v-for="(item, index) in dataAllTodo"
             :key="index"
-            class="w-4/5 mx-auto p-4 text-center bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+            class="w-4/5 mx-auto my-3 p-4 text-center bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
           >
             <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
               {{ item.nameTodo }}
@@ -142,7 +156,7 @@ export default {
       <div>
         <a
           class="twitter-timeline shadow"
-          data-height="700"
+          data-height="600"
           href="https://twitter.com/infoBMKG?ref_src=twsrc%5Etfw"
           >Tweets by infoBMKG</a
         >

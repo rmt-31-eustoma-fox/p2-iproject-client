@@ -31,8 +31,13 @@ export default {
 };
 </script>
 <template>
-  <form>
-    <div class="mb-6">
+  <form class="bg-slate-50 rounded-sm shadow">
+    <div
+      class="text-center p-5 mb-5 rounded-md shadow text-3xl font-bold bg-slate-300"
+    >
+      Add New Todo
+    </div>
+    <div class="mb-6 px-5">
       <label
         for="add todo"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -43,11 +48,11 @@ export default {
         type="text"
         id="add todo"
         placeholder="insert your todo here"
-        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+        class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
         required
       />
     </div>
-    <div class="mb-6">
+    <div class="mb-6 px-5">
       <label
         for="date"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -62,9 +67,9 @@ export default {
         required
       />
     </div>
-    <div class="mb-6">
+    <div class="mb-6 px-5">
       <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white bg-white"
         >Category</label
       >
       <select
@@ -85,7 +90,7 @@ export default {
         </option>
       </select>
     </div>
-    <div class="mb-6">
+    <div class="mb-6 px-5">
       <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
         Level Todo
       </h3>
@@ -149,13 +154,14 @@ export default {
         </li>
       </ul>
     </div>
-
-    <button
-      @click.prevent="formAdd"
-      type="submit"
-      class="justify-item-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-    >
-      Add This Now
-    </button>
+    <div class="mx-5">
+      <button
+        @click.prevent="formAdd"
+        type="submit"
+        class="justify-item-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Add This Now
+      </button>
+    </div>
   </form>
 </template>

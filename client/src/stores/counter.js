@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 // const Swal = require("sweetalert2");
-const baseUrl = "http://localhost:3000";
-// const baseUrl = "https://today-app-production.up.railway.app";
+// const baseUrl = "http://localhost:3000";
+const baseUrl = "https://today-app-production.up.railway.app";
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     dataAllTodo: [],
