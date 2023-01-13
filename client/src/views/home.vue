@@ -70,19 +70,19 @@ export default {
         <!-- <section> -->
         <div
           v-if="regQuery == 'home'"
-          class="font-semibold text-3xl text-center bg-slate-50 shadow-sm rounded-lg p-4 w-4/5 my-2 border mx-auto"
+          class="text-center p-5 rounded-md shadow text-3xl font-bold bg-slate-300"
         >
           Your Todo List Now
         </div>
         <div
-          class="grid grid-flow-row gap-3 overflow-y-auto"
+          class="overflow-y-auto h-96 bg-slate-50"
           style="height: 70vh"
           v-if="regQuery == 'home'"
         >
           <div
             v-for="(item, index) in dataAllTodo"
             :key="index"
-            class="w-4/5 mx-auto p-4 text-center bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+            class="w-4/5 mx-auto my-3 p-4 text-center bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
           >
             <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
               {{ item.nameTodo }}
@@ -142,7 +142,7 @@ export default {
       <div>
         <a
           class="twitter-timeline shadow"
-          data-height="500"
+          data-height="600"
           href="https://twitter.com/infoBMKG?ref_src=twsrc%5Etfw"
           >Tweets by infoBMKG</a
         >
